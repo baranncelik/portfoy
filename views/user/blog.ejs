@@ -119,67 +119,85 @@
       return d.toLocaleDateString(undefined, { year:'numeric', month:'short', day:'numeric' });
     }
     %>
-<style>
-  /* Post image responsive */
-.hero-image {
-  max-width: 100%;
-  height: auto;
-  border-radius: 12px;
-  display: block;
-  margin: 0 auto;
-}
 
-
-/* Mobil için daha küçük başlık */
-@media (max-width: 768px) {
-  .entry-title {
-  font-size: 1.6rem;
-  line-height: 1.3;
-  text-align: center;
-  margin: 20px 0;
-  word-wrap: break-word;
-  }
-
-.hero-image {
-  max-width: 100%;
-  height: auto;
-  border-radius: 12px;
-
-  margin: 0 auto;
-}
-}
-</style>
 
 
     <div class="content-area single-page-area">
       <div class="single-page-content">
         <article class="post">
           <!-- Hero Section with Image -->
-          <div class="post-hero">
+            <div class="post-hero"></div>
             <% if (posts && posts.image_url) { %>
               <div class="hero-image-container">
-                <div class="hero-image-wrapper">
-                  <img class="hero-image" src="<%= posts.image_url %>" alt="<%= posts.title || 'post image' %>" loading="lazy">
-                </div>
-                <div class="hero-overlay"></div>
+              <div class="hero-image-wrapper"></div>
+                <img class="hero-image" src="<%= posts.image_url %>" alt="<%= posts.title || 'post image' %>" loading="lazy">
+              </div>
+              <div class="hero-overlay"></div>
               </div>
             <% } %>
 
             <div class="hero-content">
               <div class="hero-meta">
-                <span class="hero-date">
-                  <i class="far fa-calendar-alt"></i> <%= prettyDate(posts && posts.updatedAt) %>
-                </span>
+              <span class="hero-date">
+                <i class="far fa-calendar-alt"></i> <%= prettyDate(posts && posts.updatedAt) %>
+              </span>
               </div>
             </div>
-          </div>
+            </div>
 
-          <!-- Yazı Başlığı ve Meta -->
-          <div class="post-content">
+            <!-- Yazı Başlığı ve Meta -->
+            <div class="post-content">
             <!-- Post Header -->
             <header class="entry-header">
               <h1 class="entry-title"><%= posts && posts.title || 'Başlık yok' %></h1>
             </header>
+            </div>
+
+            <style>
+            .hero-image-container {
+              position: relative;
+              width: 100%;
+              max-width: 100%;
+              overflow: hidden;
+            }
+            .hero-image-wrapper {
+              width: 100%;
+              height: 320px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
+            .hero-image {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              display: block;
+            }
+            @media (max-width: 768px) {
+              .hero-image-wrapper {
+              height: 180px;
+              }
+              .entry-title {
+              font-size: 1.3rem;
+              line-height: 1.2;
+              word-break: break-word;
+              }
+            }
+            @media (max-width: 480px) {
+              .hero-image-wrapper {
+              height: 120px;
+              }
+              .entry-title {
+              font-size: 1.05rem;
+              }
+            }
+            .entry-title {
+              font-size: 2rem;
+              margin: 18px 0 10px 0;
+              font-weight: 700;
+              word-break: break-word;
+            }
+            </style>
 
 
               <!-- Main Content -->
