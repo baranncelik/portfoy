@@ -356,30 +356,11 @@
           <!-- Yazı Başlığı ve Meta -->
           <div class="post-content">
             <!-- Post Header -->
-            <header class="entry-header">
-              <h1 class="entry-title"><%= posts && posts.title || 'Başlık yok' %></h1>
+            <header >
+              <h1<%= posts && posts.title || 'Başlık yok' %></h1>
             </header>
 
-            <!-- Post Content -->
-            <div class="entry-content">
-              <!-- Project Info Cards -->
-              <div class="project-info-grid">
-                <% if (posts && posts.content_teknolojiler) { %>
-                  <div class="info-card">
-                    <div class="card-icon"><i class="fas fa-code"></i></div>
-                    <h3>Technologies Used </h3>
-                    <div class="card-content"><%- posts.content_teknolojiler %></div>
-                  </div>
-                <% } %>
 
-                <% if (posts && posts.content_mantik) { %>
-                  <div class="info-card">
-                    <div class="card-icon"><i class="fas fa-cogs"></i></div>
-                    <h3>Working Logic </h3>
-                    <div class="card-content"><%- posts.content_mantik %></div>
-                  </div>
-                <% } %>
-              </div>
 
               <!-- Main Content -->
               <div class="content-sections">
