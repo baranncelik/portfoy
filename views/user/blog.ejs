@@ -120,28 +120,27 @@
     }
     %>
 
+
+
     <div class="content-area single-page-area">
       <div class="single-page-content">
-      <article class="post">
-        <!-- Hero Section with Image -->
-        <div class="post-hero" style="position: relative;">
-        <% if (posts && posts.image_url) { %>
-          <div class="hero-image-container" style="width: 100%; max-height: 500px; overflow: hidden;">
-          <div class="hero-image-wrapper">
-            <img class="hero-image" src="<%= posts.image_url %>" alt="<%= posts.title || 'post image' %>" 
-            style="width: 100%; height: auto; display: block;" loading="lazy">
-          </div>
-          </div>
-        <% } %>
+        <article class="post">
+          <!-- Hero Section with Image -->
+          <div class="post-hero">
+            <% if (posts && posts.image_url) { %>
+              <div class="hero-image-container">
+                <div class="hero-image-wrapper">
+                    <img class="hero-image" src="<%= posts.image_url %>" alt="<%= posts.title || 'post image' %>" loading="lazy" style="max-width: 100%; height: auto; object-fit: cover;">
+                </div>
+                <div class="hero-overlay"></div>
+              </div>
+            <% } %>
 
-        <div class="hero-content" style="position: absolute; bottom: 0; left: 0; right: 0; 
-          background: linear-gradient(transparent, rgba(0,0,0,0.7)); padding: 20px;">
-          <div class="hero-meta">
-          <span class="hero-date" style="color: white; font-size: 0.9em;">
-            <i class="far fa-calendar-alt"></i> <%= prettyDate(posts && posts.updatedAt) %>
-          </span>
-          <h1 style="color: white; font-size: 1.5em; margin-top: 10px;"><%= posts && posts.title || 'Başlık yok' %></h1>
-          </div>
+            <div class="hero-content">
+              <div class="hero-meta">
+                <span class="hero-date">
+                  <i class="far fa-calendar-alt"></i> <%= prettyDate(posts && posts.updatedAt) %>
+                </span>
               </div>
             </div>
           </div>
@@ -150,7 +149,7 @@
           <div class="post-content">
             <!-- Post Header -->
             <header class="entry-header">
-              <h1 class="entry-title"><%= posts && posts.title || 'Başlık yok' %></h1>
+              <h1 class="entry-title" style="font-family: 'Montserrat', sans-serif; font-weight: 600; letter-spacing: 0.5px; color: #333; font-size: 2.5em; margin-bottom: 20px; text-transform: capitalize;"><%= posts && posts.title || 'Başlık yok' %></h1>
             </header>
 
 
