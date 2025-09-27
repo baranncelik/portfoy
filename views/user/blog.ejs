@@ -122,30 +122,33 @@
 
 
 
-    <div class="content-area single-page-area">
-      <div class="single-page-content">
-        <article class="post">
-          <!-- Hero Section with Image -->
-          <div class="post-hero" style="margin: 10px; position: relative;">
-            <% if (posts && posts.image_url) { %>
-              <div class="hero-image-container" style="position: relative; border-radius: 8px; overflow: hidden;">
-                <img class="hero-image" src="<%= posts.image_url %>" alt="<%= posts.title || 'post image' %>" loading="lazy" style="width: 100%; display: block; border-radius: 8px;">
-                <div class="hero-overlay" style="position: absolute; inset: 0; background: rgba(0,0,0,0.25);"></div>
-                <div class="hero-meta" style="position: absolute; left: 16px; bottom: 16px; color: #fff; background: rgba(0,0,0,0.55); padding: 6px 14px; border-radius: 6px; font-size: 1rem;">
-                  <span class="hero-date">
-                    <i class="far fa-calendar-alt"></i> <%= prettyDate(posts && posts.updatedAt) %>
-                  </span>
-                </div>
-              </div>
-            <% } %>
+<div class="content-area single-page-area">
+  <div class="single-page-content">
+    <article class="post">
+      <!-- Hero Section with Image -->
+      <div class="post-hero" style="margin: 10px 0; position: relative;">
+        <% if (posts && posts.image_url) { %>
+          <div class="hero-image-container" style="position: relative; border-radius: 0; overflow: hidden; width: 100%;">
+            <img class="hero-image" src="<%= posts.image_url %>" alt="<%= posts.title || 'post image' %>" loading="lazy" style="width: 100%; display: block;">
+            <div class="hero-overlay" style="position: absolute; inset: 0; background: rgba(0,0,0,0.25);"></div>
+            <div class="hero-meta" style="position: absolute; left: 16px; bottom: 16px; color: #fff; background: rgba(0,0,0,0.55); padding: 6px 14px; border-radius: 6px; font-size: 1rem;">
+              <span class="hero-date">
+                <i class="far fa-calendar-alt"></i> <%= prettyDate(posts && posts.updatedAt) %>
+              </span>
+            </div>
           </div>
+        <% } %>
+      </div>
 
-          <!-- Yazı Başlığı ve Meta -->
-          <div class="post-content">
-            <!-- Post Header -->
-            <header class="entry-header">
-              <h1 class="entry-title"><%= posts && posts.title || 'Başlık yok' %></h1>
-            </header>
+      <!-- Yazı Başlığı ve Meta -->
+      <div class="post-content" style="margin-top: 16px;">
+        <!-- Post Header -->
+        <header class="entry-header" style="text-align: left;">
+          <h1 class="entry-title" style="font-family: 'Al', sans-serif; color: red; font-size: 1.5rem; margin-bottom: 12px;">
+            <%= posts && posts.title || 'Başlık yok' %>
+          </h1>
+        </header>
+
 
 
               <!-- Main Content -->
