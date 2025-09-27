@@ -1,0 +1,177 @@
+<%- include("../partials/topbar") %>
+
+  <style>
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 8px 30px rgba(2,6,23,0.06);
+    }
+    .section-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 6px;
+    }
+    @media (max-width: 1024px) {
+      .card {
+        padding: 16px;
+      }
+      .main {
+        padding: 84px 8px 24px;
+      }
+    }
+    @media (max-width: 768px) {
+      .topbar { display: flex; }
+      .sidebar { transform: translateX(-110%); box-shadow: 0 12px 30px rgba(2,6,23,0.12); }
+      .sidebar.open { transform: translateX(0); }
+      .main { margin-left: 0; padding: 84px 8px 24px; }
+      .card { padding: 12px; }
+      .posts-table { display: flex; flex-direction: column; gap: 12px; }
+      .posts-table thead { display: none; }
+      .posts-table tbody { display: flex; flex-direction: column; gap: 12px; }
+      .posts-table tr {
+        display: flex;
+        flex-direction: column;
+        background: #f9fafb;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(2,6,23,0.04);
+        padding: 12px;
+        border-bottom: none;
+        margin-bottom: 0;
+      }
+      .posts-table td {
+        display: flex;
+        flex-direction: column;
+        border: none;
+        padding: 6px 0;
+        font-size: 14px;
+      }
+      .posts-table td[data-label]:before {
+        content: attr(data-label) ": ";
+        font-weight: 600;
+        color: #6b7280;
+        margin-bottom: 2px;
+        font-size: 13px;
+      }
+      .section-title { font-size: 18px; }
+    }
+    @media (max-width: 480px) {
+      .card { padding: 6px; }
+      .section-title { font-size: 16px; }
+      .posts-table td { font-size: 12px; }
+      .small-ghost, .btn-danger, .status-pill { font-size: 12px; padding: 4px 6px; }
+    }
+    .posts-table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow-x: auto;
+      display: block;
+    }
+    .posts-table th, .posts-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid #eef2f5;
+      text-align: left;
+      vertical-align: middle;
+    }
+    .small-ghost {
+      padding: 6px 10px;
+      border-radius: 8px;
+      background: #fff;
+      border: 1px solid #e6e6e6;
+      cursor: pointer;
+    }
+    .btn-danger {
+      background: var(--danger);
+      color: #fff;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+    }
+    .status-pill {
+      font-weight: 600;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+    }
+    .status-published {
+      background: #ecfeff;
+      color: #065f46;
+      border: 1px solid rgba(6,95,70,0.06);
+    }
+    .status-draft {
+      background: #fff7ed;
+      color: #92400e;
+      border: 1px solid rgba(146,64,14,0.06);
+    }
+  </style>
+</head>
+<body>
+<%- include("../partials/navbar") %>
+
+
+  <div id="overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.4); z-index:1200"></div>
+
+  <main class="main">
+    <div class="max-w-5xl mx-auto">
+      <div class="card">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <div class="section-title">My Posts</div>
+            <p class="text-sm text-gray-600">Tüm gönderilerini burada yönetebilirsin.</p>
+          </div>
+          <div class="hidden sm:flex gap-2">
+            <a href="/admin/add-posts" class="px-3 py-2 rounded-md text-sm border border-gray-200 hover:bg-gray-50">Yeni Gönderi Ekle</a>
+          </div>
+        </div>
+
+        <% if (posts && posts.length) { %>
+          <table class="posts-table" role="table">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Created</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% posts.forEach(post => { %>
+                <tr>
+                  <td style="min-width:260px;">
+                    <strong><%= post.title %></strong>
+                    <div style="color:#6b7280;font-size:13px;margin-top:6px;"><%= post.summary ? post.summary.substring(0,120) : (post.content ? post.content.replace(/<[^>]+>/g,'').substring(0,120) : '') %></div>
+                  </td>
+                  <td><%= post.createdAt ? new Date(post.createdAt).toLocaleDateString('tr-TR') : '-' %></td>
+                  <td>
+                    <% if (post.published === true || post.published === 1 || post.published === '1') { %>
+                      <span class="status-pill status-published">Published</span>
+                    <% } else { %>
+                      <span class="status-pill status-draft">Draft</span>
+                    <% } %>
+                  </td>
+                  <td style="white-space:nowrap">
+                    <a class="small-ghost" href="/admin/edit-post/<%= post.id %>">Edit</a>
+
+
+
+                    <!-- Delete -->
+                    <form action="/admin/delete-post/<%= post.id %>" method="POST" style="display:inline" onsubmit="return confirm('Bu gönderiyi silmek istediğine emin misin?');">
+                      <button type="submit" class="btn-danger">Delete</button>
+                    </form>
+                  </td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        <% } else { %>
+          <p style="text-align:center;color:#6b7280;padding:2rem 0;">No posts found.</p>
+        <% } %>
+      </div>
+    </div>
+  </main>
+
+
+</body>
+</html>

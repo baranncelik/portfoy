@@ -1,0 +1,161 @@
+<!-- partials/navbar.ejs -->
+<style>
+  /* fallback değişkenleri kullanılıyor; projende varsa üzerine geçmez */
+  :root {
+    --sidebar-width: 220px;
+    --bg: #f0f2f5;
+    --dark: #343a40;
+    --dark-2: #23272b;
+    --muted: #495057;
+    --primary: #007bff;
+    --danger: #dc3545;
+    --text: #222;
+  }
+
+  * { box-sizing: border-box; }
+  .topbar { display: none; height:56px; background: var(--dark); color:#fff; align-items:center; padding:0 12px; position:fixed; left:0; right:0; z-index:1200; }
+  .topbar .brand { font-weight:700; font-size:18px; }
+  .hamburger { background:none; border:none; color:inherit; font-size:22px; padding:8px; cursor:pointer; }
+
+  .sidebar {
+    position:fixed;
+    top:0;
+    left:0;
+    width:var(--sidebar-width);
+    height:100vh;
+    background:var(--dark);
+    color:#fff;
+    transition: transform .25s ease, box-shadow .25s ease;
+    z-index:1300;
+    transform: translateX(0); /* default desktop visible; JS will add .hidden on mobile */
+  }
+  .sidebar.hidden { transform: translateX(-110%); }
+  .sidebar.open { transform: translateX(0); } /* slide in */
+  .sidebar h2 { margin:0; padding:18px 0; text-align:center; font-size:18px; background:var(--dark-2); }
+  .sidebar ul { margin:0; padding:0; list-style:none; }
+  .sidebar li { padding:12px 0; }
+  .sidebar li a { display:block; padding:12px 22px; color:#fff; text-decoration:none; font-size:15px; transition:.12s ease; }
+  .sidebar li a:hover, .sidebar li a.active { background:var(--muted); color:#fff; }
+
+  .sidebar .bottom-area { position:absolute; left:0; right:0; bottom:20px; text-align:center; padding:0 12px; }
+  .btn-logout { display:inline-block; padding:10px 18px; border:none; background:var(--danger); color:#fff; border-radius:6px; cursor:pointer; font-size:14px; }
+
+  /* overlay */
+  #overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.45); z-index:1250; }
+  #overlay.show { display:block; }
+
+  /* Responsive: show topbar on small screens and hide sidebar by default */
+  @media (max-width:768px) {
+    .topbar { display:flex; justify-content:space-between; align-items:center; }
+    .sidebar { transform: translateX(-110%); box-shadow: 0 8px 24px rgba(0,0,0,.12); }
+    .sidebar.hidden { transform: translateX(-110%); }
+  }
+</style>
+
+<!-- Topbar (mobile) -->
+<div class="topbar" role="navigation" aria-label="Üst menü">
+  <button id="openSidebar" class="hamburger" aria-label="Menü aç">☰</button>
+  <div class="brand">Admin Panel</div>
+  <div style="width:36px"></div>
+</div>
+
+<!-- Sidebar -->
+<aside class="sidebar" id="sidebar" aria-hidden="false">
+  <h2>Admin Panel</h2>
+  <ul id="menu">
+    <li><a href="/admin/messages">Gelen Mesajlar</a></li>
+    <li><a href="/admin/settings">Site Ayarları</a></li>
+    <li><a href="/admin/show-projects">Projelerimi Göster</a></li>
+    <li><a href="/admin/add-project">Proje Ekle</a></li>
+    <li><a href="/admin/show-certificas">Sertifikalarımı Göster</a></li>
+    <li><a href="/admin/add-certifica">Sertifika  Ekle</a></li>
+    <li><a href="/admin/show-posts">Postlarımı Göster</a></li>
+    <li><a href="/admin/add-posts">Post Ekle</a></li>
+
+
+  </ul>
+
+  <div class="bottom-area">
+    <form action="/logout" method="POST" style="margin:0">
+      <button type="submit" class="btn-logout">Çıkış Yap</button>
+    </form>
+  </div>
+</aside>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const sidebar = document.getElementById('sidebar');
+    const openBtn = document.getElementById('openSidebar');
+
+    // overlay yoksa oluştur (duplicate riskini ortadan kaldırır)
+    let overlay = document.getElementById('overlay');
+    if (!overlay) {
+      overlay = document.createElement('div');
+      overlay.id = 'overlay';
+      overlay.setAttribute('aria-hidden', 'true');
+      document.body.appendChild(overlay);
+    }
+
+    if (!sidebar || !openBtn) {
+      console.warn('Navbar partial: gerekli elemanlar bulunamadı.', { sidebar, openBtn, overlay });
+      return;
+    }
+
+    // İlk yükleme: ekran genişliğine göre sidebar görünürlüğünü ayarla
+    function setInitialSidebarState() {
+      if (window.innerWidth > 768) {
+        sidebar.classList.remove('hidden');
+        sidebar.classList.remove('open');
+        sidebar.setAttribute('aria-hidden', 'false');
+        overlay.classList.remove('show');
+        overlay.setAttribute('aria-hidden', 'true');
+      } else {
+        sidebar.classList.add('hidden');
+        sidebar.classList.remove('open');
+        sidebar.setAttribute('aria-hidden', 'true');
+        overlay.classList.remove('show');
+        overlay.setAttribute('aria-hidden', 'true');
+      }
+    }
+    setInitialSidebarState();
+
+    function showOverlay() { overlay.classList.add('show'); overlay.setAttribute('aria-hidden','false'); }
+    function hideOverlay() { overlay.classList.remove('show'); overlay.setAttribute('aria-hidden','true'); }
+
+    function openSidebar() {
+      sidebar.classList.add('open');
+      sidebar.classList.remove('hidden');
+      sidebar.setAttribute('aria-hidden', 'false');
+      showOverlay();
+    }
+    function closeSidebar() {
+      sidebar.classList.remove('open');
+      if (window.innerWidth <= 768) sidebar.classList.add('hidden');
+      sidebar.setAttribute('aria-hidden', 'true');
+      hideOverlay();
+    }
+
+    openBtn.addEventListener('click', function () {
+      if (sidebar.classList.contains('open')) closeSidebar(); else openSidebar();
+    });
+
+    overlay.addEventListener('click', closeSidebar);
+
+    window.addEventListener('resize', function () {
+      if (window.innerWidth > 768) {
+        sidebar.classList.remove('hidden');
+        sidebar.classList.remove('open');
+        sidebar.setAttribute('aria-hidden', 'false');
+        hideOverlay();
+      } else {
+        sidebar.classList.add('hidden');
+        sidebar.setAttribute('aria-hidden', 'true');
+      }
+    });
+
+    // debug helper (konsolda çağır)
+    window.__toggleSidebar = function () {
+      if (sidebar.classList.contains('open')) closeSidebar(); else openSidebar();
+    };
+  });
+</script>

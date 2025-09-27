@@ -1,0 +1,163 @@
+<%- include("../partials/topbar") %>
+
+<style>
+
+  /* --- Main content --- */
+  .main{margin-left:var(--sidebar-width);padding:20px 28px;font-size:16px;min-height:100vh}
+  .card{background:#fff;border-radius:10px;padding:18px;box-shadow:0 6px 18px rgba(0,0,0,.06)}
+  .section{display:none}
+  .section.active{display:block}
+  .card h3{margin-top:0;font-size:22px}
+
+  .form-group{margin-bottom:16px}
+  .form-group label{display:block;margin-bottom:8px;font-weight:600;font-size:16px}
+  .form-group input,.form-group textarea{
+    width:100%;padding:12px 14px;font-size:15px;border:1px solid #ccc;border-radius:8px;background:#fff
+  }
+  .form-group textarea{resize:vertical;min-height:140px}
+
+  .btn{display:inline-block;padding:10px 16px;border:none;background:var(--primary);color:#fff;border-radius:8px;cursor:pointer;font-size:14px}
+  .btn+.btn{margin-left:12px}
+  .btn-danger{background:var(--danger)}
+
+  table{width:100%;margin-top:14px;border-collapse:collapse;font-size:15px}
+  th,td{padding:12px 14px;border:1px solid #dee2e6}
+  th{background:#e9ecef;text-align:left}
+
+  /* Responsive tweaks */
+  @media (max-width: 1024px){
+    :root{--sidebar-width:200px}
+    .main{padding:16px}
+    .card h3{font-size:20px}
+  }
+
+  /* Mobile layout: hide sidebar by default, show topbar */
+  @media (max-width: 768px){
+    .topbar{display:flex}
+    .sidebar{transform:translateX(-110%);box-shadow:0 6px 18px rgba(0,0,0,.12)}
+    .sidebar.open{transform:translateX(0)}
+
+    .main{margin-left:0;padding:76px 16px 20px}
+
+    .form-group label{font-size:15px}
+    .form-group input,.form-group textarea{font-size:14px;padding:10px 12px}
+
+    /* make table scrollable */
+    .table-responsive{overflow-x:auto}
+  }
+
+  /* small adjustments for very small screens */
+  @media (max-width: 420px){
+    .card h3{font-size:18px}
+    .btn{padding:8px 12px;font-size:13px}
+  }
+
+  /* overlay for mobile when sidebar open */
+  #overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:1250}
+  #overlay.show{display:block}
+
+  /* helper: image preview */
+  .preview-img{max-height:80px;display:block;margin-top:10px;border-radius:6px}
+</style>
+
+</head>
+<body>
+<%- include("../partials/navbar") %>
+
+  <!-- overlay (mobile) -->
+  <div id="overlay" aria-hidden="true"></div>
+
+  <main class="main">
+    <!-- Site Ayarları -->
+    <div id="settings" class="section active card">
+      <h3>Site Ayarları</h3>
+      <form action="/admin/settings" method="POST" enctype="multipart/form-data">
+        
+
+        <div class="form-group">
+          <label for="profile_photo">Profil fotoğrafını yükle</label>
+          <input id="profile_photo" type="file" name="profile_photo" accept="image/*">
+          <% if (setting && setting.profile_photo) { %>
+            <img id="preview" src="<%= setting.profile_photo %>" alt="profile_photo" class="preview-img">
+          <% } else { %>
+            <img id="preview" style="display:none" class="preview-img" alt="preview">
+          <% } %>
+        </div>
+
+
+
+        <div class="form-group">
+          <label>About</label>
+          <input type="text" name="about" value="<%= setting ? setting.about : '' %>">
+        </div>
+
+        <div class="form-group">
+          <label>Abilitys</label>
+          <input type="text" name="ability" value="<%= setting ? setting.ability : '' %>">
+        </div>
+
+        <div class="form-group">
+          <label>Age</label>
+          <input type="text" name="age" value="<%= setting ? setting.age : '' %>">
+        </div>
+
+        <div class="form-group">
+          <label>Address</label>
+          <input type="text" name="address" value="<%= setting ? setting.address : '' %>">
+        </div>
+
+        <div class="form-group">
+          <label>Mail</label>
+          <input type="text" name="mail" value="<%= setting ? setting.mail : '' %>">
+        </div>
+
+        <div class="form-group">
+          <label>Tel</label>
+          <input type="text" name="tel" value="<%= setting ? setting.tel : '' %>">
+        </div>
+
+        <div class="form-group">
+          <label for="cv">CV yükle</label>
+          <input id="cv" type="file" name="cv" accept="pdf/*">
+          <% if (setting && setting.cv) { %>
+            <img id="preview" src="<%= setting.cv %>" alt="cv" class="preview-pdf">
+          <% } else { %>
+            <img id="preview" style="display:none" class="preview-pdf" alt="preview">
+          <% } %>
+        </div>
+
+
+
+
+        <button type="submit" class="btn">Kaydet</button>
+      </form>
+    </div>
+
+  
+  </main>
+
+<script>
+ 
+
+  // Image preview
+  const fileInput = document.getElementById('profile_photo');
+  const previewImg = document.getElementById('preview');
+  if(fileInput){
+    fileInput.addEventListener('change', e=>{
+      const file = e.target.files[0];
+      if(!file) return;
+      const reader = new FileReader();
+      reader.onload = function(ev){
+        previewImg.src = ev.target.result; previewImg.style.display = 'block';
+      }
+      reader.readAsDataURL(file);
+    });
+  }
+
+  // initial layout tweak
+  if(window.innerWidth>768){ sidebar.classList.remove('hidden'); }
+</script>
+</body>
+</html>
+
+

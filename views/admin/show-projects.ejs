@@ -1,0 +1,132 @@
+<%- include("../partials/topbar") %>
+
+<style>
+    .card {
+        background: #fff;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 8px 30px rgba(2,6,23,0.06);
+    }
+    .section-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: #0f172a;
+        margin-bottom: 6px;
+    }
+    @media (max-width: 768px) {
+        .topbar { display: flex; }
+        .sidebar { transform: translateX(-110%); box-shadow: 0 12px 30px rgba(2,6,23,0.12); }
+        .sidebar.open { transform: translateX(0); }
+        .main { margin-left: 0; padding: 84px 8px 24px; }
+        .card { padding: 12px; }
+        .posts-table th, .posts-table td { padding: 8px 6px; font-size: 13px; }
+    }
+    /* posts list */
+    .posts-table {
+        width: 100%;
+        border-collapse: collapse;
+        overflow-x: auto;
+        display: block;
+    }
+    .posts-table th, .posts-table td {
+        padding: 10px 12px;
+        border-bottom: 1px solid #eef2f5;
+        text-align: left;
+        vertical-align: middle;
+        white-space: nowrap;
+    }
+    .small-ghost {
+        padding: 6px 10px;
+        border-radius: 8px;
+        background: #fff;
+        border: 1px solid #e6e6e6;
+        cursor: pointer;
+    }
+    .btn-danger {
+        background: var(--danger);
+        color: #fff;
+        padding: 8px 10px;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+    }
+    .status-pill {
+        font-weight: 600;
+        padding: 6px 10px;
+        border-radius: 999px;
+        font-size: 13px;
+    }
+    .status-published {
+        background: #ecfeff;
+        color: #065f46;
+        border: 1px solid rgba(6,95,70,0.06);
+    }
+    .status-draft {
+        background: #fff7ed;
+        color: #92400e;
+        border: 1px solid rgba(146,64,14,0.06);
+    }
+    /* Responsive table wrapper */
+    @media (max-width: 768px) {
+        .posts-table {
+            display: block;
+            width: 100%;
+            overflow-x: auto;
+        }
+    }
+</style>
+</head>
+<body>
+<%- include("../partials/navbar") %>
+
+
+  <div id="overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.4); z-index:1200"></div>
+
+  <main class="main">
+    <div class="max-w-5xl mx-auto">
+      <div class="card">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <div class="section-title">My Posts</div>
+            <p class="text-sm text-gray-600">Tüm gönderilerini burada yönetebilirsin.</p>
+          </div>
+          <div class="hidden sm:flex gap-2">
+            <a href="/admin/add-project" class="px-3 py-2 rounded-md text-sm border border-gray-200 hover:bg-gray-50">Yeni Proje Ekle</a>
+          </div>
+        </div>
+
+<% if (projects && projects.length) { %>
+  <table class="posts-table" role="table">
+    <thead>
+      <tr>
+    <th>Başlık</th>
+    <th>Durum</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <% projects.forEach(function(project) { %>
+    <tr>
+      <td>
+        <%= project.project_title %></td>
+
+      <td>
+        <a href="/admin/edit-project/<%= project.id %>" class="small-ghost">Düzenle</a>
+        <form action="/admin/delete-project/<%= project.id %>" method="POST" style="display:inline;">
+          <button type="submit" class="btn-danger" onclick="return confirm('Silmek istediğine emin misin?')">Sil</button>
+        </form>
+      </td>
+    </tr>
+      <% }) %>
+    </tbody>
+  </table>
+<% } else { %>
+  <div class="text-gray-500 py-8 text-center">Henüz hiç proje eklenmemiş.</div>
+<% } %>
+      </div>
+    </div>
+  </main>
+
+
+</body>
+</html>

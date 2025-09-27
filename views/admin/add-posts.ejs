@@ -1,0 +1,192 @@
+<%- include("../partials/topbar") %>
+
+
+  <style>
+
+
+    .main{margin-left:var(--sidebar-width);padding:28px;min-height:100vh;transition:margin .25s}
+    .card{background:#fff;border-radius:12px;padding:20px;box-shadow:0 8px 30px rgba(2,6,23,0.06)}
+    .section-title{font-size:20px;font-weight:700;color:#0f172a;margin-bottom:6px}
+
+    @media (max-width: 768px){
+      .topbar{display:flex}
+      .sidebar{transform:translateX(-110%);box-shadow:0 12px 30px rgba(2,6,23,0.12)}
+      .sidebar.open{transform:translateX(0)}
+      .main{margin-left:0;padding:84px 16px 24px}
+    }
+
+    .preview-img{max-height:180px;border-radius:8px;margin-top:10px;object-fit:cover;border:1px solid #e6e6e6}
+  </style>
+
+</head>
+<body>
+
+<%- include("../partials/navbar") %>
+
+
+  <!-- overlay (mobile) -->
+  <div id="overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.35);z-index:1290;"></div>
+
+  <!-- Main -->
+  <main class="main">
+    <div class="max-w-4xl mx-auto">
+      <div class="card">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <div class="section-title">Yeni Gönderi Ekle</div>
+            <p class="text-sm text-gray-600">Blog gönderisini buradan oluşturup yayınlayabilirsiniz.</p>
+          </div>
+          <div class="hidden sm:flex gap-2">
+            <a href="/admin/show-posts" class="px-3 py-2 rounded-md text-sm border border-gray-200 hover:bg-gray-50">Gönderileri Gör</a>
+          </div>
+        </div>
+
+
+
+        <!-- Form -->
+        <form action="/admin/add-posts" method="POST" enctype="multipart/form-data">
+          <!-- Başlık -->
+          <div class="mb-3">
+            <label for="title" class="block text-sm font-semibold text-gray-700 mb-2">Başlık</label>
+            <input id="title" name="title" type="text" required
+                   class="w-full rounded-lg border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                   placeholder=" Gönderi başlığı " value="<%= posts.title %>">
+          </div>
+
+          <!-- Özet -->
+          <div class="mb-3">
+            <label for="summary" class="block text-sm font-semibold text-gray-700 mb-2">Özet</label>
+            <textarea id="summary" name="summary" rows="3"
+                      class="w-full rounded-lg border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      placeholder="Gönderi özeti..."><%= posts.summary %></textarea>
+          </div>
+
+         
+
+          <!-- Ana İçerik -->
+          <div class="mb-3">
+            <label for="content" class="block text-sm font-semibold text-gray-700 mb-2">Ana İçerik</label>
+            <textarea id="content" name="content" rows="8"
+                      class="w-full rounded-lg border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      placeholder="Gönderi ana içeriği..."><%= posts.content %></textarea>
+          </div>
+          
+
+          <!-- Resim (dosya) -->
+          <div class="mb-3">
+            <label for="image_url" class="block text-sm font-semibold text-gray-700 mb-2">Resim (dosya yükle)</label>
+            <input id="image_url" name="image_url" type="file" accept="image/*"
+                   class="w-full rounded-lg border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+          </div>
+
+
+  <button type="submit" class="bg-indigo-600 text-white px-5 py-2 rounded mt-2">
+    Gönderiyi Kaydet
+  </button>
+</form>
+
+        </form>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Scripts -->
+<script>
+
+/* --- IMAGE PREVIEW (file OR url) --- */
+(function(){
+  const fileInput = document.getElementById('image_url');   
+  const urlInput  = document.getElementById('image_url'); 
+  const previewWrap = document.getElementById('imgPreviewWrap');
+  const previewImg  = document.getElementById('imgPreview');
+  const previewErr  = document.getElementById('imgPreviewError');
+
+  // Guard: gerekli DOM elemanları yoksa çık (hata atmasın)
+  if (!previewWrap || !previewImg || !previewErr) return;
+
+  function hidePreview(){
+    previewWrap.classList.add('hidden');
+    previewImg.removeAttribute('src');
+    previewErr.classList.add('hidden');
+  }
+
+  function showPreview(url){
+    previewErr.classList.add('hidden');
+    previewImg.src = url;
+    // onload/onerror handlers (tek seferlik)
+    previewImg.onload = () => {
+      previewWrap.classList.remove('hidden');
+      previewErr.classList.add('hidden');
+    };
+    previewImg.onerror = () => {
+      previewWrap.classList.remove('hidden');
+      previewErr.classList.remove('hidden');
+      previewImg.removeAttribute('src');
+    };
+  }
+
+  // File seçimi: FileReader ile dataURL göster
+  if (fileInput) {
+    fileInput.addEventListener('change', (e) => {
+      const f = e.target.files && e.target.files[0];
+      if (!f) {
+        if (!urlInput || !urlInput.value) hidePreview();
+        return;
+      }
+      if (!f.type.startsWith('image/')) {
+        previewWrap.classList.remove('hidden');
+        previewErr.classList.remove('hidden');
+        previewImg.removeAttribute('src');
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = ev => {
+        showPreview(ev.target.result);
+        if (urlInput) urlInput.value = '';
+      };
+      reader.readAsDataURL(f);
+    });
+  }
+
+  // URL input: daha güvenli doğrulama için URL constructor kullan
+  if (urlInput) {
+    urlInput.addEventListener('input', (e) => {
+      const url = e.target.value.trim();
+      if (!url) {
+        if (!fileInput || !fileInput.files.length) hidePreview();
+        return;
+      }
+      try {
+        const u = new URL(url);
+        // sadece http/https kabul et
+        if (u.protocol === 'http:' || u.protocol === 'https:') {
+          showPreview(url);
+        } else {
+          previewWrap.classList.remove('hidden');
+          previewErr.classList.remove('hidden');
+          previewImg.removeAttribute('src');
+        }
+      } catch (err) {
+        previewWrap.classList.remove('hidden');
+        previewErr.classList.remove('hidden');
+        previewImg.removeAttribute('src');
+      }
+    });
+  }
+})();
+</script>
+<script src="https://cdn.tiny.cloud/1/mhplnlwxy8in2vw5y7mrh51fuqta8s6c77iyotav1e8elnmu/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+  tinymce.init({
+    selector: '#content',
+    plugins: 'link lists table code image media',
+    toolbar: 'undo redo | styles | bold italic underline | bullist numlist | link image media | table | code',
+    menubar: false,
+    branding: false,
+    height: 400
+  });
+</script>
+
+</body>
+</html>

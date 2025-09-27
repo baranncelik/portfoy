@@ -1,0 +1,1448 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+    <title>Baran Çelik | Portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="Baran Çelik'in kişisel portfolyosu. Web geliştirme, 3D modelleme, veri bilimi ve projelerimi keşfedin." />
+    <meta name="keywords" content="Baran Çelik, portfolio, web development, PHP, Node.js, Three.js, Python, data science, projects" />
+    <meta name="author" content="Baran Çelik" />
+    <link rel="shortcut icon" href="favicon.ico">
+
+
+    <link rel="stylesheet" href="css/reset.css" type="text/css">
+    <link rel="stylesheet" href="css/bootstrap-grid.min.css" type="text/css">
+    <link rel="stylesheet" href="css/animations.css" type="text/css">
+    <link rel="stylesheet" href="css/perfect-scrollbar.css" type="text/css">
+    <link rel="stylesheet" href="css/owl.carousel.css" type="text/css">
+    <link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="css/main.css" type="text/css">
+
+    <script src="js/modernizr.custom.js"></script>
+  </head>
+
+  <body>
+    <!-- Animated Background -->
+    <div class="lm-animated-bg" style="background-image: url(img/main_bg.png);"></div>
+    <!-- /Animated Background -->
+
+    <!-- Loading animation -->
+    <div class="preloader">
+      <div class="preloader-animation">
+        <div class="preloader-spinner">
+        </div>
+      </div>
+    </div>
+    <!-- /Loading animation -->
+
+    <div class="page">
+      <div class="page-content">
+
+          <header id="site_header" class="header mobile-menu-hide">
+            <div class="header-content">
+              <div class="header-photo">
+                <img src="<%= settings.profile_photo %>" alt="Baran Çelik">
+              </div>
+              <div class="header-titles">
+                <h2>Baran Çelik</h2>
+                <h4>Computer Engineer & Full-Stack Developer</h4>
+              </div>
+            </div>
+
+            <ul class="main-menu">
+              <li class="active">
+                <a href="#home" class="nav-anim">
+                  <span class="menu-icon lnr lnr-home"></span>
+                  <span class="link-text">Home</span>
+                </a>
+              </li>
+              <li>
+                <a href="#about-me" class="nav-anim">
+                  <span class="menu-icon lnr lnr-user"></span>
+                  <span class="link-text">About Me</span>
+                </a>
+              </li>
+              <li>
+                <a href="#resume" class="nav-anim">
+                  <span class="menu-icon lnr lnr-graduation-hat"></span>
+                  <span class="link-text">Resume</span>
+                </a>
+              </li>
+              <li>
+                <a href="#project" class="nav-anim">
+                  <span class="menu-icon lnr lnr-briefcase"></span>
+                  <span class="link-text">Projects</span>
+                </a>
+              </li>
+              <li>
+                <a href="#blog" class="nav-anim">
+                  <span class="menu-icon lnr lnr-book"></span>
+                  <span class="link-text">Blog</span>
+                </a>
+              </li>
+              <li>
+                <a href="#contact" class="nav-anim">
+                  <span class="menu-icon lnr lnr-envelope"></span>
+                  <span class="link-text">Contact</span>
+                </a>
+              </li>
+            </ul>
+
+            <div class="social-links">
+              <ul>
+                <li><a href="https://www.linkedin.com/in/baranncelik/" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
+                <li><a href="https://www.instagram.com/baran_celikj/" target="_blank"><i class="fab fa-instagram -i"></i></a></li>
+                <li><a href="https://github.com/baranncelik" target="_blank"><i class="fab fa-github"></i></a></li>
+              </ul>
+            </div>
+
+            <div class="header-buttons">
+              <a href="<%= settings.cv %>" target="_blank" class="btn btn-primary">Download CV</a>
+            </div>
+
+            <div class="copyrights">© 2025 All rights reserved by Baran Çelik.</div>
+          </header>
+
+          <!-- Mobile Navigation -->
+          <div class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <!-- End Mobile Navigation -->
+
+          <!-- Arrows Nav -->
+          <div class="lmpixels-arrows-nav">
+            <div class="lmpixels-arrow-right"><i class="lnr lnr-chevron-right"></i></div>
+            <div class="lmpixels-arrow-left"><i class="lnr lnr-chevron-left"></i></div>
+          </div>
+          <!-- End Arrows Nav -->
+
+          <div class="content-area">
+            <div class="animated-sections">
+              <!-- Home Subpage -->
+              <section data-id="home" class="animated-section start-page">
+                <style>
+                  .start-page {
+                    position: relative;
+                    overflow: hidden;
+                    background: #000;
+                    height: 100vh;
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                  }
+
+                  /* Volkanik Arka Plan Animasyonu */
+                  .volcanic-bg {
+                    position: absolute;
+                    inset: 0;
+                    z-index: 1;
+                    background: 
+                      radial-gradient(circle at 50% 150%, #ff4d4d 0%, transparent 35%),
+                      radial-gradient(circle at 30% 100%, #ff8533 0%, transparent 45%),
+                      radial-gradient(circle at 70% 100%, #ff6600 0%, transparent 45%);
+                    filter: blur(60px);
+                    opacity: 0;
+                    animation: fadeInBg 2s ease forwards, glow 8s ease-in-out infinite alternate;
+                  }
+
+                  .particle {
+                    position: absolute;
+                    width: 4px;
+                    height: 4px;
+                    background: #ff3300;
+                    border-radius: 50%;
+                    animation: rise 3s infinite;
+                    opacity: 0;
+                  }
+
+                  /* Ana İçerik Stili */
+                  .title-block {
+                    position: relative;
+                    z-index: 2;
+                    text-align: center;
+                    padding: 2rem;
+                    width: 100%;
+                    max-width: 90%;
+                    margin: 0 auto;
+                    opacity: 0;
+                    transform: translateY(30px);
+                    animation: slideUpFade 1s ease forwards;
+                    animation-delay: 0.5s;
+                  }
+
+                  .title-block h2 {
+                    font-size: clamp(2.5rem, 8vw, 4.5rem);
+                    font-weight: 800;
+                    margin: 0 0 1rem;
+                    color: #fff;
+                    text-shadow: 
+                      0 0 10px rgba(255,69,0,0.5),
+                      0 0 20px rgba(255,69,0,0.3);
+                    opacity: 0;
+                    transform: scale(0.9);
+                    animation: popIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                    animation-delay: 1s;
+                  }
+
+                  .typewriter {
+                    color: #ff6b4a;
+                    font-size: clamp(1.2rem, 4vw, 1.8rem);
+                    font-weight: 600;
+                    font-family: 'Courier New', monospace;
+                    position: relative;
+                    width: max-content;
+                    margin: 0 auto;
+                    opacity: 0;
+                    animation: fadeIn 0.5s forwards;
+                    animation-delay: 1.5s;
+                  }
+
+                  .typewriter::after {
+                    content: '|';
+                    position: absolute;
+                    right: -8px;
+                    width: 8px;
+                    color: #ff6b4a;
+                    animation: blink 0.75s step-end infinite;
+                  }
+
+                  /* Animasyonlar */
+                  @keyframes fadeInBg {
+                    from { opacity: 0; }
+                    to { opacity: 0.4; }
+                  }
+
+                  @keyframes rise {
+                    0% {
+                      transform: translateY(100vh) scale(0);
+                      opacity: 1;
+                    }
+                    60% {
+                      opacity: 1;
+                    }
+                    100% {
+                      transform: translateY(-20vh) scale(1);
+                      opacity: 0;
+                    }
+                  }
+
+                  @keyframes glow {
+                    0% {
+                      filter: blur(60px) brightness(1);
+                    }
+                    50% {
+                      filter: blur(60px) brightness(1.3);
+                    }
+                    100% {
+                      filter: blur(60px) brightness(1);
+                    }
+                  }
+
+                  @keyframes popIn {
+                    0% {
+                      opacity: 0;
+                      transform: scale(0.9);
+                    }
+                    50% {
+                      opacity: 1;
+                      transform: scale(1.05);
+                    }
+                    100% {
+                      opacity: 1;
+                      transform: scale(1);
+                    }
+                  }
+
+                  @keyframes slideUpFade {
+                    to {
+                      opacity: 1;
+                      transform: translateY(0);
+                    }
+                  }
+
+                  @keyframes blink {
+                    0%, 100% { opacity: 1; }
+                    50% { opacity: 0; }
+                  }
+
+                  /* Responsive Tasarım */
+                  @media (max-width: 768px) {
+                    .start-page {
+                      padding: 1rem;
+                    }
+                    
+                    .title-block {
+                      padding: 1.5rem;
+                    }
+
+                    .volcanic-bg {
+                      background: 
+                        radial-gradient(circle at 50% 150%, #ff4d4d 0%, transparent 45%),
+                        radial-gradient(circle at 30% 100%, #ff8533 0%, transparent 55%),
+                        radial-gradient(circle at 70% 100%, #ff6600 0%, transparent 55%);
+                    }
+
+                    .particle {
+                      width: 3px;
+                      height: 3px;
+                    }
+                  }
+
+                  @media (max-width: 480px) {
+                    .title-block {
+                      padding: 1rem;
+                    }
+
+                    .typewriter {
+                      font-size: 1.1rem;
+                    }
+
+                    .particle {
+                      width: 2px;
+                      height: 2px;
+                    }
+                  }
+
+                  /* Performans İyileştirmeleri */
+                  @media (prefers-reduced-motion: reduce) {
+                    .volcanic-bg,
+                    .particle,
+                    .title-block,
+                    .title-block h2,
+                    .typewriter {
+                      animation: none;
+                      opacity: 1;
+                      transform: none;
+                    }
+                  }
+                </style>
+
+                <div class="volcanic-bg"></div>
+                <script>
+                  // Parçacık efekti oluşturma
+                  function createParticles() {
+                    const section = document.querySelector('.start-page');
+                    for (let i = 0; i < 50; i++) {
+                      const particle = document.createElement('div');
+                      particle.className = 'particle';
+                      particle.style.left = Math.random() * 100 + '%';
+                      particle.style.animationDelay = Math.random() * 3 + 's';
+                      section.appendChild(particle);
+                    }
+                  }
+
+                  // Daktilo efekti
+                  function typeWriter(element, text, i = 0) {
+                    if (i === 0) {
+                      element.textContent = '';
+                      element.style.opacity = '1';
+                    }
+                    
+                    if (i < text.length) {
+                      element.textContent += text.charAt(i);
+                      setTimeout(() => typeWriter(element, text, i + 1), 100);
+                    }
+                  }
+
+                  // Sayfa yüklendiğinde
+                  document.addEventListener('DOMContentLoaded', () => {
+                    createParticles();
+                    
+                    const titles = ['Computer Engineer', 'Full-Stack Developer'];
+                    let currentTitle = 0;
+                    
+                    function updateTitle() {
+                      const element = document.querySelector('.typewriter');
+                      typeWriter(element, titles[currentTitle]);
+                      currentTitle = (currentTitle + 1) % titles.length;
+                    }
+
+                    updateTitle();
+                    setInterval(updateTitle, 4000);
+                  });
+                </script>
+
+                <div class="section-content vcentered">
+                  <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                      <div class="title-block">
+                        <h2 class="dynamic-text">BARAN ÇELİK</h2>
+                        <div class="typewriter"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+              <!-- End of Home Subpage -->
+
+              <!-- About Me Subpage -->
+              <section data-id="about-me" class="animated-section">
+                <div class="page-title">
+                  <h2>About <span>Me</span></h2>
+                </div>
+
+                <div class="section-content">
+                  <!-- Personal Information -->
+                  <div class="row">
+                    <div class="col-xs-12 col-sm-7">
+                      <p><%= settings.about %></p>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-5">
+                      <div class="info-list">
+                        <ul>
+                          <li>
+                            <span class="title">Age</span>
+                            <span class="value"><%= settings.age %></span>
+                          </li>
+
+                          <li>
+                            <span class="title">Residence</span>
+                            <span class="value">TÜRKİYE</span>
+                          </li>
+
+                          <li>
+                            <span class="title">Address</span>
+                            <span class="value"><%= settings.address %></span>
+                          </li>
+
+                          <li>
+                            <span class="title">e-mail</span>
+                            <span class="value"><a href="mailto:<%= settings.mail %>>" class="__cf_email__" data-cfemail="3f5a525e56537f5a475e524f535a115c5052">[email&#160;protected]</a></span>
+                          </li>
+
+                          <li>
+                            <span class="title">Phone</span>
+                        <h4><a href="tel:<%= settings.tel %>" class="__cf_phone__" data-cfphone="c0a1aca5b880a5b8a1adb0aca5eea3afad">[phone&#160;protected]</a></h4>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- End of Personal Information -->
+
+                  <div class="white-space-50"></div>
+
+                  <!-- Services -->
+                  <div class="row">
+                    <div class="col-xs-12 col-sm-12">
+                      <div class="block-title">
+                        <h3>What <span>I Do</span></h3>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-xs-12 col-sm-6">
+                      <div class="col-inner">
+                        <div class="info-list-w-icon">
+
+                          <div class="info-block-w-icon">
+                            <div class="ci-icon">
+                              <i class="lnr lnr-code"></i>
+                            </div>
+                            <div class="ci-text">
+                              <h4>Web & Backend</h4>
+                              <p>Developing modern web applications using Node.js, ExpressJS, EJS, and PostgreSQL. Experienced in database design and management with Sequelize ORM.</p>
+                            </div>
+                          </div>
+
+                          <div class="info-block-w-icon">
+                            <div class="ci-icon">
+                              <i class="lnr lnr-cart"></i>
+                            </div>
+                            <div class="ci-text">
+                              <h4>E-Commerce & Payment Systems</h4>
+                              <p>Implementing secure and scalable payment solutions using Shopier, Iyzico, and Papara APIs.</p>
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-6">
+                      <div class="col-inner">
+                        <div class="info-list-w-icon">
+
+                          <div class="info-block-w-icon">
+                            <div class="ci-icon">
+                              <i class="lnr lnr-laptop-phone"></i>
+                            </div>
+                            <div class="ci-text">
+                              <h4>3D Modeling & Three.js</h4>
+                              <p>Creating 3D models from images and delivering interactive 3D web experiences using Three.js. Experience in ML-assisted projects.</p>
+                            </div>
+                          </div>
+
+                          <div class="info-block-w-icon">
+                            <div class="ci-icon">
+                              <i class="lnr lnr-pie-chart"></i>
+                            </div>
+                            <div class="ci-text">
+                              <h4>Python & Data Science</h4>
+                              <p>Developing data analysis, machine learning, and modeling projects using Python, Numpy, Pandas, Scikit-learn, and Plotly.</p>
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </section>
+              <!-- End of About Me Subpage -->
+
+              <!-- Resume Subpage -->
+              <section data-id="resume" class="animated-section reveal">
+                <div class="page-title">
+                  <h2>Resume</h2>
+                </div>
+
+                <div class="section-content">
+
+                  <div class="row">
+                    <div class="col-xs-12 col-sm-7">
+
+                      <div class="block-title">
+                        <h3>Education</h3>
+                      </div>
+                      
+                      <div class="timeline timeline-second-style clearfix">
+
+                        <div class="timeline-item clearfix">
+                          <div class="left-part">
+                            <h5 class="item-period">2022 – Present</h5>
+                            <span class="item-company">Alanya Alaaddin Keykubat University (ALKÜ)</span>
+                          </div>
+                          <div class="divider"></div>
+                          <div class="right-part">
+                            <h4 class="item-title">BSc Computer Engineering</h4>
+                            <p>Undergraduate student focusing on software development, data structures, and systems programming.</p>
+                          </div>
+                        </div>
+
+                        <div class="timeline-item clearfix">
+                          <div class="left-part">
+                            <h5 class="item-period">2018 – 2022</h5>
+                            <span class="item-company">Science High School</span>
+                          </div>
+                          <div class="divider"></div>
+                          <div class="right-part">
+                            <h4 class="item-title">High School Diploma</h4>
+                            <p>Science-oriented curriculum with active participation in competitions and student communities.</p>
+                          </div>
+                        </div>
+
+                      </div>
+
+                      <div class="white-space-50"></div>
+
+                      <div class="block-title">
+                        <h3>Experience</h3>
+                      </div>
+
+                      <div class="timeline timeline-second-style clearfix">
+
+                        <div class="timeline-item clearfix">
+                          <div class="left-part">
+                            <h5 class="item-period">2025 – Present</h5>
+                            <span class="item-company">Notoryum.site</span>
+                          </div>
+                          <div class="divider"></div>
+                          <div class="right-part">
+                            <h4 class="item-title">Founder & Backend Developer</h4>
+                            <p>Marketplace for university notes — responsible for backend development, payment integrations, file management, and messaging system.</p>
+                          </div>
+                        </div>
+
+                        <div class="timeline-item clearfix">
+                          <div class="left-part">
+                            <h5 class="item-period">2024 – 2025</h5>
+                            <span class="item-company">KasliTravelAgency.com</span>
+                          </div>
+                          <div class="divider"></div>
+                          <div class="right-part">
+                            <h4 class="item-title">Frontend / Full-stack Developer</h4>
+                            <p>Developed and maintained travel agency website; delivered source code and assisted with design integration.</p>
+                          </div>
+                        </div>
+
+                        <div class="timeline-item clearfix">
+                          <div class="left-part">
+                            <h5 class="item-period">2023</h5>
+                            <span class="item-company">BCEChat (bcechat.wuaze.com)</span>
+                          </div>
+                          <div class="divider"></div>
+                          <div class="right-part">
+                            <h4 class="item-title">Founder & Backend Developer</h4>
+                            <p>Lightweight chat platform built with PHP and JavaScript.</p>
+                          </div>
+                        </div>
+
+                        <div class="timeline-item clearfix">
+                          <div class="left-part">
+                            <h5 class="item-period">2022 – Present (Volunteer)</h5>
+                            <span class="item-company">Morphosium Software</span>
+                          </div>
+                          <div class="divider"></div>
+                          <div class="right-part">
+                            <h4 class="item-title">Volunteer Intern</h4>
+                            <p>Contributed to production projects with backend and frontend support; gained experience in teamwork and project management.</p>
+                          </div>
+                        </div>
+
+                        <div class="timeline-item clearfix">
+                          <div class="left-part">
+                            <h5 class="item-period">2021 – 2022</h5>
+                            <span class="item-company">TÜBİTAK & TEKNOFEST Projects</span>
+                          </div>
+                          <div class="divider"></div>
+                          <div class="right-part">
+                            <h4 class="item-title">Team Lead & Project Developer</h4>
+                            <p>Designed and led competition projects, managed teams, and developed prototypes.</p>
+                          </div>
+                        </div>
+
+                      </div>
+
+                    </div>
+
+                    <!-- Skills & Certificates -->
+                    <div class="col-xs-12 col-sm-5">
+                      <!-- Design Skills -->
+                      <div class="block-title">
+                        <h3>Design <span>Skills</span></h3>
+                      </div>
+
+                      <div class="skills-info skills-second-style">
+                        <div class="skill clearfix">
+                          <h4>Web Design</h4>
+                          <div class="skill-value">95%</div>
+                        </div>
+                        <div class="skill-container skill-1">
+                          <div class="skill-percentage" style="width:95%"></div>
+                        </div>
+
+                        <div class="skill clearfix">
+                          <h4>Graphic Design</h4>
+                          <div class="skill-value">85%</div>
+                        </div>
+                        <div class="skill-container skill-4">
+                          <div class="skill-percentage" style="width:85%"></div>
+                        </div>
+
+                        <div class="skill clearfix">
+                          <h4>UI / UX</h4>
+                          <div class="skill-value">80%</div>
+                        </div>
+                        <div class="skill-container skill-3">
+                          <div class="skill-percentage" style="width:80%"></div>
+                        </div>
+                      </div>
+                      <!-- End of Design Skills -->
+
+                      <div class="white-space-10"></div>
+
+                      <!-- Coding Skills -->
+                      <div class="block-title">
+                        <h3>Coding <span>Skills</span></h3>
+                      </div>
+
+                      <div class="skills-info skills-second-style">
+                        <div class="skill clearfix">
+                          <h4>JavaScript (ES6+ / Node.js / ExpressJS )</h4>
+                          <div class="skill-value">95%</div>
+                        </div>
+                        <div class="skill-container skill-5">
+                          <div class="skill-percentage" style="width:95%"></div>
+                        </div>
+
+                        <div class="skill clearfix">
+                          <h4>PHP</h4>
+                          <div class="skill-value">85%</div>
+                        </div>
+                        <div class="skill-container skill-6">
+                          <div class="skill-percentage" style="width:85%"></div>
+                        </div>
+
+                        <div class="skill clearfix">
+                          <h4>HTML / CSS</h4>
+                          <div class="skill-value">100%</div>
+                        </div>
+                        <div class="skill-container skill-7">
+                          <div class="skill-percentage" style="width:100%"></div>
+                        </div>
+
+                        <div class="skill clearfix">
+                          <h4>Python (NumPy, Pandas, scikit-learn)</h4>
+                          <div class="skill-value">80%</div>
+                        </div>
+                        <div class="skill-container skill-8">
+                          <div class="skill-percentage" style="width:80%"></div>
+                        </div>
+
+                        <div class="skill clearfix">
+                          <h4>Databases (MySQL / PostgreSQL)</h4>
+                          <div class="skill-value">85%</div>
+                        </div>
+                        <div class="skill-container skill-9">
+                          <div class="skill-percentage" style="width:85%"></div>
+                        </div>
+                      </div>
+                      <!-- End of Coding Skills -->
+
+                      <div class="white-space-10"></div>
+
+                      <!-- Knowledges -->
+                      <div class="block-title">
+                        <h3>Knowledge & Extras</h3>
+                      </div>
+
+                      <ul class="knowledges">
+                        <li>Python (NumPy, Pandas, scikit-learn, Matplotlib)</li>
+                        <li>Node.js, Express.js, EJS</li>
+                        <li>PHP, MySQL, PostgreSQL, Sequelize</li>
+                        <li>HTML5 & CSS3, JavaScript (ES6+)</li>
+                        <li>Git & GitHub</li>
+                        <li>Team management & Project leadership</li>
+                        <li>English (B2)</li>
+                        <li>CMAS 1-Star Diver</li>
+                      </ul>
+                      <!-- End of Knowledges -->
+                    </div>
+                    <!-- End of Skills & Certificates -->
+                  </div>
+
+                  <div class="white-space-50"></div>
+
+                  <!-- Certificates -->
+                  <div class="row">
+                    <div class="col-xs-12 col-sm-12">
+                      <div class="block-title">
+                        <h3>Certificates</h3>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="row">
+                    <% if (certificas && certificas.length > 0) { %>
+                      <% certificas.forEach(certifica => { %>
+                        <div class="col-xs-12 col-sm-6">
+                          <div class="certificate-item clearfix">
+                            <div class="certi-logo">
+                              <img src="img/clients/client-1.png" alt="<%= certifica.title %>">
+                            </div>
+                            
+                            <div class="certi-content">
+                              <div class="certi-title">
+                                <h4><%= certifica.title %></h4>
+                              </div>
+                              <div class="certi-id">
+                                <span><%= certifica.description %></span>
+                              </div>
+
+                              <div class="certi-company">
+                                <% if(certifica.pdf){ %>
+                                  <span><a href="<%= certifica.pdf %>" target="_blank">View Certificate (PDF)</a></span>
+                                <% } else { %>
+                                  <span>No PDF Available</span>
+                                <% } %>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      <% }) %>
+                    <% } else { %>
+                      <div class="col-12">
+                        <p>No certificates available.</p>
+                      </div>
+                    <% } %>
+                  </div>
+
+
+
+                </div>
+              </section>
+              <!-- End of Resume Subpage -->
+
+              <!-- Projects Subpage (Scoped: #projects-module) -->
+              <section id="projects-module" data-id="project" class="animated-section">
+                <style>
+                  /* Scoped variables & styles for projects only */
+                  #projects-module {
+                    --pm-bg: #ffffff;
+                    --pm-muted: #6b7280;
+                    --pm-accent: #06b6d4;
+                    --pm-accent-2: #0ea5a4;
+                    --pm-shadow: 0 12px 30px rgba(16,24,40,0.08);
+                    --pm-radius: 12px;
+                    --pm-gap: 1.5rem;
+                    padding: 1.25rem;
+                  }
+
+                  /* Container */
+                  #projects-module .page-title { margin-bottom: 1rem; }
+                  #projects-module .page-title h2 { margin:0; font-size:1.6rem; letter-spacing: -0.2px; }
+
+                  #projects-module .projects-grid{
+                    display:flex;
+                    flex-wrap:wrap;
+                    gap:var(--pm-gap);
+                    justify-content:center;
+                    align-items:flex-start;
+                    margin: 1rem 0;
+                  }
+
+                  /* Card (scoped) */
+                  #projects-module .project-card{
+                    background:var(--pm-bg);
+                    border-radius:var(--pm-radius);
+                    overflow:hidden;
+                    box-shadow: var(--pm-shadow);
+                    transition: transform .28s cubic-bezier(.2,.9,.3,1), box-shadow .28s;
+                    display:flex;
+                    flex-direction:column;
+                    border: 1px solid rgba(15,23,36,0.06);
+                    flex: 1 1 calc(33.333% - var(--pm-gap));
+                    max-width: calc(33.333% - var(--pm-gap));
+                    min-width: 260px;
+                    position: relative;
+                  }
+
+                  /* Image */
+                  #projects-module .project-card img{
+                    width:100%;
+                    height:200px;
+                    object-fit:cover;
+                    display:block;
+                    transition: transform .5s ease;
+                    background: linear-gradient(90deg,#eef2f7,#f7fbfc);
+                  }
+
+                  /* Card body */
+                  #projects-module .card-body{
+                    padding: 1rem;
+                    display:flex;
+                    flex-direction:column;
+                    gap:0.6rem;
+                    min-height: 140px;
+                  }
+
+                  #projects-module .card-body h3{
+                    margin:0;
+                    font-size:1.05rem;
+                    line-height:1.2;
+                    color:#0b1220;
+                    font-weight:600;
+                  }
+
+                  #projects-module .card-body p{
+                    margin: 0;
+                    color: var(--pm-muted);
+                    font-size: 0.95rem;
+                    line-height: 1.45;
+                    position: relative;
+                    overflow: hidden;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 3;
+                    line-clamp: 3;
+                    -webkit-box-orient: vertical;
+                    transition: all 0.3s ease;
+                  }
+
+                  #projects-module .project-card:hover .card-body p {
+                    -webkit-line-clamp: unset;
+                    line-clamp: unset;
+                    max-height: none;
+                  }
+
+                  #projects-module .card-body {
+                    position: relative;
+                    z-index: 1;
+                    background: var(--pm-bg);
+                  }
+
+                  /* Buttons */
+                  #projects-module .link-btn{
+                    display:inline-block;
+                    margin-top:0.5rem;
+                    padding:0.45rem 0.75rem;
+                    border-radius:8px;
+                    background: linear-gradient(90deg, var(--pm-accent), var(--pm-accent-2));
+                    color:white;
+                    text-decoration:none;
+                    font-weight:600;
+                    font-size:0.9rem;
+                    box-shadow: 0 6px 18px rgba(6,182,212,0.14);
+                    transition: transform .18s, box-shadow .18s, opacity .18s;
+                  }
+
+                  #projects-module .link-btn:focus,
+                  #projects-module .link-btn:hover{
+                    transform: translateY(-4px);
+                    box-shadow: 0 10px 30px rgba(6,182,212,0.18);
+                    opacity:0.98;
+                  }
+
+                  /* Secondary button style when adjacent */
+                  #projects-module .card-body .link-btn + .link-btn{
+                    margin-left:0.6rem;
+                    background:transparent;
+                    color:var(--pm-accent-2);
+                    border: 1px solid rgba(14,165,164,0.12);
+                    box-shadow:none;
+                  }
+
+                  /* Hover / image zoom */
+                  #projects-module .project-card:hover{
+                    transform: translateY(-8px) scale(1.01);
+                    box-shadow: 0 18px 50px rgba(10,20,30,0.12);
+                  }
+                  #projects-module .project-card:hover img{
+                    transform: scale(1.06);
+                  }
+
+                  /* Category badge */
+                  #projects-module .badge{
+                    position:absolute;
+                    top:12px;
+                    left:12px;
+                    background: rgba(0,0,0,0.6);
+                    color:#fff;
+                    padding:6px 10px;
+                    border-radius:999px;
+                    font-size:0.8rem;
+                    font-weight:600;
+                    backdrop-filter: blur(4px);
+                  }
+
+                  /* Keep actions at bottom */
+                  #projects-module .card-body{ flex:1 1 auto; }
+                  #projects-module .card-body .actions{ margin-top:auto; display:flex; gap:0.5rem; flex-wrap:wrap; }
+
+                  /* Responsive */
+                  @media (max-width: 1024px){
+                    #projects-module .project-card{
+                      flex: 1 1 calc(50% - var(--pm-gap));
+                      max-width: calc(50% - var(--pm-gap));
+                    }
+                    #projects-module .project-card img{ height:180px; }
+                  }
+                  @media (max-width: 640px){
+                    #projects-module .projects-grid{ gap:1rem; }
+                    #projects-module .project-card{
+                      flex: 1 1 100%;
+                      max-width: 720px;
+                    }
+                    #projects-module .project-card img{ height:160px; }
+                    #projects-module .card-body h3{ font-size:1rem; }
+                  }
+
+                  /* Accessibility */
+                  #projects-module .project-card:focus-within{
+                    outline: 3px solid rgba(6,182,212,0.12);
+                    outline-offset: 4px;
+                  }
+                </style>
+
+                <div class="page-title">
+                  <h2>Projects</h2>
+                </div>
+
+                <div class="section-content">
+                  <div class="portfolio-content" role="region" aria-label="Projects">
+                    <div class="projects-grid" role="list">
+                      <% if (projects && projects.length) { %>
+                        <% projects.forEach(project => { %>
+                          <article class="card project-card" data-group="<%= project.category %>" role="listitem" aria-labelledby="proj-<%= project.id %>">
+                            <% if (project.category) { %>
+                              <div class="badge"><%= project.category %></div>
+                            <% } %>
+
+                            <% /* image fallback: if no img_url, you can show a placeholder (optional) */ %>
+                            <% if (project.img_url) { %>
+                              <img src="<%= project.img_url %>" alt="<%= project.project_title %>" loading="lazy">
+                            <% } else { %>
+                              <div style="width:100%;height:200px;display:flex;align-items:center;justify-content:center;background:#f5f7fb;color:#9aa4b2;font-weight:600;">
+                                No image
+                              </div>
+                            <% } %>
+
+                            <div class="card-body">
+                              <h3 id="proj-<%= project.id %>"><%= project.project_title %></h3>
+                              <p><%= project.project_description %></p>
+
+                              <div class="actions">
+                                <% if (project.link) { %>
+                                  <a href="<%= project.link %>" class="link-btn" target="_blank" rel="noopener">Visit Project</a>
+                                <% } %>
+                                <% if (project.repo_link) { %>
+                                  <a href="<%= project.repo_link %>" class="link-btn" target="_blank" rel="noopener">View Repo</a>
+                                <% } %>
+                              </div>
+                            </div>
+                          </article>
+                        <% }) %>
+                      <% } else { %>
+                        <p style="text-align:center;color:#6b7280;padding:2rem 0;">No projects found.</p>
+                      <% } %>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+
+              <!-- End of Portfolio Subpage -->
+
+              <!-- Blog Subpage -->
+              <section id="blogs-module" data-id="blog" class="animated-section">
+                <style>
+                  /* Modern Blog Styles */
+                  #blogs-module {
+                    --blog-primary: #06b6d4;
+                    --blog-secondary: #0ea5a4;
+                    --blog-bg: #ffffff;
+                    --blog-text: #0f172a;
+                    --blog-muted: #64748b;
+                    --blog-border: #e2e8f0;
+                    padding: 1.25rem;
+                  }
+
+                  #blogs-module .page-title {
+                    margin-bottom: 1rem;
+                  }
+
+                  #blogs-module .page-title h2 {
+                    margin: 0;
+                    font-size: 1.6rem;
+                    letter-spacing: -0.2px;
+                    color: var(--blog-text);
+                  }
+
+                  #blogs-module .posts-grid {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 1.5rem;
+                    justify-content: center;
+                    align-items: flex-start;
+                    margin: 1rem 0;
+                  }
+
+                  #blogs-module .post-card {
+                    background: var(--blog-bg);
+                    border-radius: 12px;
+                    overflow: hidden;
+                    box-shadow: 0 12px 30px rgba(16,24,40,0.08);
+                    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+                    display: flex;
+                    flex-direction: column;
+                    border: 1px solid rgba(15,23,36,0.06);
+                    flex: 1 1 calc(33.333% - 1.5rem);
+                    max-width: calc(33.333% - 1.5rem);
+                    min-width: 260px;
+                    position: relative;
+                    cursor: pointer;
+                    transform-origin: center center;
+                    min-height: 400px;
+                  }
+
+                  #blogs-module .post-card:hover {
+                    height: auto;
+                    min-height: 400px;
+                    z-index: 1;
+                  }
+
+                  #blogs-module .post-card::after {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 12px;
+                    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+                    opacity: 0;
+                    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+                    z-index: -1;
+                  }
+
+                  #blogs-module .post-card:hover,
+                  #blogs-module .post-card:focus-within {
+                    transform: scale(1.03);
+                    box-shadow: 0 20px 40px rgba(10,20,30,0.2);
+                  }
+
+                  #blogs-module .post-card:hover::after,
+                  #blogs-module .post-card:focus-within::after {
+                    opacity: 1;
+                  }
+
+                  #blogs-module .post-card img {
+                    width: 100%;
+                    height: 180px;
+                    object-fit: cover;
+                    display: block;
+                    transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+                    background: linear-gradient(90deg,#eef2f7,#f7fbfc);
+                  }
+
+                  #blogs-module .post-card:hover img,
+                  #blogs-module .post-card:focus-within img {
+                    transform: scale(1.08);
+                  }
+
+                  /* Hover efekti için ek animasyonlar */
+                  #blogs-module .card-body {
+                    transition: transform 0.3s ease;
+                  }
+
+                  #blogs-module .post-card:hover .card-body h3,
+                  #blogs-module .post-card:focus-within .card-body h3 {
+                    color: var(--blog-primary);
+                  }
+
+                  #blogs-module .link-btn {
+                    position: relative;
+                    overflow: hidden;
+                  }
+
+                  #blogs-module .link-btn::after {
+                    content: '';
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(255,255,255,0.1);
+                    transform: translateY(100%);
+                    transition: transform 0.3s ease;
+                  }
+
+                  #blogs-module .post-card:hover .link-btn::after {
+                    transform: translateY(0);
+                  }
+
+                  #blogs-module .card-body {
+                    padding: 1rem;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.6rem;
+                    min-height: 140px;
+                  }
+
+                  #blogs-module .post-meta {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    color: var(--blog-muted);
+                    font-size: 0.8rem;
+                  }
+
+                  #blogs-module .card-body h3 {
+                    margin: 0;
+                    font-size: 1.05rem;
+                    line-height: 1.2;
+                    color: var(--blog-text);
+                    font-weight: 600;
+                  }
+
+                  #blogs-module .card-body p {
+                    margin: 0;
+                    color: var(--blog-muted);
+                    font-size: 0.95rem;
+                    line-height: 1.45;
+                    position: relative;
+                    overflow: hidden;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 3;
+                    line-clamp: 3;
+                    -webkit-box-orient: vertical;
+                    transition: all 0.3s ease;
+                  }
+
+                  #blogs-module .post-card:hover .card-body p {
+                    -webkit-line-clamp: unset;
+                    line-clamp: unset;
+                    max-height: none;
+                  }
+
+                  #blogs-module .card-body {
+                    display: flex;
+                    flex-direction: column;
+                    height: 100%;
+                    transition: all 0.3s ease;
+                  }
+
+                  #blogs-module .post-card:hover .card-body {
+                    transform: translateY(0);
+                    background: var(--blog-bg);
+                  }
+
+                  #blogs-module .post-card {
+                    height: auto;
+                    display: flex;
+                    flex-direction: column;
+                  }
+
+                  #blogs-module .actions {
+                    margin-top: auto;
+                    padding-top: 1rem;
+                  }
+
+                  #blogs-module .actions {
+                    margin-top: auto;
+                    display: flex;
+                    gap: 0.5rem;
+                    flex-wrap: wrap;
+                  }
+
+                  #blogs-module .link-btn {
+                    display: inline-block;
+                    margin-top: 0.5rem;
+                    padding: 0.45rem 0.75rem;
+                    border-radius: 8px;
+                    background: linear-gradient(90deg, var(--blog-primary), var(--blog-secondary));
+                    color: white;
+                    text-decoration: none;
+                    font-weight: 600;
+                    font-size: 0.9rem;
+                    box-shadow: 0 6px 18px rgba(6,182,212,0.14);
+                    transition: transform .18s, box-shadow .18s, opacity .18s;
+                  }
+
+                  #blogs-module .link-btn:hover {
+                    transform: translateY(-4px);
+                    box-shadow: 0 10px 30px rgba(6,182,212,0.18);
+                    opacity: 0.98;
+                  }
+
+                  @media (max-width: 1024px) {
+                    #blogs-module .post-card {
+                      flex: 1 1 calc(50% - 1.5rem);
+                      max-width: calc(50% - 1.5rem);
+                    }
+                    #blogs-module .post-card img { height: 160px; }
+                  }
+
+                  @media (max-width: 640px) {
+                    #blogs-module .posts-grid { gap: 1rem; }
+                    #blogs-module .post-card {
+                      flex: 1 1 100%;
+                      max-width: 720px;
+                    }
+                    #blogs-module .post-card img { height: 140px; }
+                    #blogs-module .card-body h3 { font-size: 1rem; }
+                  }
+                </style>
+
+                <div class="page-title">
+                  <h2>Latest Blog Posts</h2>
+                </div>
+
+                <div class="section-content">
+                  <div class="portfolio-content" role="region" aria-label="Blog posts">
+                    <div class="posts-grid" role="list">
+                      <% if (posts && posts.length) { %>
+                        <% 
+                          // Iterate and only render published posts.
+                          for (let i = 0; i < posts.length; i++) { 
+                            const post = posts[i];
+                            const isPublished = (post.published === true || post.published === 1 || post.published === '1');
+                            if (!isPublished) continue;
+                        %>
+                          <article class="post-card" role="listitem" aria-labelledby="post-<%= post.id %>">
+
+
+                            <% if (post.image_url) { %>
+                              <img src="<%= post.image_url %>" alt="<%= post.title %>" loading="lazy">
+                            <% } else { %>
+                              <div style="width:100%;height:180px;display:flex;align-items:center;justify-content:center;background:#f8fafc;color:#94a3b8;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                  <rect x="3" y="3" width="18" height="18" rx="2"/>
+                                  <circle cx="8.5" cy="8.5" r="1.5"/>
+                                  <path d="M20.4 14.5L16 10 4 20"/>
+                                </svg>
+                              </div>
+                            <% } %>
+
+                            <div class="card-body">
+                              <div class="post-meta">
+                                <span><%= new Date(post.createdAt).toLocaleDateString('tr-TR', { day: 'numeric', month: 'long' }) %></span>
+                                <% if (post.readTime) { %>
+                                  <span>•</span>
+                                  <span><%= post.readTime %> dk okuma</span>
+                                <% } %>
+                              </div>
+                              
+                              <h3 id="post-<%= post.id %>"><%= post.title %></h3>
+                              <p><%= post.summary || (post.content ? post.content.substring(0, 120) + '...' : '') %></p>
+
+                              <div class="actions">
+                                <a id="read-<%= post.id %>" href="/blog/<%= post.slug ? post.slug : post.id %>" class="link-btn" rel="noopener">
+                                  Devamını Oku
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                                  </svg>
+                                </a>
+                              </div>
+                            </div>
+                          </article>
+                        <% } %>
+                      <% } else { %>
+                        <div style="text-align:center;padding:2rem 0;color:var(--blog-muted);">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-bottom:0.5rem">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2V8l-6-6z"/>
+                            <path d="M14 3v5h5M16 13H8M16 17H8M10 9H8"/>
+                          </svg>
+                          <p style="margin:0;font-size:0.95rem;">Henüz blog yazısı yok</p>
+                        </div>
+                      <% } %>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+
+
+              <!-- End of Blog Subpage -->
+
+              <!-- Contact Subpage -->
+              <section data-id="contact" class="animated-section">
+                <div class="page-title">
+                  <h2>Contact</h2>
+                </div>
+
+                <div class="section-content">
+
+                  <div class="row">
+                    <!-- Contact Info -->
+                    <div class="col-xs-12 col-sm-4">
+                      <div class="lm-info-block gray-default">
+                        <i class="lnr lnr-map-marker"></i>
+                        <h4>TÜRKİYE</h4>
+                        <span class="lm-info-block-value"></span>
+                        <span class="lm-info-block-text"></span>
+                      </div>
+
+                      <div class="lm-info-block gray-default">
+                        <i class="lnr lnr-phone-handset"></i>
+                        <h4><a href="tel:+905510176065" class="__cf_phone__" data-cfphone="c0a1aca5b880a5b8a1adb0aca5eea3afad">[phone&#160;protected]</a></h4>
+                        <span class="lm-info-block-value"></span>
+                        <span class="lm-info-block-text"></span>
+                      </div>
+
+                      <div class="lm-info-block gray-default">
+                        <i class="lnr lnr-envelope"></i>
+                        <h4><a href="mailto:celikbaran4865@gmail.com" class="__cf_email__" data-cfemail="c0a1aca5b880a5b8a1adb0aca5eea3afad">[email&#160;protected]</a></h4>
+                        <span class="lm-info-block-value"></span>
+                        <span class="lm-info-block-text"></span>
+                      </div>
+
+                      <div class="lm-info-block gray-default">
+                        <i class="lnr lnr-checkmark-circle"></i>
+                        <h4>Freelance Available</h4>
+                        <span class="lm-info-block-value"></span>
+                        <span class="lm-info-block-text"></span>
+                      </div>
+
+
+                    </div>
+                    <!-- End of Contact Info -->
+
+                    <!-- Contact Form -->
+                    <div class="col-xs-12 col-sm-8">
+                      <div id="map" class="map">
+                        <div class="lmpixels-map">
+                          <iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d102101.70178596077!2d30.635704582761726!3d36.89804638418228!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14c39aaeddadadc1%3A0x95c69f73f9e32e33!2sAntalya!5e0!3m2!1str!2str!4v1758109947973!5m2!1str!2str">
+                          </iframe>
+                        </div>
+                      </div>
+
+                      <div class="block-title">
+                        <h3>How Can I <span>Help You?</span></h3>
+                      </div>
+
+                      <form action="/" method="post">
+                        <div class="messages"></div>
+
+                        <div class="controls two-columns">
+                          <div class="fields clearfix">
+                            <div class="left-column">
+                              <div class="form-group form-group-with-icon">
+                                <input id="form_name" type="text" name="name" class="form-control" placeholder="" required="required" data-error="Name is required.">
+                                <label>Full Name</label>
+                                <div class="form-control-border"></div>
+                                <div class="help-block with-errors"></div>
+                              </div>
+
+                              <div class="form-group form-group-with-icon">
+                                <input id="form_email" type="email" name="email" class="form-control" placeholder="" required="required" data-error="Valid email is required.">
+                                <label>Email Address</label>
+                                <div class="form-control-border"></div>
+                                <div class="help-block with-errors"></div>
+                              </div>
+
+                              <div class="form-group form-group-with-icon">
+                                <input id="form_subject" type="text" name="subject" class="form-control" placeholder="" required="required" data-error="Subject is required.">
+                                <label>Subject</label>
+                                <div class="form-control-border"></div>
+                                <div class="help-block with-errors"></div>
+                              </div>
+                            </div>
+
+                            <div class="right-column">
+                              <div class="form-group form-group-with-icon">
+                                <textarea id="form_message" name="message" class="form-control" placeholder="" rows="7" required="required" data-error="Please, leave me a message."></textarea>
+                                <label>Message</label>
+                                <div class="form-control-border"></div>
+                                <div class="help-block with-errors"></div>
+                              </div>
+                            </div>
+                          </div>
+
+
+
+                          <input type="submit" class="button btn-send" value="Send message">
+                        </div>
+                      </form>
+                    </div>
+
+                    <!-- End of Contact Form -->
+                  </div>
+
+                </div>
+              </section>
+              <!-- End of Contact Subpage -->
+            </div>
+          </div>
+
+      </div>
+    </div>
+
+    <script data-cfasync="false" src="../../../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="js/jquery-2.1.3.min.js"></script>
+    <script src="js/modernizr.custom.js"></script>
+    <script src="js/animating.js"></script>
+
+    <script src="js/imagesloaded.pkgd.min.js"></script>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+
+    <script src='js/perfect-scrollbar.min.js'></script>
+    <script src='js/jquery.shuffle.min.js'></script>
+    <script src='js/masonry.pkgd.min.js'></script>
+    <script src='js/owl.carousel.min.js'></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+
+    <script src="js/validator.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

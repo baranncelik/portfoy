@@ -1,0 +1,196 @@
+<%- include("../partials/topbar") %>
+<link rel="stylesheet" href="/css/auth.css">
+</head>
+<body>
+<%- include("../partials/navbar") %>
+
+<div class="page-content">
+    <div class="container">
+        <div class="content-wrapper">
+            <div class="content-card">
+                <h2 class="section-title">Yeni Sertifika Ekle</h2>
+                <form action="/admin/add-certifica" method="POST" enctype="multipart/form-data" class="form-container">
+                    <div class="form-group">
+                        <label for="title">Sertifika Başlığı</label>
+                        <input type="text" 
+                               id="title" 
+                               name="title" 
+                               class="form-control" 
+                               required 
+                               placeholder="Sertifika başlığını giriniz">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Açıklama</label>
+                        <textarea id="description" 
+                                  name="description" 
+                                  class="form-control" 
+                                  rows="4" 
+                                  required 
+                                  placeholder="Sertifika hakkında açıklama giriniz"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pdf">Sertifika PDF</label>
+                        <input type="file" 
+                               id="pdf" 
+                               name="pdf" 
+                               class="form-control" 
+                               accept=".pdf"
+                               required>
+                        <small class="form-text text-muted">Sadece PDF formatı kabul edilmektedir.</small>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Sertifika Ekle</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Sayfa arka planı beyaz ve form ortalı */
+body {
+    background-color: #ffffff;
+    margin: 0;
+}
+
+/* page-content'i tam ortalar (hem yatay hem dikey) */
+.page-content {
+    min-height: 100vh;               /* tüm ekran yüksekliği */
+    display: flex;
+    align-items: center;             /* dikey ortala */
+    justify-content: center;         /* yatay ortala */
+    padding: 80px 20px;              /* navbar için üst boşluk; gerekirse değiştir */
+    box-sizing: border-box;
+}
+
+/* Container daraltıldı, içeriği ortalar */
+.container {
+    width: 100%;
+    max-width: 1000px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Kart görünümü */
+.content-card {
+    background: #ffffff;             /* kart da beyaz */
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08); /* biraz daha belirgin gölge */
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* Başlık ve form düzeni (öncekiler korunuyor) */
+.section-title {
+    color: #333;
+    margin-bottom: 2rem;
+    text-align: center;
+    font-size: 1.8rem;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #444;
+    font-weight: 500;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+
+.form-control:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0,123,255,0.12);
+}
+
+textarea.form-control {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.form-text {
+    font-size: 0.875rem;
+    color: #666;
+    margin-top: 0.25rem;
+}
+
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+    margin-top: 2rem;
+}
+
+.btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+    text-decoration: none;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+/* Mobil düzenleme */
+@media (max-width: 768px) {
+    .content-card {
+        margin: 1rem;
+        padding: 1.5rem;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+</style>
+
+
+</body>
+</html>

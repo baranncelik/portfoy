@@ -1,0 +1,173 @@
+<%- include("../partials/topbar") %>
+
+
+  <style>
+
+
+    /* Main content */
+    .main{margin-left:var(--sidebar-width);padding:28px;min-height:100vh;transition:margin .25s}
+    .card{background:#fff;border-radius:12px;padding:20px;box-shadow:0 8px 30px rgba(2,6,23,0.06)}
+    .section-title{font-size:20px;font-weight:700;color:#0f172a;margin-bottom:6px}
+
+    /* small screen tweaks */
+    @media (max-width: 768px){
+      .topbar{display:flex}
+      .sidebar{transform:translateX(-110%);box-shadow:0 12px 30px rgba(2,6,23,0.12)}
+      .sidebar.open{transform:translateX(0)}
+      .main{margin-left:0;padding:84px 16px 24px}
+    }
+
+    /* helper */
+    .preview-img{max-height:140px;border-radius:8px;margin-top:10px;object-fit:cover;border:1px solid #e6e6e6}
+  </style>
+</head>
+<body>
+
+<%- include("../partials/navbar") %>
+
+
+  <!-- overlay (mobile) -->
+  <div id="overlay"></div>
+
+  <!-- Main -->
+  <main class="main">
+    <div class="max-w-4xl mx-auto">
+      <div class="card">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <div class="section-title">Yeni Proje Ekle</div>
+            <p class="text-sm text-gray-600">Proje kartında görünecek bilgileri buradan ekleyin.</p>
+          </div>
+          <div class="hidden sm:flex gap-2">
+            <a href="/#project" class="px-3 py-2 rounded-md text-sm border border-gray-200 hover:bg-gray-50">Projeleri Gör</a>
+          </div>
+        </div>
+
+        <!-- Form -->
+        <form action="/admin/add-project" method="POST" enctype="multipart/form-data">
+          <!-- Başlık -->
+          <div>
+            <label for="project_title" class="block text-sm font-semibold text-gray-700 mb-2">Proje Başlığı</label>
+            <input id="project_title" name="project_title" type="text" required
+                   class="w-full rounded-lg border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                   placeholder="Örn: Notoryum">
+          </div>
+
+          <!-- Açıklama -->
+          <div>
+            <label for="project_description" class="block text-sm font-semibold text-gray-700 mb-2">Açıklama</label>
+            <textarea id="project_description" name="project_description" rows="4"
+                      class="w-full rounded-lg border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      placeholder="Projenin kısa açıklaması..."></textarea>
+          </div>
+            <!-- Image File (Projects) -->
+            <div>
+            <label for="img_url" class="block text-sm font-semibold text-gray-700 mb-2">Proje Resim Yükle</label>
+            <input id="img_url" name="img_url" type="file" accept="image/*"
+                    class="w-full rounded-lg border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            
+            <!-- preview container -->
+            <% if (project && project.img_url) { %>
+                <div id="imgPreviewWrap" class="mt-2">
+                <img id="imgPreview" class="preview-img max-h-48 rounded-lg shadow" src="<%= project.img_url %>" alt="Preview">
+                </div>
+            <% } else { %>
+                <div id="imgPreviewWrap" class="mt-2 hidden">
+                <img id="imgPreview" class="preview-img max-h-48 rounded-lg shadow" src="" alt="Preview">
+                </div>
+            <% } %>
+            </div>
+
+          <!-- Project Link -->
+          <div>
+            <label for="link" class="block text-sm font-semibold text-gray-700 mb-2">Proje Linki (opsiyonel)</label>
+            <input id="link" name="link" type="url" placeholder="https://example.com"
+                   class="w-full rounded-lg border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+          </div>
+
+          <!-- Repo Link -->
+          <div>
+            <label for="repo_link" class="block text-sm font-semibold text-gray-700 mb-2">Repo Linki (opsiyonel)</label>
+            <input id="repo_link" name="repo_link" type="url" placeholder="https://github.com/kullanici/repo"
+                   class="w-full rounded-lg border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+          </div>
+
+          <!-- Buttons -->
+          <div class="flex items-center justify-between gap-4">
+            <button type="submit"
+                    class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-5 py-3 rounded-lg shadow-sm transition-transform transform hover:-translate-y-0.5">
+              + Projeyi Ekle
+            </button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Scripts -->
+  <script>
+    
+
+    /* Image preview from URL */
+    (function(){
+      const imgUrlInput = document.getElementById('img_url');
+      const previewWrap = document.getElementById('imgPreviewWrap');
+      const previewImg = document.getElementById('imgPreview');
+      const previewErr = document.getElementById('imgPreviewError');
+      let loadTimer = null;
+
+      function showPreview(url){
+        previewErr.classList.add('hidden');
+        previewImg.src = url;
+        previewImg.onload = () => {
+          clearTimeout(loadTimer);
+          previewWrap.classList.remove('hidden');
+          previewErr.classList.add('hidden');
+        };
+        previewImg.onerror = () => {
+          previewWrap.classList.remove('hidden');
+          previewErr.classList.remove('hidden');
+          previewImg.src = '';
+        };
+        // safety: if image load doesn't fire within 6s show error
+        loadTimer = setTimeout(()=>{
+          if(!previewImg.complete || previewImg.naturalWidth === 0){
+            previewWrap.classList.remove('hidden');
+            previewErr.classList.remove('hidden');
+            previewImg.src = '';
+          }
+        }, 6000);
+      }
+
+      function hidePreview(){
+        previewWrap.classList.add('hidden');
+        previewImg.src = '';
+        previewErr.classList.add('hidden');
+        if(loadTimer) { clearTimeout(loadTimer); loadTimer = null; }
+      }
+
+      imgUrlInput.addEventListener('input', (e)=>{
+        const url = e.target.value.trim();
+        if(!url){
+          hidePreview();
+          return;
+        }
+        // simple validation: must start with http(s) and contain a dot
+        if(/^https?:\/\/.+\.[a-z]{2,}/i.test(url)){
+          showPreview(url);
+        } else {
+          hidePreview();
+        }
+      });
+
+      // on page load, if there is a value (editing case) show preview
+      if(imgUrlInput.value && imgUrlInput.value.trim() !== '') {
+        const ev = new Event('input');
+        imgUrlInput.dispatchEvent(ev);
+      }
+    })();
+  </script>
+
+</body>
+</html>

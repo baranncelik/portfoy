@@ -1,0 +1,32 @@
+{
+  "name": "yunus-emre-yurdu",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "nodemon app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "axios": "^1.11.0",
+    "bcrypt": "^6.0.0",
+    "cookie": "^1.0.2",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-mysql-session": "^3.0.3",
+    "express-session": "^1.18.2",
+    "express-validator": "^7.2.1",
+    "multer": "^2.0.2",
+    "mysql": "^2.18.1",
+    "mysql2": "^3.14.3",
+    "node-fetch": "^3.3.2",
+    "nodemon": "^3.1.10",
+    "pg": "^8.16.3",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.7"
+  }
+}

@@ -1,0 +1,429 @@
+<%- include("../partials/topbar") %>
+
+<style>
+:root {
+  --primary-light: #f0f9ff;
+  --primary: #0ea5e9;
+  --primary-dark: #0369a1;
+  --gray-50: #f8fafc;
+  --gray-100: #f1f5f9;
+  --gray-200: #e2e8f0;
+  --gray-300: #cbd5e1;
+  --gray-400: #94a3b8;
+  --gray-500: #64748b;
+  --gray-600: #475569;
+  --gray-700: #334155;
+  --gray-800: #1e293b;
+  --danger-light: #fee2e2;
+  --danger: #ef4444;
+  --success: #22c55e;
+  --warning: #f59e0b;
+}
+
+/* ---------- Messages Dashboard ---------- */
+.messages-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  margin: 24px auto;
+  max-width: 1200px;
+}
+
+/* Header & Controls */
+.messages-card .card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--gray-100);
+}
+
+.messages-card .card-header h3 {
+  margin: 0;
+  font-size: 24px;
+  color: var(--gray-800);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.messages-card .card-header .controls {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.messages-card .card-header .controls .btn {
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  border: 1px solid var(--gray-200);
+  background: white;
+  color: var(--gray-600);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.messages-card .card-header .controls .btn:hover {
+  background: var(--gray-50);
+  border-color: var(--gray-300);
+  color: var(--gray-700);
+}
+
+/* Message List Container */
+.message-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-height: 70vh;
+  overflow: auto;
+  padding-right: 12px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--gray-300) transparent;
+}
+
+.message-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.message-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.message-list::-webkit-scrollbar-thumb {
+  background-color: var(--gray-300);
+  border-radius: 20px;
+}
+
+/* Message Item */
+.message {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 20px;
+  border-radius: 12px;
+  background: white;
+  border: 1px solid var(--gray-200);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.message:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.06);
+  border-color: var(--gray-300);
+}
+
+.message[data-unread="true"] {
+  background: var(--primary-light);
+  border-left: 4px solid var(--primary);
+}
+
+/* Avatar */
+.msg-avatar {
+  width: 52px;
+  height: 52px;
+  min-width: 52px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: white;
+  font-weight: 700;
+  font-size: 18px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+/* Content Area */
+.message-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.message-content .meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 4px;
+}
+
+.message-content .meta .from {
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--gray-800);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.message-content .meta .from small {
+  color: var(--gray-500);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.message-content .meta .time {
+  font-size: 14px;
+  color: var(--gray-500);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.message-content .subject {
+  font-weight: 600;
+  color: var(--gray-700);
+  margin: 4px 0;
+  font-size: 15px;
+}
+
+.message-content .preview {
+  color: var(--gray-600);
+  font-size: 14px;
+  line-height: 1.5;
+  margin-top: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+/* Status Indicators */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.status-badge.unread {
+  background: var(--primary-light);
+  color: var(--primary-dark);
+}
+
+.status-badge.read {
+  background: var(--gray-100);
+  color: var(--gray-600);
+}
+
+/* Action Buttons */
+.message-actions {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+  align-items: center;
+}
+
+.message-actions .btn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-read {
+  background: var(--primary);
+  color: white;
+}
+
+.btn-read:hover {
+  background: var(--primary-dark);
+}
+
+.btn-delete {
+  background: white;
+  color: var(--danger);
+  border: 1px solid var(--danger-light) !important;
+}
+
+.btn-delete:hover {
+  background: var(--danger-light);
+}
+
+/* Empty State */
+.message-empty {
+  text-align: center;
+  color: var(--gray-500);
+  padding: 48px 24px;
+  background: var(--gray-50);
+  border-radius: 12px;
+  border: 2px dashed var(--gray-200);
+}
+
+.message-empty svg {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 16px;
+  color: var(--gray-400);
+}
+
+/* Unread Counter Badge */
+.unread-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 8px;
+  border-radius: 12px;
+  background: var(--primary);
+  color: white;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .messages-card {
+    padding: 16px;
+    margin: 16px;
+    border-radius: 12px;
+  }
+
+  .message {
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .msg-avatar {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    font-size: 16px;
+  }
+
+  .message-content .meta {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .message-content .meta .time {
+    font-size: 13px;
+  }
+
+  .message-actions {
+    position: relative;
+    margin-top: 12px;
+    justify-content: flex-start;
+  }
+
+  .message-actions .btn {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+
+  .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .controls {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+/* Animations */
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.message {
+  animation: slideIn 0.3s ease-out;
+}
+
+</style>
+</head>
+<body>
+  <%- include("../partials/navbar") %>
+
+  <div id="overlay" aria-hidden="true"></div>
+
+  <main class="main">
+    <div class="messages-card card">
+      <% 
+        // okunmamış sayısı
+        let unreadCount = 0;
+        contacts.forEach(function(c){ if (!c.read) unreadCount++; });
+      %>
+
+      <div class="card-header">
+        <h3>Gelen Mesajlar <% if (unreadCount) { %><span class="unread-badge"><%= unreadCount %></span><% } %></h3>
+        <div class="controls">
+          <form action="/admin/messages" method="GET" style="display:inline;">
+            <button type="submit" class="btn" name="filter" value="unread">Sadece okunmamış</button>
+          </form>
+          <form action="/admin/messages" method="GET" style="display:inline;">
+            <button type="submit" class="btn" name="sort" value="new">En yeni</button>
+          </form>
+        </div>
+      </div>
+
+      <form action="/admin/messages" method="POST">
+        <% if (!contacts || contacts.length === 0) { %>
+          <div class="message-empty">Henüz bir mesaj yok.</div>
+        <% } else { %>
+          <div class="message-list">
+            <% contacts.forEach(function(msg) { 
+                 // avatar için isim başharfleri
+                 let initials = (msg.name || '').split(' ').map(s => s.charAt(0)).slice(0,2).join('').toUpperCase();
+                 // tarih gösterimi: varsa doğrudan göster, yoksa boş bırak
+                 let timeLabel = msg.createdAt || msg.date || '';
+            %>
+              <div class="message" data-id="<%= msg.id %>">
+                <div class="msg-avatar"><%= initials || '??' %></div>
+
+                <div class="message-content">
+                  <div class="meta">
+                    <div class="from">
+                      <%= msg.name %> 
+                      <small style="color:var(--muted);font-weight:600;margin-left:8px;">
+                        <a href="mailto:<%= msg.email %>"><%= msg.email %></a>
+                      </small>
+                    </div>
+                    <div class="time"><%= timeLabel %> <span style="margin-left:8px;color:var(--muted);font-weight:700;"><%= msg.read ? 'Okundu' : 'Okunmadı' %></span></div>
+                  </div>
+
+                  <div class="preview" style="max-width:720px;white-space:pre-wrap;word-break:break-word;"><%= msg.message %></div>
+                </div>
+
+                <div class="message-actions">
+                  <% if (!msg.read) { %>
+                    <button type="submit" name="action" value="read_<%= msg.id %>" class="btn btn-read">Okundu</button>
+                  <% } %>
+                  <button type="submit" name="action" value="delete_<%= msg.id %>" class="btn btn-delete" onclick="return confirm('Bu mesajı silmek istediğine emin misin?');">Sil</button>
+                </div>
+              </div>
+            <% }); %>
+          </div>
+        <% } %>
+      </form>
+
+    </div>
+  </main>
+</body>
+
+</html>
