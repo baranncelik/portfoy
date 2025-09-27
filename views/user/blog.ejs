@@ -128,7 +128,7 @@
       <!-- Hero Section with Image -->
 <div class="post-hero" style="margin: 0; position: relative; width: 100vw; overflow: hidden;">
   <% if (posts && posts.image_url) { %>
-    <div class="hero-image-container" style="position: relative; width: 100vw; height: 60vh; overflow: hidden;">
+    <div class="hero-image-container" style="position: relative; width: 100%; height: 40vh; overflow: hidden;">
       <img class="hero-image" src="<%= posts.image_url %>" alt="<%= posts.title || 'post image' %>" loading="lazy" 
            style="width: 100%; height: 100%; object-fit: cover; display: block;">
       <div class="hero-overlay" style="position: absolute; inset: 0; background: rgba(0,0,0,0.25);"></div>
