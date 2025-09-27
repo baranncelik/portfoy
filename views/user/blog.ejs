@@ -134,11 +134,16 @@
     margin:0 auto;
     padding:0;
     text-align:center; /* container ortalansın */
+    background-color: white; /* Arka plan rengi white olarak ayarlandı */
   }
 
   .post-hero{
     display:block;
     margin:0 0 .75rem;
+  }
+  
+  .post-content {
+    background-color: white; /* Post content arka planı white yapıldı */
   }
 
   .hero-image-container{
@@ -357,7 +362,7 @@
           <div class="post-content">
             <!-- Post Header -->
             <header class="entry-header">
-              <h1<%= posts && posts.title || 'Başlık yok' %></h1>
+              <h1 class="entry-title"><%= posts && posts.title || 'Başlık yok' %></h1>
             </header>
 
 
