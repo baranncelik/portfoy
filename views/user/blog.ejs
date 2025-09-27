@@ -126,14 +126,79 @@
   <div class="single-page-content">
     <article class="post">
       <!-- Hero Section with Image -->
-<div class="post-hero" style="margin: 0; position: relative; width: 100vw; overflow: hidden;">
+<style>
+/* Hero Resim ve Meta */
+.post-hero {
+  width: 100vw;
+  overflow: hidden;
+  margin: 0;
+}
+
+.hero-image-container {
+  position: relative;
+  width: 100%;
+  height: 60vh; /* Masaüstü yüksekliği */
+  overflow: hidden;
+}
+
+.hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.hero-meta {
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.55);
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+/* Başlık ayarları */
+.entry-title {
+  font-family: 'Al', sans-serif;
+  color: red;
+  font-size: 1.5rem;
+  margin: 16px;
+}
+
+/* Mobil uyumlu */
+@media (max-width: 768px) {
+  .hero-image-container {
+    height: 40vh; /* Mobilde daha az yükseklik */
+  }
+
+  .hero-meta {
+    font-size: 0.85rem;
+    padding: 4px 10px;
+    left: 10px;
+    bottom: 10px;
+  }
+
+  .entry-title {
+    font-size: 1.25rem;
+    margin: 12px;
+  }
+}
+</style>
+
+<div class="post-hero">
   <% if (posts && posts.image_url) { %>
-    <div class="hero-image-container" style="position: relative; width: 100%; height: 40vh; overflow: hidden;">
-      <img class="hero-image" src="<%= posts.image_url %>" alt="<%= posts.title || 'post image' %>" loading="lazy" 
-           style="width: 100%; height: 100%; object-fit: cover; display: block;">
-      <div class="hero-overlay" style="position: absolute; inset: 0; background: rgba(0,0,0,0.25);"></div>
-      <div class="hero-meta" style="position: absolute; left: 16px; bottom: 16px; color: #fff; 
-           background: rgba(0,0,0,0.55); padding: 6px 14px; border-radius: 6px; font-size: 1rem;">
+    <div class="hero-image-container">
+      <img class="hero-image" src="<%= posts.image_url %>" alt="<%= posts.title || 'post image' %>" loading="lazy">
+      <div class="hero-overlay"></div>
+      <div class="hero-meta">
         <span class="hero-date">
           <i class="far fa-calendar-alt"></i> <%= prettyDate(posts && posts.updatedAt) %>
         </span>
@@ -142,15 +207,10 @@
   <% } %>
 </div>
 
+<header class="entry-header">
+  <h1 class="entry-title"><%= posts && posts.title || 'Başlık yok' %></h1>
+</header>
 
-      <!-- Yazı Başlığı ve Meta -->
-      <div class="post-content" style="margin-top: 16px;">
-        <!-- Post Header -->
-        <header class="entry-header" style="text-align: left;">
-          <h1 class="entry-title" style="font-family: 'Al', sans-serif; color: red; font-size: 1.5rem; margin-bottom: 12px;">
-            <%= posts && posts.title || 'Başlık yok' %>
-          </h1>
-        </header>
 
 
 
