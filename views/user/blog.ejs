@@ -114,7 +114,7 @@
             <%
             // Basit tarih formatlayıcı
             function prettyDate(dt){
-              if(!dt) return '';z
+              if(!dt) return '';
               const d = new Date(dt);
               if (isNaN(d)) return dt;
               return d.toLocaleDateString(undefined, { year:'numeric', month:'short', day:'numeric' });
