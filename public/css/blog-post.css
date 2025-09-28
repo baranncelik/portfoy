@@ -238,7 +238,7 @@
 
 
 @media (max-width: 767px) {
-    /* 1️⃣ Tüm eski masaüstü CSS’i kapatma */
+    /* Genel sıfırlama */
     .post-content,
     .post-hero,
     .hero-image-container,
@@ -269,15 +269,12 @@
         display: block;
     }
 
-    /* 2️⃣ Hero Image */
+    /* --- Hero Image --- */
     .post-hero {
         position: relative;
         width: 100%;
-        height: 300px; /* yeterince büyük */
+        height: 40vh;
         overflow: hidden;
-        display: flex;
-        align-items: center;
-        justify-content: center;
     }
 
     .hero-image-wrapper {
@@ -294,34 +291,22 @@
     }
 
     .hero-overlay {
-        display: none; /* gradient kaplama kapalı */
+        display: none; /* mobilde gradient kaplama kaldırabiliriz */
     }
 
-    .hero-content {
-        position: absolute;
-        bottom: 10px;
-        width: 100%;
-        text-align: center;
-        padding: 0 15px;
-    }
-
-    /* 3️⃣ Entry Title */
+    /* --- Entry Title --- */
     .entry-title {
-        font-size: 1.5rem; /* mobil için okunaklı */
+        font-size: 1.5rem;
         font-weight: 700;
         color: #2d3436;
-        margin: 10px 15px;
-        line-height: 1.2;
+        margin: 20px 15px;
+        line-height: 1.3;
+        text-align: center; /* başlık ortaya gelsin */
+    }
+
+    /* Eğer hero içerik varsa mobilde basit padding */
+    .hero-content {
+        padding: 15px;
         text-align: center;
-    }
-
-    /* 4️⃣ Post Content */
-    .post-content {
-        padding: 15px;
-    }
-
-    /* 5️⃣ İçerik bölümleri basitleştir */
-    .content-sections {
-        padding: 15px;
     }
 }
