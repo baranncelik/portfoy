@@ -114,13 +114,99 @@
             <%
             // Basit tarih formatlayıcı
             function prettyDate(dt){
-              if(!dt) return '';
+              if(!dt) return '';z
               const d = new Date(dt);
               if (isNaN(d)) return dt;
               return d.toLocaleDateString(undefined, { year:'numeric', month:'short', day:'numeric' });
             }
             %>
+<style>
+  @media (max-width: 768px) {
+  .content-area.single-page-area {
+    padding: 10px;
+  }
 
+  .single-page-content {
+    width: 100%;
+  }
+
+  .post {
+    flex-direction: column;
+  }
+
+  .post-hero {
+    height: auto;
+  }
+
+  .hero-image-container {
+    width: 100%;
+    height: auto;
+  }
+
+  .hero-image-wrapper {
+    width: 100%;
+    height: auto;
+  }
+
+  .hero-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  .hero-content {
+    padding: 10px;
+    text-align: center;
+  }
+
+  .hero-meta {
+    font-size: 14px;
+  }
+
+  .post-content {
+    padding: 15px;
+  }
+
+  .entry-header .entry-title {
+    font-size: 22px;
+    text-align: center;
+  }
+
+  .content-sections {
+    padding: 10px 0;
+  }
+
+  .main-content {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .entry-meta.entry-meta-bottom {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+
+  .date-author {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .entry-share.btn-group.share-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .entry-share.btn-group.share-buttons .btn {
+    font-size: 14px;
+    padding: 6px 10px;
+  }
+}
+
+</style>
 
 
             <div class="content-area single-page-area">
