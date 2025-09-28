@@ -111,31 +111,31 @@
           <!-- End Mobile Navigation -->
 
 
-    <%
-    // Basit tarih formatlayıcı
-    function prettyDate(dt){
-      if(!dt) return '';
-      const d = new Date(dt);
-      if (isNaN(d)) return dt;
-      return d.toLocaleDateString(undefined, { year:'numeric', month:'short', day:'numeric' });
-    }
-    %>
+            <%
+            // Basit tarih formatlayıcı
+            function prettyDate(dt){
+              if(!dt) return '';
+              const d = new Date(dt);
+              if (isNaN(d)) return dt;
+              return d.toLocaleDateString(undefined, { year:'numeric', month:'short', day:'numeric' });
+            }
+            %>
 
 
 
-    <div class="content-area single-page-area">
-      <div class="single-page-content">
-        <article class="post">
-          <!-- Hero Section with Image -->
-          <div class="post-hero">
-            <% if (posts && posts.image_url) { %>
-              <div class="hero-image-container">
-                <div class="hero-image-wrapper">
-                    <img class="hero-image" src="<%= posts.image_url %>" alt="<%= posts.title || 'post image' %>" loading="lazy" style="max-width: 100%; height: auto; object-fit: cover;">
-                </div>
-                <div class="hero-overlay"></div>
-              </div>
-            <% } %>
+            <div class="content-area single-page-area">
+              <div class="single-page-content">
+                <article class="post">
+                  <!-- Hero Section with Image -->
+                  <div class="post-hero">
+                    <% if (posts && posts.image_url) { %>
+                    <div class="hero-image-container">
+                      <div class="hero-image-wrapper">
+                        <img class="hero-image" src="<%= posts.image_url %>" alt="<%= posts.title || 'post image' %>" loading="lazy">
+                      </div>
+                     <div class="hero-overlay"></div>
+                   </div>
+              <% } %>
 
             <div class="hero-content">
               <div class="hero-meta">
@@ -150,7 +150,7 @@
           <div class="post-content">
             <!-- Post Header -->
             <header class="entry-header">
-              <h1 class="entry-title" style="font-family: 'Montserrat', sans-serif; font-weight: 600; letter-spacing: 0.5px; color: #333; font-size: 2.5em; margin-bottom: 20px; text-transform: capitalize;"><%= posts && posts.title || 'Başlık yok' %></h1>
+              <h1 class="entry-title"><%= posts && posts.title || 'Başlık yok' %></h1>
             </header>
 
 
