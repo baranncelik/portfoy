@@ -1,4 +1,5 @@
-/* Blog Post Styles */
+@media (min-width: 768px) {
+    /* Blog Post Styles */
 .post-content {
     max-width: 1200px;
     margin: 0 auto;
@@ -233,3 +234,37 @@
 .learnings-section { border-left: 4px solid #51cf66; }
 .conclusion-section { border-left: 4px solid #339af0; }
 
+  }
+
+
+@media (max-width: 767px) {
+    .post-content,
+    .post-hero,
+    .hero-image-container,
+    .hero-image-wrapper,
+    .hero-image,
+    .hero-overlay,
+    .hero-content,
+    .hero-meta,
+    .hero-category,
+    .hero-date,
+    .hero-title,
+    .hero-summary,
+    .entry-title,
+    .post-category a,
+    .post-date,
+    .post-summary,
+    .project-info-grid,
+    .info-card,
+    .card-icon,
+    .content-sections,
+    .content-section,
+    .section-content,
+    .idea-section,
+    .challenges-section,
+    .learnings-section,
+    .conclusion-section {
+        all: unset;
+        display: block; /* mobilde blok olarak görünmesini istiyorsan */
+    }
+}
