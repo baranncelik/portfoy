@@ -10,6 +10,13 @@
     z-index: 1;
 }
 
+@media screen and (max-width: 768px) {
+    .post-content {
+        width: 98%;
+        border-radius: 10px;
+    }
+}
+
 /* Hero Section Styles */
 .post-hero {
     position: relative;
@@ -85,10 +92,26 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: rgba(255,255,255,0.1);
+    background: #fff;
     padding: 8px 16px;
     border-radius: 20px;
-    backdrop-filter: blur(10px);
+    color: #333;
+}
+
+@media screen and (max-width: 768px) {
+    .hero-date {
+        padding: 6px 12px;
+        font-size: 0.85rem;
+        gap: 6px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .hero-date {
+        padding: 4px 10px;
+        font-size: 0.8rem;
+        gap: 4px;
+    }
 }
 
 .hero-title {
