@@ -270,30 +270,22 @@
     }
 
     /* --- Hero Image --- */
-    .post-hero {
-        position: relative;
-        width: 100%;
-        height: 40vh;
-        overflow: hidden;
-    }
+  .post-hero {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/9; /* otomatik yükseklik */
+    overflow: hidden;
+  }
 
-    .hero-image-wrapper {
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-    }
+  .hero-image-wrapper,
+  .hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
 
-    .hero-image {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-    }
-
-    .hero-overlay {
-        display: none; /* mobilde gradient kaplama kaldırabiliriz */
-    }
-
+,
     /* --- Entry Title --- */
     .entry-title {
         font-size: 1.5rem;
