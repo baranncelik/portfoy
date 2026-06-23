@@ -1,7 +1,6 @@
 module.exports = { 
-    user : "root",
-    host : "localhost",
-    password : "BaranCelik!48650913",
-    database  : "portfoy_db"
-
+    user: process.env.DB_USER,
+    host: process.env.DB_HOST,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME
 };

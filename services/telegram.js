@@ -1,17 +1,23 @@
 const axios = require("axios");
 
-const BOT_TOKEN = "8226641604:AAFHBG_1JoUs8eSLER9X3ottVolKrJWct3Y";
-const CHAT_ID = "5147596302";
+// Değişkenleri doğrudan kodun içinden değil, .env dosyasından çekiyoruz
+const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
+const CHAT_ID = process.env.TELEGRAM_CHAT_ID;
 
-exports.sendTelegramMessage = async(text) =>{
-    try{
-        await axios.post(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,{
-            chat_id : CHAT_ID,
-            text : text,
-            parse_mode : "HTML"
+exports.sendTelegramMessage = async (text) => {
+    try {
+        // Token veya Chat ID eksikse boşuna istek atıp hata almasını engelleyelim
+        if (!BOT_TOKEN || !CHAT_ID) {
+            throw new Error(".env dosyasında TELEGRAM_BOT_TOKEN veya TELEGRAM_CHAT_ID eksik!");
+        }
+
+        await axios.post(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+            chat_id: CHAT_ID,
+            text: text,
+            parse_mode: "HTML"
         });
     }
-    catch(err){
+    catch (err) {
         console.error("Telegram mesaj gönderilemedi:", err.message);
     }
 }
