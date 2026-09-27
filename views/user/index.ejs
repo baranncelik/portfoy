@@ -122,28 +122,32 @@
           <div class="content-area">
             <div class="animated-sections">
               <!-- Home Subpage -->
-<section data-id="home" class="animated-section start-page">
+<section data-id="home" class="animated-section start-page section-active">
                 <style>
-                  .start-page {
-                    position: relative;
+                  /* Temanın gizleme kurallarını Home için ezme */
+                  .start-page,
+                  .start-page.section-active {
+                    position: relative !important;
+                    visibility: visible !important;
+                    opacity: 1 !important;
+                    display: flex !important;
                     overflow: hidden;
                     height: 100vh;
                     min-height: -webkit-fill-available;
                     width: 100%;
-                    display: flex;
                     align-items: center;
                     justify-content: center;
-                    position: absolute;
                     top: 0;
                     left: 0;
                     transition: background 2.5s ease-in-out;
+                    z-index: 1;
                   }
 
                   /* --- MEVSİM GÖKYÜZÜ VE ARKA PLANLARI --- */
-                  .start-page.season-winter { background: #07101c; }
-                  .start-page.season-spring { background: linear-gradient(to bottom, #6cbde7 0%, #b8e994 100%); }
-                  .start-page.season-summer { background: linear-gradient(to bottom, #1f78b4 0%, #5cbfe8 50%, #f8df9e 100%); }
-                  .start-page.season-autumn { background: linear-gradient(to bottom, #1a202c 0%, #334155 50%, #4a3325 100%); }
+                  .start-page.season-winter { background: #07101c !important; }
+                  .start-page.season-spring { background: linear-gradient(to bottom, #6cbde7 0%, #b8e994 100%) !important; }
+                  .start-page.season-summer { background: linear-gradient(to bottom, #1f78b4 0%, #5cbfe8 50%, #f8df9e 100%) !important; }
+                  .start-page.season-autumn { background: linear-gradient(to bottom, #1a202c 0%, #334155 50%, #4a3325 100%) !important; }
 
                   /* Şimşek Efekti (Sonbahar) */
                   .lightning-flash {
@@ -233,23 +237,16 @@
                     z-index: 3;
                     pointer-events: none;
                   }
-                  .ground-path-back {
-                    transition: fill 2s ease;
-                  }
-                  .ground-path-front {
+                  .ground-path-back, .ground-path-front {
                     transition: fill 2s ease;
                   }
 
-                  /* Mevsim Zemin Renkleri */
                   .season-winter .ground-path-back { fill: #c4dbe6; }
                   .season-winter .ground-path-front { fill: #eef7fb; }
-
                   .season-spring .ground-path-back { fill: #27ae60; }
                   .season-spring .ground-path-front { fill: #2ecc71; }
-
                   .season-summer .ground-path-back { fill: #d35400; }
                   .season-summer .ground-path-front { fill: #f39c12; }
-
                   .season-autumn .ground-path-back { fill: #78281f; }
                   .season-autumn .ground-path-front { fill: #b9461e; }
 
@@ -358,7 +355,7 @@
                   .season-summer .spring-foliage { display: inline; fill: #2ed573; opacity: 0.9; }
                   .season-autumn .spring-foliage { display: inline; fill: #d35400; opacity: 0.85; }
 
-                  /* --- KOŞAN ÇOCUK (Masaüstü Güzergahı) --- */
+                  /* --- KOŞAN ÇOCUK --- */
                   .running-child {
                     position: absolute;
                     bottom: clamp(20px, 4vh, 36px);
@@ -520,13 +517,13 @@
                     position: relative;
                     z-index: 10;
                     text-align: center;
-                    padding: 1.5rem;
+                    padding: 1rem;
                     width: 100%;
                     max-width: 90%;
                     margin: 0 auto;
                   }
                   .title-block h2 {
-                    font-size: clamp(2.3rem, 7vw, 4.4rem);
+                    font-size: clamp(2rem, 6.5vw, 4.4rem);
                     font-weight: 800;
                     margin: 0 0 0.8rem;
                     color: #fff;
@@ -534,7 +531,7 @@
                   }
                   .typewriter {
                     color: #fff;
-                    font-size: clamp(1.1rem, 3.5vw, 1.8rem);
+                    font-size: clamp(1rem, 3.2vw, 1.8rem);
                     font-weight: 600;
                     font-family: 'Courier New', monospace;
                     position: relative;
@@ -557,57 +554,58 @@
                   /* --- MOBİL İNCE AYARLAR (768px ve altı) --- */
                   @media (max-width: 768px) {
                     .start-page {
-                      height: 100svh;
+                      height: 100svh !important;
+                      min-height: 100svh !important;
                     }
                     .spring-extra-tree {
                       display: none !important;
                     }
                     .cozy-houses-wrapper {
-                      left: 6px;
-                      bottom: 22px;
-                      width: 145px;
+                      left: 4px;
+                      bottom: 20px;
+                      width: 140px;
                     }
                     .tree-wrapper {
-                      right: 6px;
-                      bottom: 18px;
-                      width: 155px;
+                      right: 4px;
+                      bottom: 15px;
+                      width: 150px;
                     }
                     .snowman-container {
-                      right: 105px;
-                      bottom: 22px;
-                      width: 42px;
-                      transform: scale(0.7);
+                      right: 95px;
+                      bottom: 20px;
+                      width: 40px;
+                      transform: scale(0.68);
                     }
                     .chimney-smoke {
                       top: 10%;
                       left: 75%;
                     }
                     .running-child {
-                      bottom: 22px;
-                      transform: scale(0.68);
-                      animation: runDirectlyToDoorMobile 15s linear forwards;
+                      bottom: 20px;
+                      transform: scale(0.65);
+                      animation: runDirectlyToDoorMobile 15s linear forwards !important;
                     }
 
                     @keyframes runDirectlyToDoorMobile {
                       0% {
-                        right: 45px;
+                        right: 40px;
                         left: auto;
                         opacity: 1;
                       }
                       92% {
-                        right: calc(100% - 128px);
+                        right: calc(100% - 124px);
                         opacity: 1;
-                        transform: scale(0.68);
+                        transform: scale(0.65);
                       }
                       97% {
-                        right: calc(100% - 116px);
+                        right: calc(100% - 114px);
                         opacity: 0.9;
-                        transform: scale(0.58);
+                        transform: scale(0.55);
                       }
                       100% {
-                        right: calc(100% - 108px);
+                        right: calc(100% - 104px);
                         opacity: 0;
-                        transform: scale(0.48);
+                        transform: scale(0.45);
                       }
                     }
                   }
@@ -736,7 +734,7 @@
                   </div>
                 </div>
 
-                <!-- 2.5D Doğal Ufuklu Katmanlı Zemin (Kırpılma Yapmaz) -->
+                <!-- 2.5D Doğal Ufuklu Katmanlı Zemin -->
                 <svg class="season-ground-svg" viewBox="0 0 1440 120" preserveAspectRatio="none">
                   <path class="ground-path-back" d="M0,45 C320,15 720,65 1440,30 L1440,120 L0,120 Z" />
                   <path class="ground-path-front" d="M0,60 C480,25 960,75 1440,50 L1440,120 L0,120 Z" />
@@ -755,183 +753,195 @@
                 </div>
 
                 <script>
-                  const seasons = ['season-winter', 'season-spring', 'season-summer', 'season-autumn'];
+                  (function() {
+                    const seasons = ['season-winter', 'season-spring', 'season-summer', 'season-autumn'];
 
-                  function getInitialSeasonByDate() {
-                    const month = new Date().getMonth();
-                    if (month === 11 || month === 0 || month === 1) return 0; // Kış
-                    if (month >= 2 && month <= 4) return 1;                  // İlkbahar
-                    if (month >= 5 && month <= 7) return 2;                  // Yaz
-                    return 3;                                                // Sonbahar
-                  }
+                    function getInitialSeasonByDate() {
+                      const month = new Date().getMonth();
+                      if (month === 11 || month === 0 || month === 1) return 0; // Kış
+                      if (month >= 2 && month <= 4) return 1;                  // İlkbahar
+                      if (month >= 5 && month <= 7) return 2;                  // Yaz
+                      return 3;                                                // Sonbahar
+                    }
 
-                  let currentSeasonIdx = getInitialSeasonByDate();
-                  let cycleTimeoutA = null;
-                  let cycleTimeoutB = null;
-                  let typeWriterInterval = null;
+                    let currentSeasonIdx = getInitialSeasonByDate();
+                    let cycleTimeoutA = null;
+                    let cycleTimeoutB = null;
+                    let typeWriterInterval = null;
+                    let isCycleRunning = false;
 
-                  function getElements() {
-                    return {
-                      section: document.querySelector('.start-page'),
-                      particleBox: document.getElementById('particle-box'),
-                      door: document.getElementById('front-door'),
-                      child: document.getElementById('child'),
-                      typewriter: document.querySelector('.typewriter')
-                    };
-                  }
+                    function getElements() {
+                      return {
+                        section: document.querySelector('.start-page'),
+                        particleBox: document.getElementById('particle-box'),
+                        door: document.getElementById('front-door'),
+                        child: document.getElementById('child'),
+                        typewriter: document.querySelector('.typewriter')
+                      };
+                    }
 
-                  function updateParticles(seasonClass) {
-                    const els = getElements();
-                    if (!els.particleBox) return;
-                    els.particleBox.innerHTML = '';
-                    const isMobile = window.innerWidth < 768;
-                    const count = isMobile ? 18 : 40;
+                    function updateParticles(seasonClass) {
+                      const els = getElements();
+                      if (!els.particleBox) return;
+                      els.particleBox.innerHTML = '';
+                      const isMobile = window.innerWidth < 768;
+                      const count = isMobile ? 18 : 36;
 
-                    if (seasonClass === 'season-winter') {
-                      const snowSymbols = ['❄', '❅', '•'];
-                      for (let i = 0; i < count; i++) {
-                        const p = document.createElement('div');
-                        p.className = 'season-particle';
-                        p.textContent = snowSymbols[Math.floor(Math.random() * snowSymbols.length)];
-                        p.style.color = '#fff';
-                        p.style.fontSize = (Math.random() * 14 + 10) + 'px';
-                        p.style.left = Math.random() * 100 + '%';
-                        p.style.top = '-20px';
-                        p.style.animation = `particleSnow ${Math.random() * 4 + 4}s linear infinite`;
-                        p.style.animationDelay = (Math.random() * 5) + 's';
-                        els.particleBox.appendChild(p);
-                      }
-                    } else if (seasonClass === 'season-spring') {
-                      for (let i = 0; i < Math.floor(count / 2); i++) {
-                        const p = document.createElement('div');
-                        p.className = 'season-particle';
-                        p.textContent = '🌸';
-                        p.style.fontSize = (Math.random() * 12 + 10) + 'px';
-                        p.style.left = Math.random() * 100 + '%';
-                        p.style.top = '-20px';
-                        p.style.animation = `particleLeaf ${Math.random() * 6 + 5}s ease-in-out infinite`;
-                        p.style.animationDelay = (Math.random() * 5) + 's';
-                        els.particleBox.appendChild(p);
-                      }
-                    } else if (seasonClass === 'season-autumn') {
-                      for (let i = 0; i < count; i++) {
-                        const rain = document.createElement('div');
-                        rain.className = 'season-particle';
-                        rain.style.width = '2px';
-                        rain.style.height = (Math.random() * 15 + 15) + 'px';
-                        rain.style.background = 'rgba(174, 194, 214, 0.7)';
-                        rain.style.left = Math.random() * 100 + '%';
-                        rain.style.top = '-20px';
-                        rain.style.animation = `particleRain ${Math.random() * 0.8 + 0.6}s linear infinite`;
-                        rain.style.animationDelay = (Math.random() * 2) + 's';
-                        els.particleBox.appendChild(rain);
-                      }
-                      const leafIcons = ['🍂', '🍁'];
-                      const leafCount = isMobile ? 8 : 15;
-                      for (let i = 0; i < leafCount; i++) {
-                        const leaf = document.createElement('div');
-                        leaf.className = 'season-particle';
-                        leaf.textContent = leafIcons[Math.floor(Math.random() * leafIcons.length)];
-                        leaf.style.fontSize = (Math.random() * 14 + 12) + 'px';
-                        leaf.style.left = Math.random() * 100 + '%';
-                        leaf.style.top = '-20px';
-                        leaf.style.animation = `particleLeaf ${Math.random() * 4 + 4}s ease-in-out infinite`;
-                        leaf.style.animationDelay = (Math.random() * 5) + 's';
-                        els.particleBox.appendChild(leaf);
+                      if (seasonClass === 'season-winter') {
+                        const snowSymbols = ['❄', '❅', '•'];
+                        for (let i = 0; i < count; i++) {
+                          const p = document.createElement('div');
+                          p.className = 'season-particle';
+                          p.textContent = snowSymbols[Math.floor(Math.random() * snowSymbols.length)];
+                          p.style.color = '#fff';
+                          p.style.fontSize = (Math.random() * 12 + 10) + 'px';
+                          p.style.left = Math.random() * 100 + '%';
+                          p.style.top = '-20px';
+                          p.style.animation = `particleSnow ${Math.random() * 4 + 4}s linear infinite`;
+                          p.style.animationDelay = (Math.random() * 5) + 's';
+                          els.particleBox.appendChild(p);
+                        }
+                      } else if (seasonClass === 'season-spring') {
+                        for (let i = 0; i < Math.floor(count / 2); i++) {
+                          const p = document.createElement('div');
+                          p.className = 'season-particle';
+                          p.textContent = '🌸';
+                          p.style.fontSize = (Math.random() * 12 + 10) + 'px';
+                          p.style.left = Math.random() * 100 + '%';
+                          p.style.top = '-20px';
+                          p.style.animation = `particleLeaf ${Math.random() * 6 + 5}s ease-in-out infinite`;
+                          p.style.animationDelay = (Math.random() * 5) + 's';
+                          els.particleBox.appendChild(p);
+                        }
+                      } else if (seasonClass === 'season-autumn') {
+                        for (let i = 0; i < count; i++) {
+                          const rain = document.createElement('div');
+                          rain.className = 'season-particle';
+                          rain.style.width = '2px';
+                          rain.style.height = (Math.random() * 15 + 15) + 'px';
+                          rain.style.background = 'rgba(174, 194, 214, 0.7)';
+                          rain.style.left = Math.random() * 100 + '%';
+                          rain.style.top = '-20px';
+                          rain.style.animation = `particleRain ${Math.random() * 0.8 + 0.6}s linear infinite`;
+                          rain.style.animationDelay = (Math.random() * 2) + 's';
+                          els.particleBox.appendChild(rain);
+                        }
+                        const leafIcons = ['🍂', '🍁'];
+                        const leafCount = isMobile ? 8 : 14;
+                        for (let i = 0; i < leafCount; i++) {
+                          const leaf = document.createElement('div');
+                          leaf.className = 'season-particle';
+                          leaf.textContent = leafIcons[Math.floor(Math.random() * leafIcons.length)];
+                          leaf.style.fontSize = (Math.random() * 14 + 12) + 'px';
+                          leaf.style.left = Math.random() * 100 + '%';
+                          leaf.style.top = '-20px';
+                          leaf.style.animation = `particleLeaf ${Math.random() * 4 + 4}s ease-in-out infinite`;
+                          leaf.style.animationDelay = (Math.random() * 5) + 's';
+                          els.particleBox.appendChild(leaf);
+                        }
                       }
                     }
-                  }
 
-                  function startSeasonCycle() {
-                    const els = getElements();
-                    if (!els.section) return;
+                    function startSeasonCycle() {
+                      const els = getElements();
+                      if (!els.section) return;
 
-                    clearTimeout(cycleTimeoutA);
-                    clearTimeout(cycleTimeoutB);
+                      clearTimeout(cycleTimeoutA);
+                      clearTimeout(cycleTimeoutB);
 
-                    seasons.forEach(s => els.section.classList.remove(s));
-                    els.section.classList.add(seasons[currentSeasonIdx]);
-                    updateParticles(seasons[currentSeasonIdx]);
+                      seasons.forEach(s => els.section.classList.remove(s));
+                      els.section.classList.add(seasons[currentSeasonIdx]);
+                      updateParticles(seasons[currentSeasonIdx]);
 
-                    // Çocuk kapıya yaklaştığında (13.5. sn) kapı açılır
-                    cycleTimeoutA = setTimeout(() => {
-                      if (els.door) els.door.classList.add('door-open');
-                    }, 13500);
-
-                    // 15.0. saniyede çocuk tam kapıdan girer, kapı kapanır, mevsim değişir
-                    cycleTimeoutB = setTimeout(() => {
-                      if (els.door) els.door.classList.remove('door-open');
-
-                      currentSeasonIdx = (currentSeasonIdx + 1) % seasons.length;
-
-                      // Çocuğu ekrana göre yeniden başlat
+                      // Çocuk koşu animasyonunu resetle ve başlat
                       if (els.child) {
                         els.child.style.animation = 'none';
-                        els.child.offsetHeight; /* Reflow */
+                        els.child.offsetHeight; /* reflow */
                         const isMobile = window.innerWidth < 768;
                         els.child.style.animation = `${isMobile ? 'runDirectlyToDoorMobile' : 'runDirectlyToDoor'} 15s linear forwards`;
                       }
 
+                      cycleTimeoutA = setTimeout(() => {
+                        if (els.door) els.door.classList.add('door-open');
+                      }, 13500);
+
+                      cycleTimeoutB = setTimeout(() => {
+                        if (els.door) els.door.classList.remove('door-open');
+                        currentSeasonIdx = (currentSeasonIdx + 1) % seasons.length;
+                        startSeasonCycle();
+                      }, 15000);
+
+                      isCycleRunning = true;
+                    }
+
+                    function typeWriter(element, text, i = 0) {
+                      if (!element) return;
+                      if (i === 0) {
+                        element.textContent = '';
+                        element.style.opacity = '1';
+                      }
+                      if (i < text.length) {
+                        element.textContent += text.charAt(i);
+                        setTimeout(() => typeWriter(element, text, i + 1), 100);
+                      }
+                    }
+
+                    function initTypewriter() {
+                      const els = getElements();
+                      if (!els.typewriter) return;
+                      const titles = ['Computer Engineer', 'Full-Stack Developer'];
+                      let currentTitle = 0;
+
+                      function updateTitle() {
+                        typeWriter(els.typewriter, titles[currentTitle]);
+                        currentTitle = (currentTitle + 1) % titles.length;
+                      }
+
+                      if (typeWriterInterval) clearInterval(typeWriterInterval);
+                      updateTitle();
+                      typeWriterInterval = setInterval(updateTitle, 4000);
+                    }
+
+                    function launchHero() {
                       startSeasonCycle();
-                    }, 15000);
-                  }
-
-                  // Daktilo efekti
-                  function typeWriter(element, text, i = 0) {
-                    if (!element) return;
-                    if (i === 0) {
-                      element.textContent = '';
-                      element.style.opacity = '1';
-                    }
-                    if (i < text.length) {
-                      element.textContent += text.charAt(i);
-                      setTimeout(() => typeWriter(element, text, i + 1), 100);
-                    }
-                  }
-
-                  function initTypewriter() {
-                    const els = getElements();
-                    if (!els.typewriter) return;
-                    const titles = ['Computer Engineer', 'Full-Stack Developer'];
-                    let currentTitle = 0;
-
-                    function updateTitle() {
-                      typeWriter(els.typewriter, titles[currentTitle]);
-                      currentTitle = (currentTitle + 1) % titles.length;
+                      initTypewriter();
                     }
 
-                    if (typeWriterInterval) clearInterval(typeWriterInterval);
-                    updateTitle();
-                    typeWriterInterval = setInterval(updateTitle, 4000);
-                  }
-
-                  // Hem normal sayfa yüklenişinde hem de mobil/AJAX geçişlerinde kesin çalıştırma
-                  function launchHero() {
-                    startSeasonCycle();
-                    initTypewriter();
-                  }
-
-                  if (document.readyState === 'complete' || document.readyState === 'interactive') {
-                    launchHero();
-                  } else {
-                    document.addEventListener('DOMContentLoaded', launchHero);
-                  }
-
-                  // Sayfa load, resize veya subpage hash geçişlerinde de kontrol et
-                  window.addEventListener('load', () => {
-                    const els = getElements();
-                    if (els.particleBox && !els.particleBox.children.length) {
-                      launchHero();
+                    // 1. Standart Yükleme Tetikleyicileri
+                    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+                      setTimeout(launchHero, 100);
+                    } else {
+                      document.addEventListener('DOMContentLoaded', () => setTimeout(launchHero, 100));
                     }
-                  });
 
-                  window.addEventListener('hashchange', () => {
-                    if (window.location.hash === '#home' || window.location.hash === '') {
-                      launchHero();
+                    window.addEventListener('load', launchHero);
+
+                    // 2. Hash / Sayfa Değişim Dinleyicisi
+                    window.addEventListener('hashchange', () => {
+                      if (window.location.hash === '#home' || window.location.hash === '') {
+                        launchHero();
+                      }
+                    });
+
+                    // 3. LMPixels Animating Subpages Mutation Observer (Mobilde temanın JS'ini yakalar)
+                    const targetSection = document.querySelector('section[data-id="home"]');
+                    if (targetSection) {
+                      const observer = new MutationObserver((mutations) => {
+                        mutations.forEach((mutation) => {
+                          if (mutation.attributeName === 'class') {
+                            const isHomeActive = targetSection.classList.contains('section-active');
+                            if (isHomeActive && !isCycleRunning) {
+                              launchHero();
+                            }
+                          }
+                        });
+                      });
+                      observer.observe(targetSection, { attributes: true });
                     }
-                  });
+                  })();
                 </script>
               </section>
+<!-- End of Home Subpage -->
               <!-- End of Home Subpage -->
 
               <!-- About Me Subpage -->
