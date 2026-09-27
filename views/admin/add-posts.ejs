@@ -1,21 +1,125 @@
 <%- include("../partials/topbar") %>
 
-
   <style>
-
-
-    .main{margin-left:var(--sidebar-width);padding:28px;min-height:100vh;transition:margin .25s}
-    .card{background:#fff;border-radius:12px;padding:20px;box-shadow:0 8px 30px rgba(2,6,23,0.06)}
-    .section-title{font-size:20px;font-weight:700;color:#0f172a;margin-bottom:6px}
-
-    @media (max-width: 768px){
-      .topbar{display:flex}
-      .sidebar{transform:translateX(-110%);box-shadow:0 12px 30px rgba(2,6,23,0.12)}
-      .sidebar.open{transform:translateX(0)}
-      .main{margin-left:0;padding:84px 16px 24px}
+    .main {
+      margin-left: var(--sidebar-width);
+      padding: 28px;
+      min-height: 100vh;
+      transition: margin .25s;
+      background: #f8fafc;
+    }
+    .card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 24px;
+      box-shadow: 0 4px 20px rgba(2, 6, 23, 0.05);
+      border: 1px solid #e2e8f0;
+    }
+    .section-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 6px;
     }
 
-    .preview-img{max-height:180px;border-radius:8px;margin-top:10px;object-fit:cover;border:1px solid #e6e6e6}
+    /* İki Kolonlu Grid Düzeni (Form + Önizleme) */
+    .editor-layout {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* Sağ Taraftaki Canlı Önizleme Kartı */
+    .preview-sticky {
+      position: sticky;
+      top: 24px;
+    }
+    .blog-mock-card {
+      background: #ffffff;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      overflow: hidden;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+      transition: all 0.2s ease;
+    }
+    .mock-img-wrapper {
+      width: 100%;
+      height: 200px;
+      background: #edf2f7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      color: #94a3b8;
+      font-size: 0.875rem;
+    }
+    .mock-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+    .mock-content {
+      padding: 20px;
+    }
+    .mock-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-radius: 20px;
+      background: #e0e7ff;
+      color: #4338ca;
+      margin-bottom: 12px;
+    }
+    .mock-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #0f172a;
+      line-height: 1.35;
+      margin-bottom: 8px;
+      word-break: break-word;
+    }
+    .mock-summary {
+      font-size: 0.875rem;
+      color: #64748b;
+      line-height: 1.5;
+      margin-bottom: 16px;
+      word-break: break-word;
+    }
+    .mock-body {
+      font-size: 0.9rem;
+      color: #334155;
+      line-height: 1.6;
+      border-top: 1px dashed #e2e8f0;
+      padding-top: 14px;
+      max-height: 260px;
+      overflow-y: auto;
+      word-break: break-word;
+    }
+    .mock-body img {
+      max-width: 100%;
+      border-radius: 6px;
+    }
+
+    @media (max-width: 1024px) {
+      .editor-layout {
+        grid-template-columns: 1fr;
+      }
+      .preview-sticky {
+        position: static;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .topbar { display: flex; }
+      .sidebar { transform: translateX(-110%); box-shadow: 0 12px 30px rgba(2,6,23,0.12); }
+      .sidebar.open { transform: translateX(0); }
+      .main { margin-left: 0; padding: 84px 16px 24px; }
+    }
   </style>
 
 </head>
@@ -23,170 +127,180 @@
 
 <%- include("../partials/navbar") %>
 
-
   <!-- overlay (mobile) -->
   <div id="overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.35);z-index:1290;"></div>
 
   <!-- Main -->
   <main class="main">
-    <div class="max-w-4xl mx-auto">
-      <div class="card">
-        <div class="flex items-center justify-between mb-4">
-          <div>
-            <div class="section-title">Yeni Gönderi Ekle</div>
-            <p class="text-sm text-gray-600">Blog gönderisini buradan oluşturup yayınlayabilirsiniz.</p>
-          </div>
-          <div class="hidden sm:flex gap-2">
-            <a href="/admin/show-posts" class="px-3 py-2 rounded-md text-sm border border-gray-200 hover:bg-gray-50">Gönderileri Gör</a>
-          </div>
+    <div class="max-w-7xl mx-auto">
+      
+      <!-- Üst Başlık -->
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <div class="section-title">Yeni Gönderi Ekle</div>
+          <p class="text-sm text-gray-600">Blog gönderisini yazarken sağ taraftan anlık olarak nasıl görüneceğini inceleyebilirsiniz.</p>
+        </div>
+        <div class="hidden sm:flex gap-2">
+          <a href="/admin/show-posts" class="px-4 py-2 rounded-lg text-sm font-medium border border-gray-300 bg-white hover:bg-gray-50 transition shadow-sm">
+            Gönderileri Gör
+          </a>
+        </div>
+      </div>
+
+      <!-- İki Kolon: Form ve Önizleme -->
+      <div class="editor-layout">
+        
+        <!-- SOL KOLON: Form Alanı -->
+        <div class="card">
+          <form action="/admin/add-posts" method="POST" enctype="multipart/form-data">
+            
+            <!-- Başlık -->
+            <div class="mb-4">
+              <label for="title" class="block text-sm font-semibold text-gray-700 mb-2">Başlık</label>
+              <input id="title" name="title" type="text" required
+                     class="w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                     placeholder="Gönderi başlığını girin..." value="<%= typeof posts !== 'undefined' && posts.title ? posts.title : '' %>">
+            </div>
+
+            <!-- Özet -->
+            <div class="mb-4">
+              <label for="summary" class="block text-sm font-semibold text-gray-700 mb-2">Özet</label>
+              <textarea id="summary" name="summary" rows="3"
+                        class="w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        placeholder="Blog listesinde görünecek kısa özet..."><%= typeof posts !== 'undefined' && posts.summary ? posts.summary : '' %></textarea>
+            </div>
+
+            <!-- Ana İçerik (TinyMCE) -->
+            <div class="mb-4">
+              <label for="content" class="block text-sm font-semibold text-gray-700 mb-2">Ana İçerik</label>
+              <textarea id="content" name="content" rows="10"
+                        class="w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        placeholder="Gönderi ana içeriği..."><%= typeof posts !== 'undefined' && posts.content ? posts.content : '' %></textarea>
+            </div>
+
+            <!-- Kapak Resmi (Dosya) -->
+            <div class="mb-5">
+              <label for="image_url" class="block text-sm font-semibold text-gray-700 mb-2">Kapak Resmi</label>
+              <input id="image_url" name="image_url" type="file" accept="image/*"
+                     class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
+            </div>
+
+            <button type="submit" class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-medium px-6 py-2.5 rounded-lg transition shadow-sm">
+              Gönderiyi Kaydet
+            </button>
+          </form>
         </div>
 
+        <!-- SAĞ KOLON: Canlı Önizleme Kartı -->
+        <div class="preview-sticky">
+          <div class="card">
+            <div class="flex items-center justify-between mb-3 border-b border-gray-100 pb-3">
+              <span class="text-xs font-bold uppercase tracking-wider text-gray-400">Canlı Önizleme</span>
+              <span class="inline-flex items-center gap-1.5 text-xs font-medium text-emerald-600">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                Eşzamanlı
+              </span>
+            </div>
 
+            <!-- Blog Görünüm Mockup -->
+            <div class="blog-mock-card">
+              <!-- Resim Önizleme Alanı -->
+              <div class="mock-img-wrapper" id="mockImgWrapper">
+                <img id="mockImg" class="mock-img" alt="Kapak Önizleme">
+                <span id="mockImgPlaceholder">📷 Kapak resmi seçilmedi</span>
+              </div>
 
-        <!-- Form -->
-        <form action="/admin/add-posts" method="POST" enctype="multipart/form-data">
-          <!-- Başlık -->
-          <div class="mb-3">
-            <label for="title" class="block text-sm font-semibold text-gray-700 mb-2">Başlık</label>
-            <input id="title" name="title" type="text" required
-                   class="w-full rounded-lg border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                   placeholder=" Gönderi başlığı " value="<%= posts.title %>">
+              <!-- İçerik Önizleme Alanı -->
+              <div class="mock-content">
+                <span class="mock-badge">Blog</span>
+                <h3 class="mock-title" id="previewTitle">Başlık buraya gelecek...</h3>
+                <p class="mock-summary" id="previewSummary">Kısa özet metni burada görüntülenecek...</p>
+                
+                <div class="mock-body" id="previewBody">
+                  <em class="text-gray-400 text-xs">Ana içerik TinyMCE üzerinden yazıldıkça buraya yansıyacak...</em>
+                </div>
+              </div>
+            </div>
           </div>
-
-          <!-- Özet -->
-          <div class="mb-3">
-            <label for="summary" class="block text-sm font-semibold text-gray-700 mb-2">Özet</label>
-            <textarea id="summary" name="summary" rows="3"
-                      class="w-full rounded-lg border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                      placeholder="Gönderi özeti..."><%= posts.summary %></textarea>
-          </div>
-
-         
-
-          <!-- Ana İçerik -->
-          <div class="mb-3">
-            <label for="content" class="block text-sm font-semibold text-gray-700 mb-2">Ana İçerik</label>
-            <textarea id="content" name="content" rows="8"
-                      class="w-full rounded-lg border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                      placeholder="Gönderi ana içeriği..."><%= posts.content %></textarea>
-          </div>
-          
-
-          <!-- Resim (dosya) -->
-          <div class="mb-3">
-            <label for="image_url" class="block text-sm font-semibold text-gray-700 mb-2">Resim (dosya yükle)</label>
-            <input id="image_url" name="image_url" type="file" accept="image/*"
-                   class="w-full rounded-lg border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500">
-          </div>
-
-
-  <button type="submit" class="bg-indigo-600 text-white px-5 py-2 rounded mt-2">
-    Gönderiyi Kaydet
-  </button>
-</form>
-
-        </form>
+        </div>
 
       </div>
     </div>
   </main>
 
-  <!-- Scripts -->
-<script>
+  <!-- TinyMCE CDN (Yeni API Key) -->
+  <script src="https://cdn.tiny.cloud/1/j7gcco89bx6op2sbuiy5d9nehemvb3xe5wh8iqtmllj94g87/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 
-/* --- IMAGE PREVIEW (file OR url) --- */
-(function(){
-  const fileInput = document.getElementById('image_url');   
-  const urlInput  = document.getElementById('image_url'); 
-  const previewWrap = document.getElementById('imgPreviewWrap');
-  const previewImg  = document.getElementById('imgPreview');
-  const previewErr  = document.getElementById('imgPreviewError');
+  <script>
+    // --- CANLI ÖNİZLEME SENKRONİZASYONU ---
+    document.addEventListener("DOMContentLoaded", function () {
+      const titleInput = document.getElementById("title");
+      const summaryInput = document.getElementById("summary");
+      const fileInput = document.getElementById("image_url");
 
-  // Guard: gerekli DOM elemanları yoksa çık (hata atmasın)
-  if (!previewWrap || !previewImg || !previewErr) return;
+      const previewTitle = document.getElementById("previewTitle");
+      const previewSummary = document.getElementById("previewSummary");
+      const previewBody = document.getElementById("previewBody");
+      const mockImg = document.getElementById("mockImg");
+      const mockImgPlaceholder = document.getElementById("mockImgPlaceholder");
 
-  function hidePreview(){
-    previewWrap.classList.add('hidden');
-    previewImg.removeAttribute('src');
-    previewErr.classList.add('hidden');
-  }
-
-  function showPreview(url){
-    previewErr.classList.add('hidden');
-    previewImg.src = url;
-    // onload/onerror handlers (tek seferlik)
-    previewImg.onload = () => {
-      previewWrap.classList.remove('hidden');
-      previewErr.classList.add('hidden');
-    };
-    previewImg.onerror = () => {
-      previewWrap.classList.remove('hidden');
-      previewErr.classList.remove('hidden');
-      previewImg.removeAttribute('src');
-    };
-  }
-
-  // File seçimi: FileReader ile dataURL göster
-  if (fileInput) {
-    fileInput.addEventListener('change', (e) => {
-      const f = e.target.files && e.target.files[0];
-      if (!f) {
-        if (!urlInput || !urlInput.value) hidePreview();
-        return;
+      // 1. Başlık Eşzamanlama
+      if (titleInput) {
+        titleInput.addEventListener("input", function () {
+          previewTitle.textContent = this.value.trim() || "Başlık buraya gelecek...";
+        });
       }
-      if (!f.type.startsWith('image/')) {
-        previewWrap.classList.remove('hidden');
-        previewErr.classList.remove('hidden');
-        previewImg.removeAttribute('src');
-        return;
-      }
-      const reader = new FileReader();
-      reader.onload = ev => {
-        showPreview(ev.target.result);
-        if (urlInput) urlInput.value = '';
-      };
-      reader.readAsDataURL(f);
-    });
-  }
 
-  // URL input: daha güvenli doğrulama için URL constructor kullan
-  if (urlInput) {
-    urlInput.addEventListener('input', (e) => {
-      const url = e.target.value.trim();
-      if (!url) {
-        if (!fileInput || !fileInput.files.length) hidePreview();
-        return;
+      // 2. Özet Eşzamanlama
+      if (summaryInput) {
+        summaryInput.addEventListener("input", function () {
+          previewSummary.textContent = this.value.trim() || "Kısa özet metni burada görüntülenecek...";
+        });
       }
-      try {
-        const u = new URL(url);
-        // sadece http/https kabul et
-        if (u.protocol === 'http:' || u.protocol === 'https:') {
-          showPreview(url);
-        } else {
-          previewWrap.classList.remove('hidden');
-          previewErr.classList.remove('hidden');
-          previewImg.removeAttribute('src');
+
+      // 3. Kapak Resmi Canlı Önizleme (FileReader)
+      if (fileInput) {
+        fileInput.addEventListener("change", function (e) {
+          const file = e.target.files && e.target.files[0];
+          if (file && file.type.startsWith("image/")) {
+            const reader = new FileReader();
+            reader.onload = function (ev) {
+              mockImg.src = ev.target.result;
+              mockImg.style.display = "block";
+              if (mockImgPlaceholder) mockImgPlaceholder.style.display = "none";
+            };
+            reader.readAsDataURL(file);
+          } else {
+            mockImg.removeAttribute("src");
+            mockImg.style.display = "none";
+            if (mockImgPlaceholder) mockImgPlaceholder.style.display = "block";
+          }
+        });
+      }
+
+      // 4. TinyMCE Başlatma ve İçeriği Önizlemeye Aktarma
+      tinymce.init({
+        selector: '#content',
+        plugins: 'link lists table code image media',
+        toolbar: 'undo redo | styles | bold italic underline | bullist numlist | link image media | table | code',
+        menubar: false,
+        branding: false,
+        height: 380,
+        setup: function (editor) {
+          function syncContent() {
+            const html = editor.getContent();
+            if (html.trim()) {
+              previewBody.innerHTML = html;
+            } else {
+              previewBody.innerHTML = '<em class="text-gray-400 text-xs">Ana içerik TinyMCE üzerinden yazıldıkça buraya yansıyacak...</em>';
+            }
+          }
+
+          editor.on('input change keyup NodeChange', syncContent);
         }
-      } catch (err) {
-        previewWrap.classList.remove('hidden');
-        previewErr.classList.remove('hidden');
-        previewImg.removeAttribute('src');
-      }
+      });
     });
-  }
-})();
-</script>
-<script src="https://cdn.tiny.cloud/1/mhplnlwxy8in2vw5y7mrh51fuqta8s6c77iyotav1e8elnmu/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-<script>
-  tinymce.init({
-    selector: '#content',
-    plugins: 'link lists table code image media',
-    toolbar: 'undo redo | styles | bold italic underline | bullist numlist | link image media | table | code',
-    menubar: false,
-    branding: false,
-    height: 400
-  });
-</script>
+  </script>
 
 </body>
 </html>
