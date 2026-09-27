@@ -10,7 +10,6 @@
     <meta name="author" content="Baran Çelik" />
     <link rel="shortcut icon" href="favicon.ico">
 
-
     <link rel="stylesheet" href="css/reset.css" type="text/css">
     <link rel="stylesheet" href="css/bootstrap-grid.min.css" type="text/css">
     <link rel="stylesheet" href="css/animations.css" type="text/css">
@@ -121,938 +120,934 @@
 
           <div class="content-area">
             <div class="animated-sections">
-              <!-- Home Subpage -->
-<section data-id="home" class="animated-section start-page section-active">
-  <style>
-    .start-page,
-    .start-page.section-active {
-      position: relative !important;
-      visibility: visible !important;
-      opacity: 1 !important;
-      display: flex !important;
-      overflow: hidden !important;
-      height: 100vh !important;
-      min-height: 100svh !important;
-      width: 100% !important;
-      align-items: center;
-      justify-content: center;
-      top: 0;
-      left: 0;
-      transition: background 2s ease-in-out;
-      z-index: 1;
-    }
-
-    /* --- MEVSİM GÖKYÜZÜ RENKLERİ --- */
-    .start-page.season-winter { background: #07101c !important; }
-    .start-page.season-spring { background: linear-gradient(to bottom, #6cbde7 0%, #b8e994 100%) !important; }
-    .start-page.season-summer { background: linear-gradient(to bottom, #1f78b4 0%, #5cbfe8 50%, #f8df9e 100%) !important; }
-    .start-page.season-autumn { background: linear-gradient(to bottom, #1a202c 0%, #334155 50%, #4a3325 100%) !important; }
-
-    /* Şimşek (Sonbahar) */
-    .lightning-flash {
-      position: absolute;
-      inset: 0;
-      background: rgba(255, 255, 255, 0.85);
-      opacity: 0;
-      pointer-events: none;
-      z-index: 15;
-    }
-    .season-autumn .lightning-flash {
-      animation: lightning 7s infinite;
-    }
-
-    /* Yaz Güneşi & Denizi */
-    .summer-sun {
-      position: absolute;
-      top: clamp(25px, 6vh, 60px);
-      left: 50%;
-      transform: translateX(-50%);
-      width: clamp(70px, 8vw, 100px);
-      height: clamp(70px, 8vw, 100px);
-      border-radius: 50%;
-      background: radial-gradient(circle, #fff7ad, #ffa502);
-      box-shadow: 0 0 50px #ffa502, 0 0 90px #ff7f50;
-      display: none;
-      z-index: 1;
-      animation: sunPulse 4s infinite alternate;
-    }
-    .season-summer .summer-sun { display: block; }
-
-    .summer-sea {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: clamp(70px, 12vh, 120px);
-      display: none;
-      z-index: 2;
-      overflow: hidden;
-    }
-    .season-summer .summer-sea { display: block; }
-
-    .wave {
-      position: absolute;
-      bottom: 0;
-      width: 200%;
-      height: 60%;
-      background: rgba(0, 140, 240, 0.45);
-      border-radius: 40% 40% 0 0;
-      animation: waveMove 6s linear infinite;
-    }
-    .wave:nth-child(2) {
-      bottom: 8px;
-      background: rgba(0, 95, 190, 0.6);
-      animation: waveMove 4s linear infinite reverse;
-    }
-
-    .surfer-container {
-      position: absolute;
-      bottom: 25px;
-      left: -90px;
-      display: none;
-      z-index: 3;
-      animation: surfRide 13s linear infinite;
-    }
-    .season-summer .surfer-container { display: block; }
-
-    /* İlkbahar Kuşları */
-    .birds-container {
-      position: absolute;
-      top: 14%;
-      right: -100px;
-      display: none;
-      z-index: 3;
-      animation: birdsFly 14s linear infinite;
-    }
-    .season-spring .birds-container { display: block; }
-
-    /* --- DOĞAL 2.5D ZEMİN --- */
-    .season-ground-svg {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: clamp(65px, 10vh, 95px);
-      z-index: 3;
-      pointer-events: none;
-    }
-    .ground-path-back, .ground-path-front {
-      transition: fill 2s ease;
-    }
-
-    .season-winter .ground-path-back { fill: #c4dbe6; }
-    .season-winter .ground-path-front { fill: #eef7fb; }
-    .season-spring .ground-path-back { fill: #27ae60; }
-    .season-spring .ground-path-front { fill: #2ecc71; }
-    .season-summer .ground-path-back { fill: #d35400; }
-    .season-summer .ground-path-front { fill: #f39c12; }
-    .season-autumn .ground-path-back { fill: #78281f; }
-    .season-autumn .ground-path-front { fill: #b9461e; }
-
-    /* --- SAHNE VE EV & AĞAÇ KATMANI --- */
-    .stage-elements {
-      position: absolute;
-      inset: 0;
-      z-index: 4;
-      pointer-events: none;
-    }
-
-    /* Sol: Ev */
-    .cozy-houses-wrapper {
-      position: absolute;
-      bottom: clamp(20px, 4vh, 38px);
-      left: clamp(20px, 4vw, 60px);
-      width: clamp(190px, 20vw, 260px);
-      aspect-ratio: 220 / 190;
-    }
-
-    .house-svg {
-      width: 100%;
-      height: 100%;
-      filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.7));
-    }
-
-    .house-door {
-      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-      transform-origin: 145px center;
-    }
-    .door-open {
-      transform: perspective(400px) rotateY(-80deg);
-    }
-
-    .chimney-smoke {
-      position: absolute;
-      top: 14%;
-      left: 77%;
-      width: 14px;
-      height: 14px;
-    }
-    .smoke-puff {
-      position: absolute;
-      width: 12px;
-      height: 12px;
-      background: rgba(230, 245, 255, 0.45);
-      border-radius: 50%;
-      filter: blur(3.5px);
-      animation: smokeRise 4s infinite ease-out;
-    }
-    .smoke-puff:nth-child(2) { animation-delay: 1.3s; }
-    .smoke-puff:nth-child(3) { animation-delay: 2.6s; }
-
-    /* İlkbahar Pembe Ağaç */
-    .spring-extra-tree {
-      position: absolute;
-      bottom: clamp(30px, 5vh, 48px);
-      left: clamp(230px, 26vw, 360px);
-      width: clamp(90px, 10vw, 130px);
-      aspect-ratio: 140 / 190;
-      display: none;
-      opacity: 0.9;
-    }
-    .season-spring .spring-extra-tree { display: block; }
-
-    /* Kış Kardan Adamı */
-    .snowman-container {
-      position: absolute;
-      bottom: clamp(25px, 4.5vh, 40px);
-      right: clamp(180px, 22vw, 300px);
-      width: clamp(45px, 5vw, 65px);
-      aspect-ratio: 70 / 100;
-      display: none;
-    }
-    .season-winter .snowman-container { display: block; }
-
-    /* Sağ: Ağaç ve Salıncak */
-    .tree-wrapper {
-      position: absolute;
-      bottom: clamp(15px, 3vh, 30px);
-      right: clamp(15px, 3vw, 45px);
-      width: clamp(220px, 24vw, 320px);
-      aspect-ratio: 280 / 360;
-    }
-
-    .tree-svg {
-      width: 100%;
-      height: 100%;
-      filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.65));
-    }
-
-    .tire-swing {
-      transform-origin: 135px 158px;
-      animation: tireSway 5s ease-in-out infinite alternate;
-    }
-    .season-autumn .tire-swing {
-      animation-duration: 2.8s;
-    }
-
-    /* Mevsimlik Süsler */
-    .snow-decor { display: none; }
-    .season-winter .snow-decor { display: inline; }
-
-    .spring-foliage { display: none; }
-    .season-spring .spring-foliage { display: inline; fill: #ff9ff3; opacity: 0.9; }
-    .season-summer .spring-foliage { display: inline; fill: #2ed573; opacity: 0.9; }
-    .season-autumn .spring-foliage { display: inline; fill: #d35400; opacity: 0.85; }
-
-    /* --- KOŞAN ÇOCUK --- */
-    .running-child {
-      position: absolute;
-      bottom: clamp(20px, 4vh, 36px);
-      width: clamp(26px, 2.5vw, 34px);
-      height: clamp(42px, 4.2vw, 54px);
-      z-index: 5;
-      pointer-events: none;
-      animation: runDirectlyToDoor 15s linear forwards;
-    }
-
-    .child-torso {
-      position: absolute;
-      top: 28%;
-      left: 30%;
-      width: 40%;
-      height: 36%;
-      background: #e74c3c;
-      border-radius: 4px;
-    }
-    .child-head {
-      position: absolute;
-      top: 6%;
-      left: 28%;
-      width: 44%;
-      aspect-ratio: 1;
-      background: #ffeaa7;
-      border-radius: 50%;
-    }
-    .child-cap {
-      position: absolute;
-      top: 0;
-      left: 24%;
-      width: 52%;
-      height: 14%;
-      background: #0984e3;
-      border-radius: 6px 6px 0 0;
-    }
-    .leg {
-      position: absolute;
-      top: 62%;
-      width: 14%;
-      height: 38%;
-      background: #2d3436;
-      transform-origin: top center;
-    }
-    .leg-left {
-      left: 30%;
-      animation: legCycle 0.35s infinite alternate ease-in-out;
-    }
-    .leg-right {
-      left: 55%;
-      animation: legCycle 0.35s infinite alternate-reverse ease-in-out;
-    }
-    .arm {
-      position: absolute;
-      top: 32%;
-      width: 10%;
-      height: 28%;
-      background: #e74c3c;
-      transform-origin: top center;
-    }
-    .arm-left {
-      left: 20%;
-      animation: legCycle 0.35s infinite alternate-reverse ease-in-out;
-    }
-    .arm-right {
-      left: 70%;
-      animation: legCycle 0.35s infinite alternate ease-in-out;
-    }
-
-    @keyframes runDirectlyToDoor {
-      0% {
-        right: clamp(140px, 16vw, 210px);
-        left: auto;
-        opacity: 1;
-      }
-      92% {
-        right: calc(100% - clamp(20px, 4vw, 60px) - (clamp(190px, 20vw, 260px) * 0.78));
-        opacity: 1;
-        transform: scale(1);
-      }
-      97% {
-        right: calc(100% - clamp(20px, 4vw, 60px) - (clamp(190px, 20vw, 260px) * 0.72));
-        opacity: 0.9;
-        transform: scale(0.85);
-      }
-      100% {
-        right: calc(100% - clamp(20px, 4vw, 60px) - (clamp(190px, 20vw, 260px) * 0.68));
-        opacity: 0;
-        transform: scale(0.7);
-      }
-    }
-
-    @keyframes legCycle {
-      0% { transform: rotate(-35deg); }
-      100% { transform: rotate(35deg); }
-    }
-
-    /* --- PARÇACIKLAR KUTUSU (KESİNTİSİZ MOBİL & PC) --- */
-    #particle-box {
-      position: absolute;
-      inset: 0;
-      overflow: hidden;
-      pointer-events: none;
-      z-index: 8 !important;
-    }
-
-    .season-particle {
-      position: absolute;
-      pointer-events: none;
-      user-select: none;
-      will-change: transform, opacity;
-    }
-
-    @keyframes particleSnow {
-      0% { transform: translateY(-30px) translateX(0) rotate(0deg); opacity: 0; }
-      20% { opacity: 0.95; }
-      100% { transform: translateY(105vh) translateX(35px) rotate(360deg); opacity: 0.2; }
-    }
-
-    @keyframes particleRain {
-      0% { transform: translateY(-40px) translateX(0); opacity: 1; }
-      100% { transform: translateY(105vh) translateX(-40px); opacity: 0.4; }
-    }
-
-    @keyframes particleLeaf {
-      0% { transform: translate(0, -30px) rotate(0deg); opacity: 1; }
-      50% { transform: translate(60px, 50vh) rotate(180deg); }
-      100% { transform: translate(-40px, 105vh) rotate(360deg); opacity: 0; }
-    }
-
-    @keyframes sunPulse {
-      from { transform: translateX(-50%) scale(0.95); box-shadow: 0 0 35px #ffa502; }
-      to { transform: translateX(-50%) scale(1.05); box-shadow: 0 0 75px #ff7f50; }
-    }
-    @keyframes waveMove {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-    @keyframes surfRide {
-      0% { left: -90px; transform: translateY(0) rotate(5deg); }
-      25% { transform: translateY(-10px) rotate(-4deg); }
-      50% { transform: translateY(8px) rotate(6deg); }
-      75% { transform: translateY(-8px) rotate(-3deg); }
-      100% { left: 105%; transform: translateY(0) rotate(5deg); }
-    }
-    @keyframes birdsFly {
-      0% { right: -120px; top: 12%; }
-      100% { right: 105%; top: 22%; }
-    }
-    @keyframes lightning {
-      0%, 94%, 98%, 100% { opacity: 0; }
-      95%, 97% { opacity: 0.95; }
-    }
-    @keyframes smokeRise {
-      0% { transform: translate(0, 0) scale(0.6); opacity: 0; }
-      25% { opacity: 0.65; }
-      100% { transform: translate(-30px, -70px) scale(2.6); opacity: 0; }
-    }
-    @keyframes tireSway {
-      0% { transform: rotate(-6deg); }
-      100% { transform: rotate(8deg); }
-    }
-
-    /* Başlık ve Daktilo */
-    .title-block {
-      position: relative;
-      z-index: 10;
-      text-align: center;
-      padding: 1rem;
-      width: 100%;
-      max-width: 90%;
-      margin: 0 auto;
-    }
-    .title-block h2 {
-      font-size: clamp(2rem, 6vw, 4.4rem);
-      font-weight: 800;
-      margin: 0 0 0.8rem;
-      color: #fff;
-      text-shadow: 0 0 20px rgba(0,0,0,0.65);
-    }
-    .typewriter {
-      color: #fff;
-      font-size: clamp(1rem, 3.2vw, 1.8rem);
-      font-weight: 600;
-      font-family: 'Courier New', monospace;
-      position: relative;
-      width: max-content;
-      margin: 0 auto;
-      min-height: 1.8rem;
-      text-shadow: 0 0 10px rgba(0,0,0,0.85);
-    }
-    .typewriter::after {
-      content: '|';
-      position: absolute;
-      right: -8px;
-      width: 8px;
-      animation: blink 0.75s step-end infinite;
-    }
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
-    }
-
-    /* --- MOBİL UYARLAMALARI (768px Altı) --- */
-    @media (max-width: 768px) {
-      .spring-extra-tree { display: none !important; }
-      .cozy-houses-wrapper {
-        left: 4px;
-        bottom: 20px;
-        width: 135px;
-      }
-      .tree-wrapper {
-        right: 4px;
-        bottom: 15px;
-        width: 145px;
-      }
-      .snowman-container {
-        right: 90px;
-        bottom: 20px;
-        width: 38px;
-        transform: scale(0.68);
-      }
-      .running-child {
-        bottom: 20px;
-        transform: scale(0.65);
-        animation: runDirectlyToDoorMobile 15s linear forwards !important;
-      }
-
-      @keyframes runDirectlyToDoorMobile {
-        0% {
-          right: 35px;
-          left: auto;
-          opacity: 1;
-        }
-        92% {
-          right: calc(100% - 118px);
-          opacity: 1;
-          transform: scale(0.65);
-        }
-        97% {
-          right: calc(100% - 108px);
-          opacity: 0.9;
-          transform: scale(0.55);
-        }
-        100% {
-          right: calc(100% - 98px);
-          opacity: 0;
-          transform: scale(0.45);
-        }
-      }
-    }
-  </style>
-
-  <!-- Şimşek -->
-  <div class="lightning-flash"></div>
-
-  <!-- Yaz Güneşi, Deniz ve Sörfçü -->
-  <div class="summer-sun"></div>
-  <div class="summer-sea">
-    <div class="wave"></div>
-    <div class="wave"></div>
-  </div>
-  <div class="surfer-container">
-    <svg width="65" height="55" viewBox="0 0 70 60" fill="none">
-      <path d="M5 52 Q 35 44 65 52 Q 35 56 5 52 Z" fill="#ff4757" stroke="#fff" stroke-width="1.5" />
-      <circle cx="34" cy="12" r="5" fill="#f1c40f" />
-      <path d="M34 17 L 31 32 L 23 46" stroke="#2f3542" stroke-width="3" stroke-linecap="round" />
-      <path d="M31 32 L 42 46" stroke="#2f3542" stroke-width="3" stroke-linecap="round" />
-      <path d="M33 22 L 20 20" stroke="#f1c40f" stroke-width="2.5" stroke-linecap="round" />
-      <path d="M33 22 L 48 24" stroke="#f1c40f" stroke-width="2.5" stroke-linecap="round" />
-    </svg>
-  </div>
-
-  <!-- İlkbahar Kuşları -->
-  <div class="birds-container">
-    <svg width="120" height="40" viewBox="0 0 120 40">
-      <path d="M10 20 Q 20 10 30 20 Q 40 10 50 20" stroke="#2c3e50" stroke-width="2.5" fill="none" />
-      <path d="M60 12 Q 67 4 75 12 Q 82 4 90 12" stroke="#2c3e50" stroke-width="2.5" fill="none" />
-      <path d="M95 24 Q 102 18 110 24 Q 117 18 125 24" stroke="#2c3e50" stroke-width="2.5" fill="none" />
-    </svg>
-  </div>
-
-  <!-- Parçacık Kutusu (Kar/Yağmur/Yaprak) -->
-  <div id="particle-box"></div>
-
-  <!-- Sahne Elemanları -->
-  <div class="stage-elements">
-    <!-- Ev (Sol) -->
-    <div class="cozy-houses-wrapper">
-      <div class="chimney-smoke">
-        <div class="smoke-puff"></div>
-        <div class="smoke-puff"></div>
-        <div class="smoke-puff"></div>
-      </div>
-
-      <svg class="house-svg" viewBox="0 0 220 190" fill="none">
-        <rect x="165" y="32" width="18" height="42" fill="#121820" />
-        <rect class="snow-decor" x="162" y="29" width="24" height="6" fill="#eaf4f7" rx="2" />
-        <polygon points="40,95 200,95 190,185 50,185" fill="#141c24" />
-        <polygon points="25,100 120,38 215,100" fill="#0d131a" />
-        <path class="snow-decor" d="M22 102 Q 75 58 120 38 Q 165 58 218 102 Q 165 86 120 50 Q 75 86 22 102 Z" fill="#f0f8fa" />
-
-        <rect x="70" y="118" width="34" height="34" rx="3" fill="#ffb703" />
-        <line x1="87" y1="118" x2="87" y2="152" stroke="#141c24" stroke-width="2.5" />
-        <line x1="70" y1="135" x2="104" y2="135" stroke="#141c24" stroke-width="2.5" />
-        <rect class="snow-decor" x="67" y="115" width="40" height="4" rx="2" fill="#f0f8fa" />
-
-        <rect x="145" y="128" width="28" height="57" rx="2" fill="#ff9f43" />
-        <rect class="house-door" id="front-door" x="145" y="128" width="28" height="57" rx="2" fill="#84593c" />
-        <circle cx="151" cy="157" r="2.2" fill="#ffbe76" />
-      </svg>
-    </div>
-
-    <!-- İlkbahar Pembe Ağaç -->
-    <div class="spring-extra-tree">
-      <svg viewBox="0 0 140 190" fill="none">
-        <path d="M70 190 L 70 110 L 45 80 M 70 110 L 95 75" stroke="#3d2c1f" stroke-width="8" stroke-linecap="round" />
-        <circle cx="45" cy="70" r="28" fill="#ffb8b8" opacity="0.85" />
-        <circle cx="95" cy="65" r="30" fill="#ff9ff3" opacity="0.85" />
-        <circle cx="70" cy="48" r="25" fill="#f368e0" opacity="0.75" />
-      </svg>
-    </div>
-
-    <!-- Kış Kardan Adamı -->
-    <div class="snowman-container">
-      <svg viewBox="0 0 70 100" fill="none">
-        <circle cx="35" cy="70" r="22" fill="#ffffff" />
-        <circle cx="35" cy="38" r="15" fill="#ffffff" />
-        <circle cx="30" cy="34" r="2" fill="#2d3436" />
-        <circle cx="40" cy="34" r="2" fill="#2d3436" />
-        <circle cx="35" cy="62" r="2.5" fill="#2d3436" />
-        <circle cx="35" cy="74" r="2.5" fill="#2d3436" />
-        <polygon points="35,37 46,39 35,41" fill="#e67e22" />
-        <path d="M22 47 Q 35 52 48 47" stroke="#e74c3c" stroke-width="4.5" stroke-linecap="round" />
-        <path d="M40 49 L 43 65" stroke="#e74c3c" stroke-width="3" stroke-linecap="round" />
-      </svg>
-    </div>
-
-    <!-- Sağ: Ağaç ve Salıncak -->
-    <div class="tree-wrapper">
-      <svg class="tree-svg" viewBox="0 0 280 360" fill="none">
-        <ellipse class="spring-foliage" cx="210" cy="80" rx="45" ry="35" />
-        <ellipse class="spring-foliage" cx="130" cy="80" rx="40" ry="30" />
-        <ellipse class="spring-foliage" cx="170" cy="45" rx="55" ry="40" />
-
-        <path d="M235 360 C 220 280, 228 210, 195 160 C 175 130, 145 120, 80 138" stroke="#121820" stroke-width="19" stroke-linecap="round" fill="none" />
-        <path d="M195 160 C 190 100, 210 65, 222 15" stroke="#121820" stroke-width="12" stroke-linecap="round" fill="none" />
-        <path d="M208 115 C 232 95, 256 90, 275 84" stroke="#121820" stroke-width="7" stroke-linecap="round" fill="none" />
-        <path d="M165 130 C 140 75, 110 58, 86 35" stroke="#121820" stroke-width="9" stroke-linecap="round" fill="none" />
-
-        <path class="snow-decor" d="M86 133 C 128 121, 165 126, 195 156" stroke="#f0f8fa" stroke-width="5.5" stroke-linecap="round" />
-        <path class="snow-decor" d="M168 124 C 144 80, 118 64, 92 37" stroke="#f0f8fa" stroke-width="4.5" stroke-linecap="round" />
-
-        <g class="tire-swing">
-          <line x1="122" y1="142" x2="116" y2="238" stroke="#d1e3e8" stroke-width="2.2" />
-          <line x1="129" y1="141" x2="133" y2="238" stroke="#d1e3e8" stroke-width="2.2" />
-          <ellipse cx="125" cy="258" rx="20" ry="25" fill="#151b22" stroke="#0b0e12" stroke-width="2.5" />
-          <ellipse cx="125" cy="258" rx="10.5" ry="14" fill="#000" />
-          <path class="snow-decor" d="M110 243 Q 125 236 140 243 Q 125 239 110 243 Z" fill="#f0f8fa" />
-        </g>
-      </svg>
-    </div>
-
-    <!-- Koşan Çocuk -->
-    <div class="running-child" id="child">
-      <div class="child-cap"></div>
-      <div class="child-head"></div>
-      <div class="child-torso"></div>
-      <div class="arm arm-left"></div>
-      <div class="arm arm-right"></div>
-      <div class="leg leg-left"></div>
-      <div class="leg leg-right"></div>
-    </div>
-  </div>
-
-  <!-- 2.5D Doğal Zemin -->
-  <svg class="season-ground-svg" viewBox="0 0 1440 120" preserveAspectRatio="none">
-    <path class="ground-path-back" d="M0,45 C320,15 720,65 1440,30 L1440,120 L0,120 Z" />
-    <path class="ground-path-front" d="M0,60 C480,25 960,75 1440,50 L1440,120 L0,120 Z" />
-  </svg>
-
-  <!-- BAŞLIK & DAKTİLO METNİ -->
-  <div class="section-content vcentered">
-    <div class="row">
-      <div class="col-sm-12">
-        <div class="title-block">
-          <h2 class="dynamic-text">BARAN ÇELİK</h2>
-          <div class="typewriter"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    (function () {
-      const seasons = ['season-winter', 'season-spring', 'season-summer', 'season-autumn'];
-
-      function getInitialSeasonByDate() {
-        const month = new Date().getMonth();
-        if (month === 11 || month === 0 || month === 1) return 0; // Kış
-        if (month >= 2 && month <= 4) return 1;                  // İlkbahar
-        if (month >= 5 && month <= 7) return 2;                  // Yaz
-        return 3;                                                // Sonbahar
-      }
-
-      let currentSeasonIdx = getInitialSeasonByDate();
-      let cycleTimerDoor = null;
-      let cycleTimerNext = null;
-      let typeWriterTimeout = null;
-      let typeWriterInterval = null;
-      let heroStarted = false;
-
-      function updateParticles(seasonClass) {
-        const particleBox = document.getElementById('particle-box');
-        if (!particleBox) return;
-        particleBox.innerHTML = '';
-
-        const isMobile = window.innerWidth < 768;
-        const count = isMobile ? 22 : 45;
-
-        if (seasonClass === 'season-winter') {
-          const snowSymbols = ['❄', '❅', '•'];
-          for (let i = 0; i < count; i++) {
-            const p = document.createElement('div');
-            p.className = 'season-particle';
-            p.textContent = snowSymbols[Math.floor(Math.random() * snowSymbols.length)];
-            p.style.color = '#ffffff';
-            p.style.fontSize = (Math.random() * 14 + 10) + 'px';
-            p.style.left = (Math.random() * 98) + '%';
-            p.style.top = '-25px';
-            p.style.animation = `particleSnow ${Math.random() * 4 + 4}s linear infinite`;
-            p.style.animationDelay = (Math.random() * 5) + 's';
-            particleBox.appendChild(p);
-          }
-        } else if (seasonClass === 'season-spring') {
-          for (let i = 0; i < Math.floor(count / 2); i++) {
-            const p = document.createElement('div');
-            p.className = 'season-particle';
-            p.textContent = '🌸';
-            p.style.fontSize = (Math.random() * 12 + 10) + 'px';
-            p.style.left = (Math.random() * 98) + '%';
-            p.style.top = '-25px';
-            p.style.animation = `particleLeaf ${Math.random() * 6 + 5}s ease-in-out infinite`;
-            p.style.animationDelay = (Math.random() * 5) + 's';
-            particleBox.appendChild(p);
-          }
-        } else if (seasonClass === 'season-autumn') {
-          for (let i = 0; i < count; i++) {
-            const rain = document.createElement('div');
-            rain.className = 'season-particle';
-            rain.style.width = '2px';
-            rain.style.height = (Math.random() * 18 + 14) + 'px';
-            rain.style.background = 'rgba(174, 194, 214, 0.75)';
-            rain.style.left = (Math.random() * 98) + '%';
-            rain.style.top = '-30px';
-            rain.style.animation = `particleRain ${Math.random() * 0.7 + 0.6}s linear infinite`;
-            rain.style.animationDelay = (Math.random() * 2) + 's';
-            particleBox.appendChild(rain);
-          }
-          const leafIcons = ['🍂', '🍁'];
-          const leafCount = isMobile ? 10 : 16;
-          for (let i = 0; i < leafCount; i++) {
-            const leaf = document.createElement('div');
-            leaf.className = 'season-particle';
-            leaf.textContent = leafIcons[Math.floor(Math.random() * leafIcons.length)];
-            leaf.style.fontSize = (Math.random() * 14 + 12) + 'px';
-            leaf.style.left = (Math.random() * 98) + '%';
-            leaf.style.top = '-25px';
-            leaf.style.animation = `particleLeaf ${Math.random() * 4 + 4}s ease-in-out infinite`;
-            leaf.style.animationDelay = (Math.random() * 5) + 's';
-            particleBox.appendChild(leaf);
-          }
-        }
-      }
-
-      function startSeasonCycle() {
-        const section = document.querySelector('.start-page');
-        const door = document.getElementById('front-door');
-        const child = document.getElementById('child');
-        if (!section) return;
-
-        // Önceki zamanlayıcıları temizle
-        clearTimeout(cycleTimerDoor);
-        clearTimeout(cycleTimerNext);
-
-        seasons.forEach(s => section.classList.remove(s));
-        section.classList.add(seasons[currentSeasonIdx]);
-        updateParticles(seasons[currentSeasonIdx]);
-
-        // Çocuğu her mevsimde ağacın altından yeniden koştur
-        if (child) {
-          child.style.animation = 'none';
-          void child.offsetWidth; /* Reflow tetikle */
-          const isMobile = window.innerWidth < 768;
-          child.style.animation = `${isMobile ? 'runDirectlyToDoorMobile' : 'runDirectlyToDoor'} 15s linear forwards`;
-        }
-
-        // Kapıyı aç (13.5. sn)
-        cycleTimerDoor = setTimeout(() => {
-          if (door) door.classList.add('door-open');
-        }, 13500);
-
-        // Kapıyı kapat ve diğer mevsime geç (15. sn)
-        cycleTimerNext = setTimeout(() => {
-          if (door) door.classList.remove('door-open');
-          currentSeasonIdx = (currentSeasonIdx + 1) % seasons.length;
-          startSeasonCycle();
-        }, 15000);
-      }
-
-      // --- DAKTİLO EFEKTİ (TEKİL KONTROLLÜ) ---
-      function runSingleTypewriter() {
-        const typewriterEl = document.querySelector('.typewriter');
-        if (!typewriterEl) return;
-
-        // Eski intervalleri temizle
-        if (typeWriterInterval) clearInterval(typeWriterInterval);
-        if (typeWriterTimeout) clearTimeout(typeWriterTimeout);
-
-        const titles = ['Computer Engineer', 'Full-Stack Developer'];
-        let titleIdx = 0;
-        let charIdx = 0;
-        let isDeleting = false;
-
-        function step() {
-          const currentText = titles[titleIdx];
-          
-          if (!isDeleting) {
-            typewriterEl.textContent = currentText.substring(0, charIdx + 1);
-            charIdx++;
-            if (charIdx === currentText.length) {
-              isDeleting = true;
-              typeWriterTimeout = setTimeout(step, 2000); // Kelimede bekle
-              return;
-            }
-            typeWriterTimeout = setTimeout(step, 90);
-          } else {
-            typewriterEl.textContent = currentText.substring(0, charIdx - 1);
-            charIdx--;
-            if (charIdx === 0) {
-              isDeleting = false;
-              titleIdx = (titleIdx + 1) % titles.length;
-              typeWriterTimeout = setTimeout(step, 400); // Yeni kelimeye geçmeden önce bekle
-              return;
-            }
-            typeWriterTimeout = setTimeout(step, 45);
-          }
-        }
-
-        step();
-      }
-
-      function launchHero() {
-        if (heroStarted) return;
-        heroStarted = true;
-        startSeasonCycle();
-        runSingleTypewriter();
-      }
-
-      // Sayfa yüklenme dinleyicileri
-      if (document.readyState === 'complete' || document.readyState === 'interactive') {
-        setTimeout(launchHero, 50);
-      } else {
-        document.addEventListener('DOMContentLoaded', () => setTimeout(launchHero, 50));
-      }
-
-      window.addEventListener('load', launchHero);
-
-      // Sekmeler arası geçişte daktilo bozulmasın
-      window.addEventListener('hashchange', () => {
-        if (window.location.hash === '#home' || window.location.hash === '') {
-          if (!heroStarted) launchHero();
-        }
-      });
-    })();
-  </script>
-</section>
-<!-- End of Home Subpage -->
-              <!-- End of Home Subpage -->
+
+              <!-- ================= HOME SUBPAGE ================= -->
+              <section data-id="home" class="animated-section start-page section-active">
+                <style>
+                  .start-page,
+                  .start-page.section-active {
+                    position: absolute !important;
+                    inset: 0 !important;
+                    width: 100% !important;
+                    height: 100% !important;
+                    min-height: 100% !important;
+                    display: flex !important;
+                    align-items: center;
+                    justify-content: center;
+                    overflow: hidden !important;
+                    visibility: visible !important;
+                    opacity: 1 !important;
+                    transition: background 2s ease-in-out;
+                    z-index: 1;
+                  }
+
+                  /* Mevsim Arka Planları */
+                  .start-page.season-winter { background: #07101c !important; }
+                  .start-page.season-spring { background: linear-gradient(to bottom, #6cbde7 0%, #a8e063 100%) !important; }
+                  .start-page.season-summer { background: linear-gradient(to bottom, #1f78b4 0%, #5cbfe8 50%, #f8df9e 100%) !important; }
+                  .start-page.season-autumn { background: linear-gradient(to bottom, #1a202c 0%, #334155 50%, #4a3325 100%) !important; }
+
+                  /* Şimşek (Sonbahar) */
+                  .lightning-flash {
+                    position: absolute;
+                    inset: 0;
+                    background: rgba(255, 255, 255, 0.85);
+                    opacity: 0;
+                    pointer-events: none;
+                    z-index: 15;
+                  }
+                  .season-autumn .lightning-flash {
+                    animation: lightning 7s infinite;
+                  }
+
+                  /* Yaz Güneşi, Denizi ve Sörfçü */
+                  .summer-sun {
+                    position: absolute;
+                    top: clamp(25px, 6vh, 60px);
+                    left: 50%;
+                    transform: translateX(-50%);
+                    width: clamp(70px, 8vw, 100px);
+                    height: clamp(70px, 8vw, 100px);
+                    border-radius: 50%;
+                    background: radial-gradient(circle, #fff7ad, #ffa502);
+                    box-shadow: 0 0 50px #ffa502, 0 0 90px #ff7f50;
+                    display: none;
+                    z-index: 2;
+                    animation: sunPulse 4s infinite alternate;
+                  }
+                  .season-summer .summer-sun { display: block; }
+
+                  .summer-sea {
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    width: 100%;
+                    height: clamp(70px, 12vh, 120px);
+                    display: none;
+                    z-index: 3;
+                    overflow: hidden;
+                  }
+                  .season-summer .summer-sea { display: block; }
+
+                  .wave {
+                    position: absolute;
+                    bottom: 0;
+                    width: 200%;
+                    height: 60%;
+                    background: rgba(0, 140, 240, 0.45);
+                    border-radius: 40% 40% 0 0;
+                    animation: waveMove 6s linear infinite;
+                  }
+                  .wave:nth-child(2) {
+                    bottom: 8px;
+                    background: rgba(0, 95, 190, 0.6);
+                    animation: waveMove 4s linear infinite reverse;
+                  }
+
+                  .surfer-container {
+                    position: absolute;
+                    bottom: 25px;
+                    left: -90px;
+                    display: none;
+                    z-index: 4;
+                    animation: surfRide 13s linear infinite;
+                  }
+                  .season-summer .surfer-container { display: block; }
+
+                  /* İlkbahar Kuşları */
+                  .birds-container {
+                    position: absolute;
+                    top: 14%;
+                    right: -100px;
+                    display: none;
+                    z-index: 3;
+                    animation: birdsFly 14s linear infinite;
+                  }
+                  .season-spring .birds-container { display: block; }
+
+                  /* 2.5D Doğal Zemin */
+                  .season-ground-svg {
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    width: 100%;
+                    height: clamp(65px, 10vh, 95px);
+                    z-index: 5;
+                    pointer-events: none;
+                  }
+                  .ground-path-back, .ground-path-front {
+                    transition: fill 2s ease;
+                  }
+
+                  .season-winter .ground-path-back { fill: #c4dbe6; }
+                  .season-winter .ground-path-front { fill: #eef7fb; }
+                  .season-spring .ground-path-back { fill: #27ae60; }
+                  .season-spring .ground-path-front { fill: #2ecc71; }
+                  .season-summer .ground-path-back { fill: #d35400; }
+                  .season-summer .ground-path-front { fill: #f39c12; }
+                  .season-autumn .ground-path-back { fill: #78281f; }
+                  .season-autumn .ground-path-front { fill: #b9461e; }
+
+                  /* Sahne Elemanları */
+                  .stage-elements {
+                    position: absolute;
+                    inset: 0;
+                    z-index: 6;
+                    pointer-events: none;
+                  }
+
+                  /* Sol: Ev */
+                  .cozy-houses-wrapper {
+                    position: absolute;
+                    bottom: clamp(20px, 4vh, 38px);
+                    left: clamp(20px, 4vw, 60px);
+                    width: clamp(180px, 20vw, 250px);
+                    aspect-ratio: 220 / 190;
+                  }
+
+                  .house-svg {
+                    width: 100%;
+                    height: 100%;
+                    filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.7));
+                  }
+
+                  .house-door {
+                    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+                    transform-origin: 145px center;
+                  }
+                  .door-open {
+                    transform: perspective(400px) rotateY(-80deg);
+                  }
+
+                  .chimney-smoke {
+                    position: absolute;
+                    top: 14%;
+                    left: 77%;
+                    width: 14px;
+                    height: 14px;
+                  }
+                  .smoke-puff {
+                    position: absolute;
+                    width: 12px;
+                    height: 12px;
+                    background: rgba(230, 245, 255, 0.45);
+                    border-radius: 50%;
+                    filter: blur(3.5px);
+                    animation: smokeRise 4s infinite ease-out;
+                  }
+                  .smoke-puff:nth-child(2) { animation-delay: 1.3s; }
+                  .smoke-puff:nth-child(3) { animation-delay: 2.6s; }
+
+                  /* İlkbahar Pembe Ağaç */
+                  .spring-extra-tree {
+                    position: absolute;
+                    bottom: clamp(30px, 5vh, 48px);
+                    left: clamp(230px, 26vw, 360px);
+                    width: clamp(90px, 10vw, 130px);
+                    aspect-ratio: 140 / 190;
+                    display: none;
+                    opacity: 0.9;
+                  }
+                  .season-spring .spring-extra-tree { display: block; }
+
+                  /* Kış Kardan Adamı */
+                  .snowman-container {
+                    position: absolute;
+                    bottom: clamp(25px, 4.5vh, 40px);
+                    right: clamp(180px, 22vw, 300px);
+                    width: clamp(45px, 5vw, 65px);
+                    aspect-ratio: 70 / 100;
+                    display: none;
+                  }
+                  .season-winter .snowman-container { display: block; }
+
+                  /* Sağ: Ağaç ve Salıncak */
+                  .tree-wrapper {
+                    position: absolute;
+                    bottom: clamp(15px, 3vh, 30px);
+                    right: clamp(15px, 3vw, 45px);
+                    width: clamp(210px, 24vw, 310px);
+                    aspect-ratio: 280 / 360;
+                  }
+
+                  .tree-svg {
+                    width: 100%;
+                    height: 100%;
+                    filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.65));
+                  }
+
+                  .tire-swing {
+                    transform-origin: 135px 158px;
+                    animation: tireSway 5s ease-in-out infinite alternate;
+                  }
+                  .season-autumn .tire-swing {
+                    animation-duration: 2.8s;
+                  }
+
+                  .snow-decor { display: none; }
+                  .season-winter .snow-decor { display: inline; }
+
+                  .spring-foliage { display: none; }
+                  .season-spring .spring-foliage { display: inline; fill: #ff9ff3; opacity: 0.9; }
+                  .season-summer .spring-foliage { display: inline; fill: #2ed573; opacity: 0.9; }
+                  .season-autumn .spring-foliage { display: inline; fill: #d35400; opacity: 0.85; }
+
+                  /* Koşan Çocuk */
+                  .running-child {
+                    position: absolute;
+                    bottom: clamp(20px, 4vh, 36px);
+                    width: clamp(26px, 2.5vw, 34px);
+                    height: clamp(42px, 4.2vw, 54px);
+                    z-index: 7;
+                    pointer-events: none;
+                    animation: runDirectlyToDoor 15s linear infinite;
+                  }
+
+                  .child-torso {
+                    position: absolute;
+                    top: 28%;
+                    left: 30%;
+                    width: 40%;
+                    height: 36%;
+                    background: #e74c3c;
+                    border-radius: 4px;
+                  }
+                  .child-head {
+                    position: absolute;
+                    top: 6%;
+                    left: 28%;
+                    width: 44%;
+                    aspect-ratio: 1;
+                    background: #ffeaa7;
+                    border-radius: 50%;
+                  }
+                  .child-cap {
+                    position: absolute;
+                    top: 0;
+                    left: 24%;
+                    width: 52%;
+                    height: 14%;
+                    background: #0984e3;
+                    border-radius: 6px 6px 0 0;
+                  }
+                  .leg {
+                    position: absolute;
+                    top: 62%;
+                    width: 14%;
+                    height: 38%;
+                    background: #2d3436;
+                    transform-origin: top center;
+                  }
+                  .leg-left {
+                    left: 30%;
+                    animation: legCycle 0.35s infinite alternate ease-in-out;
+                  }
+                  .leg-right {
+                    left: 55%;
+                    animation: legCycle 0.35s infinite alternate-reverse ease-in-out;
+                  }
+                  .arm {
+                    position: absolute;
+                    top: 32%;
+                    width: 10%;
+                    height: 28%;
+                    background: #e74c3c;
+                    transform-origin: top center;
+                  }
+                  .arm-left {
+                    left: 20%;
+                    animation: legCycle 0.35s infinite alternate-reverse ease-in-out;
+                  }
+                  .arm-right {
+                    left: 70%;
+                    animation: legCycle 0.35s infinite alternate ease-in-out;
+                  }
+
+                  @keyframes runDirectlyToDoor {
+                    0% {
+                      right: clamp(140px, 16vw, 210px);
+                      left: auto;
+                      opacity: 1;
+                    }
+                    90% {
+                      right: calc(100% - clamp(20px, 4vw, 60px) - (clamp(180px, 20vw, 250px) * 0.78));
+                      opacity: 1;
+                      transform: scale(1);
+                    }
+                    95% {
+                      right: calc(100% - clamp(20px, 4vw, 60px) - (clamp(180px, 20vw, 250px) * 0.72));
+                      opacity: 0.9;
+                      transform: scale(0.85);
+                    }
+                    99%, 100% {
+                      right: calc(100% - clamp(20px, 4vw, 60px) - (clamp(180px, 20vw, 250px) * 0.68));
+                      opacity: 0;
+                      transform: scale(0.7);
+                    }
+                  }
+
+                  @keyframes legCycle {
+                    0% { transform: rotate(-35deg); }
+                    100% { transform: rotate(35deg); }
+                  }
+
+                  /* Parçacık Kutusu */
+                  #particle-box {
+                    position: absolute;
+                    inset: 0;
+                    width: 100%;
+                    height: 100%;
+                    overflow: hidden;
+                    pointer-events: none;
+                    z-index: 8 !important;
+                  }
+
+                  .season-particle {
+                    position: absolute;
+                    pointer-events: none;
+                    user-select: none;
+                  }
+
+                  @keyframes particleSnow {
+                    0% { transform: translateY(-30px) translateX(0) rotate(0deg); opacity: 0; }
+                    20% { opacity: 0.95; }
+                    100% { transform: translateY(105vh) translateX(35px) rotate(360deg); opacity: 0.2; }
+                  }
+
+                  @keyframes particleRain {
+                    0% { transform: translateY(-40px) translateX(0); opacity: 1; }
+                    100% { transform: translateY(105vh) translateX(-40px); opacity: 0.4; }
+                  }
+
+                  @keyframes particleLeaf {
+                    0% { transform: translate(0, -30px) rotate(0deg); opacity: 1; }
+                    50% { transform: translate(50px, 50vh) rotate(180deg); }
+                    100% { transform: translate(-30px, 105vh) rotate(360deg); opacity: 0; }
+                  }
+
+                  @keyframes sunPulse {
+                    from { transform: translateX(-50%) scale(0.95); box-shadow: 0 0 35px #ffa502; }
+                    to { transform: translateX(-50%) scale(1.05); box-shadow: 0 0 75px #ff7f50; }
+                  }
+                  @keyframes waveMove {
+                    0% { transform: translateX(0); }
+                    100% { transform: translateX(-50%); }
+                  }
+                  @keyframes surfRide {
+                    0% { left: -90px; transform: translateY(0) rotate(5deg); }
+                    25% { transform: translateY(-10px) rotate(-4deg); }
+                    50% { transform: translateY(8px) rotate(6deg); }
+                    75% { transform: translateY(-8px) rotate(-3deg); }
+                    100% { left: 105%; transform: translateY(0) rotate(5deg); }
+                  }
+                  @keyframes birdsFly {
+                    0% { right: -120px; top: 12%; }
+                    100% { right: 105%; top: 22%; }
+                  }
+                  @keyframes lightning {
+                    0%, 94%, 98%, 100% { opacity: 0; }
+                    95%, 97% { opacity: 0.95; }
+                  }
+                  @keyframes smokeRise {
+                    0% { transform: translate(0, 0) scale(0.6); opacity: 0; }
+                    25% { opacity: 0.65; }
+                    100% { transform: translate(-30px, -70px) scale(2.6); opacity: 0; }
+                  }
+                  @keyframes tireSway {
+                    0% { transform: rotate(-6deg); }
+                    100% { transform: rotate(8deg); }
+                  }
+
+                  /* Başlık ve Metin Katmanı */
+                  .title-block {
+                    position: relative;
+                    z-index: 10;
+                    text-align: center;
+                    padding: 1rem;
+                    width: 100%;
+                    max-width: 90%;
+                    margin: 0 auto;
+                  }
+                  .title-block h2 {
+                    font-size: clamp(2rem, 6vw, 4.4rem);
+                    font-weight: 800;
+                    margin: 0 0 0.8rem;
+                    color: #fff;
+                    text-shadow: 0 0 20px rgba(0,0,0,0.65);
+                  }
+                  .typewriter {
+                    color: #fff;
+                    font-size: clamp(1rem, 3.2vw, 1.8rem);
+                    font-weight: 600;
+                    font-family: 'Courier New', monospace;
+                    position: relative;
+                    width: max-content;
+                    margin: 0 auto;
+                    min-height: 2.2rem;
+                    text-shadow: 0 0 10px rgba(0,0,0,0.85);
+                  }
+                  .typewriter::after {
+                    content: '|';
+                    position: absolute;
+                    right: -10px;
+                    width: 8px;
+                    animation: blink 0.75s step-end infinite;
+                  }
+                  @keyframes blink {
+                    0%, 100% { opacity: 1; }
+                    50% { opacity: 0; }
+                  }
+
+                  /* Mobil Ayarlar */
+                  @media (max-width: 768px) {
+                    .spring-extra-tree { display: none !important; }
+                    .cozy-houses-wrapper {
+                      left: 4px;
+                      bottom: 20px;
+                      width: 135px;
+                    }
+                    .tree-wrapper {
+                      right: 4px;
+                      bottom: 15px;
+                      width: 145px;
+                    }
+                    .snowman-container {
+                      right: 85px;
+                      bottom: 20px;
+                      width: 38px;
+                      transform: scale(0.68);
+                    }
+                    .running-child {
+                      bottom: 20px;
+                      transform: scale(0.65);
+                      animation: runDirectlyToDoorMobile 15s linear infinite !important;
+                    }
+
+                    @keyframes runDirectlyToDoorMobile {
+                      0% {
+                        right: 35px;
+                        left: auto;
+                        opacity: 1;
+                      }
+                      90% {
+                        right: calc(100% - 118px);
+                        opacity: 1;
+                        transform: scale(0.65);
+                      }
+                      95% {
+                        right: calc(100% - 108px);
+                        opacity: 0.9;
+                        transform: scale(0.55);
+                      }
+                      99%, 100% {
+                        right: calc(100% - 98px);
+                        opacity: 0;
+                        transform: scale(0.45);
+                      }
+                    }
+                  }
+                </style>
+
+                <!-- Şimşek -->
+                <div class="lightning-flash"></div>
+
+                <!-- Yaz Güneşi, Deniz ve Sörfçü -->
+                <div class="summer-sun"></div>
+                <div class="summer-sea">
+                  <div class="wave"></div>
+                  <div class="wave"></div>
+                </div>
+                <div class="surfer-container">
+                  <svg width="65" height="55" viewBox="0 0 70 60" fill="none">
+                    <path d="M5 52 Q 35 44 65 52 Q 35 56 5 52 Z" fill="#ff4757" stroke="#fff" stroke-width="1.5" />
+                    <circle cx="34" cy="12" r="5" fill="#f1c40f" />
+                    <path d="M34 17 L 31 32 L 23 46" stroke="#2f3542" stroke-width="3" stroke-linecap="round" />
+                    <path d="M31 32 L 42 46" stroke="#2f3542" stroke-width="3" stroke-linecap="round" />
+                    <path d="M33 22 L 20 20" stroke="#f1c40f" stroke-width="2.5" stroke-linecap="round" />
+                    <path d="M33 22 L 48 24" stroke="#f1c40f" stroke-width="2.5" stroke-linecap="round" />
+                  </svg>
+                </div>
+
+                <!-- İlkbahar Kuşları -->
+                <div class="birds-container">
+                  <svg width="120" height="40" viewBox="0 0 120 40">
+                    <path d="M10 20 Q 20 10 30 20 Q 40 10 50 20" stroke="#2c3e50" stroke-width="2.5" fill="none" />
+                    <path d="M60 12 Q 67 4 75 12 Q 82 4 90 12" stroke="#2c3e50" stroke-width="2.5" fill="none" />
+                    <path d="M95 24 Q 102 18 110 24 Q 117 18 125 24" stroke="#2c3e50" stroke-width="2.5" fill="none" />
+                  </svg>
+                </div>
+
+                <!-- Parçacık Kutusu (Kar/Yağmur/Yaprak) -->
+                <div id="particle-box"></div>
+
+                <!-- Sahne Elemanları -->
+                <div class="stage-elements">
+                  <!-- Ev (Sol) -->
+                  <div class="cozy-houses-wrapper">
+                    <div class="chimney-smoke">
+                      <div class="smoke-puff"></div>
+                      <div class="smoke-puff"></div>
+                      <div class="smoke-puff"></div>
+                    </div>
+
+                    <svg class="house-svg" viewBox="0 0 220 190" fill="none">
+                      <rect x="165" y="32" width="18" height="42" fill="#121820" />
+                      <rect class="snow-decor" x="162" y="29" width="24" height="6" fill="#eaf4f7" rx="2" />
+                      <polygon points="40,95 200,95 190,185 50,185" fill="#141c24" />
+                      <polygon points="25,100 120,38 215,100" fill="#0d131a" />
+                      <path class="snow-decor" d="M22 102 Q 75 58 120 38 Q 165 58 218 102 Q 165 86 120 50 Q 75 86 22 102 Z" fill="#f0f8fa" />
+
+                      <rect x="70" y="118" width="34" height="34" rx="3" fill="#ffb703" />
+                      <line x1="87" y1="118" x2="87" y2="152" stroke="#141c24" stroke-width="2.5" />
+                      <line x1="70" y1="135" x2="104" y2="135" stroke="#141c24" stroke-width="2.5" />
+                      <rect class="snow-decor" x="67" y="115" width="40" height="4" rx="2" fill="#f0f8fa" />
+
+                      <rect x="145" y="128" width="28" height="57" rx="2" fill="#ff9f43" />
+                      <rect class="house-door" id="front-door" x="145" y="128" width="28" height="57" rx="2" fill="#84593c" />
+                      <circle cx="151" cy="157" r="2.2" fill="#ffbe76" />
+                    </svg>
+                  </div>
+
+                  <!-- İlkbahar Pembe Ağaç -->
+                  <div class="spring-extra-tree">
+                    <svg viewBox="0 0 140 190" fill="none">
+                      <path d="M70 190 L 70 110 L 45 80 M 70 110 L 95 75" stroke="#3d2c1f" stroke-width="8" stroke-linecap="round" />
+                      <circle cx="45" cy="70" r="28" fill="#ffb8b8" opacity="0.85" />
+                      <circle cx="95" cy="65" r="30" fill="#ff9ff3" opacity="0.85" />
+                      <circle cx="70" cy="48" r="25" fill="#f368e0" opacity="0.75" />
+                    </svg>
+                  </div>
+
+                  <!-- Kış Kardan Adamı -->
+                  <div class="snowman-container">
+                    <svg viewBox="0 0 70 100" fill="none">
+                      <circle cx="35" cy="70" r="22" fill="#ffffff" />
+                      <circle cx="35" cy="38" r="15" fill="#ffffff" />
+                      <circle cx="30" cy="34" r="2" fill="#2d3436" />
+                      <circle cx="40" cy="34" r="2" fill="#2d3436" />
+                      <circle cx="35" cy="62" r="2.5" fill="#2d3436" />
+                      <circle cx="35" cy="74" r="2.5" fill="#2d3436" />
+                      <polygon points="35,37 46,39 35,41" fill="#e67e22" />
+                      <path d="M22 47 Q 35 52 48 47" stroke="#e74c3c" stroke-width="4.5" stroke-linecap="round" />
+                      <path d="M40 49 L 43 65" stroke="#e74c3c" stroke-width="3" stroke-linecap="round" />
+                    </svg>
+                  </div>
+
+                  <!-- Sağ: Ağaç ve Salıncak -->
+                  <div class="tree-wrapper">
+                    <svg class="tree-svg" viewBox="0 0 280 360" fill="none">
+                      <ellipse class="spring-foliage" cx="210" cy="80" rx="45" ry="35" />
+                      <ellipse class="spring-foliage" cx="130" cy="80" rx="40" ry="30" />
+                      <ellipse class="spring-foliage" cx="170" cy="45" rx="55" ry="40" />
+
+                      <path d="M235 360 C 220 280, 228 210, 195 160 C 175 130, 145 120, 80 138" stroke="#121820" stroke-width="19" stroke-linecap="round" fill="none" />
+                      <path d="M195 160 C 190 100, 210 65, 222 15" stroke="#121820" stroke-width="12" stroke-linecap="round" fill="none" />
+                      <path d="M208 115 C 232 95, 256 90, 275 84" stroke="#121820" stroke-width="7" stroke-linecap="round" fill="none" />
+                      <path d="M165 130 C 140 75, 110 58, 86 35" stroke="#121820" stroke-width="9" stroke-linecap="round" fill="none" />
+
+                      <path class="snow-decor" d="M86 133 C 128 121, 165 126, 195 156" stroke="#f0f8fa" stroke-width="5.5" stroke-linecap="round" />
+                      <path class="snow-decor" d="M168 124 C 144 80, 118 64, 92 37" stroke="#f0f8fa" stroke-width="4.5" stroke-linecap="round" />
+
+                      <g class="tire-swing">
+                        <line x1="122" y1="142" x2="116" y2="238" stroke="#d1e3e8" stroke-width="2.2" />
+                        <line x1="129" y1="141" x2="133" y2="238" stroke="#d1e3e8" stroke-width="2.2" />
+                        <ellipse cx="125" cy="258" rx="20" ry="25" fill="#151b22" stroke="#0b0e12" stroke-width="2.5" />
+                        <ellipse cx="125" cy="258" rx="10.5" ry="14" fill="#000" />
+                        <path class="snow-decor" d="M110 243 Q 125 236 140 243 Q 125 239 110 243 Z" fill="#f0f8fa" />
+                      </g>
+                    </svg>
+                  </div>
+
+                  <!-- Koşan Çocuk -->
+                  <div class="running-child" id="child">
+                    <div class="child-cap"></div>
+                    <div class="child-head"></div>
+                    <div class="child-torso"></div>
+                    <div class="arm arm-left"></div>
+                    <div class="arm arm-right"></div>
+                    <div class="leg leg-left"></div>
+                    <div class="leg leg-right"></div>
+                  </div>
+                </div>
+
+                <!-- 2.5D Doğal Zemin -->
+                <svg class="season-ground-svg" viewBox="0 0 1440 120" preserveAspectRatio="none">
+                  <path class="ground-path-back" d="M0,45 C320,15 720,65 1440,30 L1440,120 L0,120 Z" />
+                  <path class="ground-path-front" d="M0,60 C480,25 960,75 1440,50 L1440,120 L0,120 Z" />
+                </svg>
+
+                <!-- BAŞLIK & DAKTİLO METNİ -->
+                <div class="section-content vcentered">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="title-block">
+                        <h2 class="dynamic-text">BARAN ÇELİK</h2>
+                        <div class="typewriter"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <script>
+                  (function () {
+                    const seasons = ['season-winter', 'season-spring', 'season-summer', 'season-autumn'];
+
+                    function getInitialSeasonByDate() {
+                      const month = new Date().getMonth();
+                      if (month === 11 || month === 0 || month === 1) return 0; // Kış
+                      if (month >= 2 && month <= 4) return 1;                  // İlkbahar
+                      if (month >= 5 && month <= 7) return 2;                  // Yaz
+                      return 3;                                                // Sonbahar
+                    }
+
+                    let currentSeasonIdx = getInitialSeasonByDate();
+                    let cycleTimerDoor = null;
+                    let cycleTimerNext = null;
+                    let typeWriterTimeout = null;
+                    let heroInitialized = false;
+
+                    function updateParticles(seasonClass) {
+                      const particleBox = document.getElementById('particle-box');
+                      if (!particleBox) return;
+                      particleBox.innerHTML = '';
+
+                      const isMobile = window.innerWidth < 768;
+                      const count = isMobile ? 20 : 40;
+
+                      if (seasonClass === 'season-winter') {
+                        for (let i = 0; i < count; i++) {
+                          const p = document.createElement('div');
+                          p.className = 'season-particle';
+                          p.style.width = (Math.random() * 5 + 4) + 'px';
+                          p.style.height = p.style.width;
+                          p.style.borderRadius = '50%';
+                          p.style.background = '#ffffff';
+                          p.style.boxShadow = '0 0 6px rgba(255,255,255,0.8)';
+                          p.style.left = (Math.random() * 98) + '%';
+                          p.style.top = '-20px';
+                          p.style.animation = `particleSnow ${Math.random() * 4 + 4}s linear infinite`;
+                          p.style.animationDelay = (Math.random() * 5) + 's';
+                          particleBox.appendChild(p);
+                        }
+                      } else if (seasonClass === 'season-spring') {
+                        for (let i = 0; i < Math.floor(count / 2); i++) {
+                          const p = document.createElement('div');
+                          p.className = 'season-particle';
+                          p.style.width = (Math.random() * 8 + 8) + 'px';
+                          p.style.height = (Math.random() * 6 + 6) + 'px';
+                          p.style.borderRadius = '50% 0 50% 0';
+                          p.style.background = '#ff9ff3';
+                          p.style.opacity = '0.85';
+                          p.style.left = (Math.random() * 98) + '%';
+                          p.style.top = '-20px';
+                          p.style.animation = `particleLeaf ${Math.random() * 5 + 5}s ease-in-out infinite`;
+                          p.style.animationDelay = (Math.random() * 5) + 's';
+                          particleBox.appendChild(p);
+                        }
+                      } else if (seasonClass === 'season-autumn') {
+                        for (let i = 0; i < count; i++) {
+                          const rain = document.createElement('div');
+                          rain.className = 'season-particle';
+                          rain.style.width = '2px';
+                          rain.style.height = (Math.random() * 16 + 14) + 'px';
+                          rain.style.background = 'rgba(174, 194, 214, 0.75)';
+                          rain.style.left = (Math.random() * 98) + '%';
+                          rain.style.top = '-25px';
+                          rain.style.animation = `particleRain ${Math.random() * 0.7 + 0.6}s linear infinite`;
+                          rain.style.animationDelay = (Math.random() * 2) + 's';
+                          particleBox.appendChild(rain);
+                        }
+                        const leafCount = isMobile ? 8 : 15;
+                        const leafColors = ['#d35400', '#e67e22', '#c0392b'];
+                        for (let i = 0; i < leafCount; i++) {
+                          const leaf = document.createElement('div');
+                          leaf.className = 'season-particle';
+                          leaf.style.width = (Math.random() * 10 + 10) + 'px';
+                          leaf.style.height = (Math.random() * 8 + 8) + 'px';
+                          leaf.style.borderRadius = '0 50% 0 50%';
+                          leaf.style.background = leafColors[Math.floor(Math.random() * leafColors.length)];
+                          leaf.style.left = (Math.random() * 98) + '%';
+                          leaf.style.top = '-25px';
+                          leaf.style.animation = `particleLeaf ${Math.random() * 4 + 4}s ease-in-out infinite`;
+                          leaf.style.animationDelay = (Math.random() * 5) + 's';
+                          particleBox.appendChild(leaf);
+                        }
+                      }
+                    }
+
+                    function restartChildAnimation() {
+                      const child = document.getElementById('child');
+                      if (!child) return;
+                      const isMobile = window.innerWidth < 768;
+                      const animName = isMobile ? 'runDirectlyToDoorMobile' : 'runDirectlyToDoor';
+                      child.style.animation = 'none';
+                      void child.offsetWidth; /* Reflow tetikle */
+                      child.style.animation = `${animName} 15s linear infinite`;
+                    }
+
+                    function startSeasonCycle() {
+                      const section = document.querySelector('.start-page');
+                      const door = document.getElementById('front-door');
+                      if (!section) return;
+
+                      clearTimeout(cycleTimerDoor);
+                      clearTimeout(cycleTimerNext);
+
+                      seasons.forEach(s => section.classList.remove(s));
+                      section.classList.add(seasons[currentSeasonIdx]);
+                      updateParticles(seasons[currentSeasonIdx]);
+                      restartChildAnimation();
+
+                      if (door) door.classList.remove('door-open');
+
+                      // Çocuk kapı eşiğindeyken kapı açılır
+                      cycleTimerDoor = setTimeout(() => {
+                        if (door) door.classList.add('door-open');
+                      }, 13500);
+
+                      // 15. saniyede çocuk girer, kapı kapanır, yeni mevsim başlar
+                      cycleTimerNext = setTimeout(() => {
+                        if (door) door.classList.remove('door-open');
+                        currentSeasonIdx = (currentSeasonIdx + 1) % seasons.length;
+                        startSeasonCycle();
+                      }, 15000);
+                    }
+
+                    // --- DAKTİLO EFEKTİ (TEKİL KONTROLLÜ) ---
+                    function runSingleTypewriter() {
+                      const typewriterEl = document.querySelector('.typewriter');
+                      if (!typewriterEl) return;
+
+                      clearTimeout(typeWriterTimeout);
+
+                      const titles = ['Computer Engineer', 'Full-Stack Developer'];
+                      let titleIdx = 0;
+                      let charIdx = 0;
+                      let isDeleting = false;
+
+                      function step() {
+                        const currentText = titles[titleIdx];
+                        
+                        if (!isDeleting) {
+                          typewriterEl.textContent = currentText.substring(0, charIdx + 1);
+                          charIdx++;
+                          if (charIdx === currentText.length) {
+                            isDeleting = true;
+                            typeWriterTimeout = setTimeout(step, 2000);
+                            return;
+                          }
+                          typeWriterTimeout = setTimeout(step, 80);
+                        } else {
+                          typewriterEl.textContent = currentText.substring(0, charIdx - 1);
+                          charIdx--;
+                          if (charIdx === 0) {
+                            isDeleting = false;
+                            titleIdx = (titleIdx + 1) % titles.length;
+                            typeWriterTimeout = setTimeout(step, 400);
+                            return;
+                          }
+                          typeWriterTimeout = setTimeout(step, 40);
+                        }
+                      }
+
+                      step();
+                    }
+
+                    function launchHero() {
+                      if (heroInitialized) return;
+                      heroInitialized = true;
+                      startSeasonCycle();
+                      runSingleTypewriter();
+                    }
+
+                    // Tek seferlik başlatıcı
+                    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+                      setTimeout(launchHero, 60);
+                    } else {
+                      document.addEventListener('DOMContentLoaded', () => setTimeout(launchHero, 60), { once: true });
+                    }
+                  })();
+                </script>
+              </section>
+              <!-- ================= END OF HOME SUBPAGE ================= -->
 
               <!-- About Me Subpage -->
-<section data-id="about-me" class="animated-section">
-  <div class="page-title">
-    <h2>About <span>Me</span></h2>
-  </div>
+              <section data-id="about-me" class="animated-section">
+                <div class="page-title">
+                  <h2>About <span>Me</span></h2>
+                </div>
 
-  <div class="section-content">
-    <!-- Personal Information -->
-    <div class="row">
-      <div class="col-xs-12 col-sm-7">
-        <p><%= settings.about %></p>
-      </div>
+                <div class="section-content">
+                  <!-- Personal Information -->
+                  <div class="row">
+                    <div class="col-xs-12 col-sm-7">
+                      <p><%= settings.about %></p>
+                    </div>
 
-      <div class="col-xs-12 col-sm-5">
-        <div class="info-list">
-          <ul>
-            <li>
-              <span class="title">Age</span>
-              <span class="value"><%= settings.age %></span>
-            </li>
+                    <div class="col-xs-12 col-sm-5">
+                      <div class="info-list">
+                        <ul>
+                          <li>
+                            <span class="title">Age</span>
+                            <span class="value"><%= settings.age %></span>
+                          </li>
 
-            <li>
-              <span class="title">Residence</span>
-              <span class="value">TÜRKİYE</span>
-            </li>
+                          <li>
+                            <span class="title">Residence</span>
+                            <span class="value">TÜRKİYE</span>
+                          </li>
 
-            <li>
-              <span class="title">Address</span>
-              <span class="value"><%= settings.address %></span>
-            </li>
+                          <li>
+                            <span class="title">Address</span>
+                            <span class="value"><%= settings.address %></span>
+                          </li>
 
-            <li>
-              <span class="title">e-mail</span>
-              <span class="value"><a href="mailto:<%= settings.mail %>"><%= settings.mail %></a></span>
-            </li>
+                          <li>
+                            <span class="title">e-mail</span>
+                            <span class="value"><a href="mailto:<%= settings.mail %>"><%= settings.mail %></a></span>
+                          </li>
 
-            <li>
-              <span class="title">Phone</span>
-              <span class="value"><a href="tel:<%= settings.tel %>"><%= settings.tel %></a></span>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <!-- End of Personal Information -->
+                          <li>
+                            <span class="title">Phone</span>
+                            <span class="value"><a href="tel:<%= settings.tel %>"><%= settings.tel %></a></span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- End of Personal Information -->
 
-    <div class="white-space-50"></div>
+                  <div class="white-space-50"></div>
 
-    <!-- Services / What I Do -->
-    <div class="row">
-      <div class="col-xs-12 col-sm-12">
-        <div class="block-title">
-          <h3>What <span>I Do</span></h3>
-        </div>
-      </div>
-    </div>
+                  <!-- Services / What I Do -->
+                  <div class="row">
+                    <div class="col-xs-12 col-sm-12">
+                      <div class="block-title">
+                        <h3>What <span>I Do</span></h3>
+                      </div>
+                    </div>
+                  </div>
 
-    <div class="row">
-      <div class="col-xs-12 col-sm-6">
-        <div class="col-inner">
-          <div class="info-list-w-icon">
+                  <div class="row">
+                    <div class="col-xs-12 col-sm-6">
+                      <div class="col-inner">
+                        <div class="info-list-w-icon">
 
-            <div class="info-block-w-icon">
-              <div class="ci-icon">
-                <i class="lnr lnr-layers"></i>
-              </div>
-              <div class="ci-text">
-                <h4>IoT & Embedded Systems</h4>
-                <p>Architecting low-power wireless communication networks using ESP32, ESP32-S3, and LoRa (SX1278). Integrating telemetry sensors (FSR, IMU, RFID) and edge data processing without relying on standard cellular networks.</p>
-              </div>
-            </div>
+                          <div class="info-block-w-icon">
+                            <div class="ci-icon">
+                              <i class="lnr lnr-layers"></i>
+                            </div>
+                            <div class="ci-text">
+                              <h4>IoT & Embedded Systems</h4>
+                              <p>Architecting low-power wireless communication networks using ESP32, ESP32-S3, and LoRa (SX1278). Integrating telemetry sensors (FSR, IMU, RFID) and edge data processing without relying on standard cellular networks.</p>
+                            </div>
+                          </div>
 
-            <div class="info-block-w-icon">
-              <div class="ci-icon">
-                <i class="lnr lnr-code"></i>
-              </div>
-              <div class="ci-text">
-                <h4>Backend & Cloud APIs</h4>
-                <p>Building scalable backend architectures and RESTful APIs using Node.js, Express.js, and C# (.NET). Managing relational data models across PostgreSQL, MySQL, and MariaDB with Sequelize ORM and Supabase.</p>
-              </div>
-            </div>
+                          <div class="info-block-w-icon">
+                            <div class="ci-icon">
+                              <i class="lnr lnr-code"></i>
+                            </div>
+                            <div class="ci-text">
+                              <h4>Backend & Cloud APIs</h4>
+                              <p>Building scalable backend architectures and RESTful APIs using Node.js, Express.js, and C# (.NET). Managing relational data models across PostgreSQL, MySQL, and MariaDB with Sequelize ORM and Supabase.</p>
+                            </div>
+                          </div>
 
-          </div>
-        </div>
-      </div>
+                        </div>
+                      </div>
+                    </div>
 
-      <div class="col-xs-12 col-sm-6">
-        <div class="col-inner">
-          <div class="info-list-w-icon">
+                    <div class="col-xs-12 col-sm-6">
+                      <div class="col-inner">
+                        <div class="info-list-w-icon">
 
-            <div class="info-block-w-icon">
-              <div class="ci-icon">
-                <i class="lnr lnr-cog"></i>
-              </div>
-              <div class="ci-text">
-                <h4>Mechatronics & Product Prototyping</h4>
-                <p>Translating real-world problems into working hardware-software prototypes (such as B&R Breeze). Controlling motor actuators, servo mechanisms, and designing connected edge devices from schematic to production.</p>
-              </div>
-            </div>
+                          <div class="info-block-w-icon">
+                            <div class="ci-icon">
+                              <i class="lnr lnr-cog"></i>
+                            </div>
+                            <div class="ci-text">
+                              <h4>Mechatronics & Product Prototyping</h4>
+                              <p>Translating real-world problems into working hardware-software prototypes (such as B&R Breeze). Controlling motor actuators, servo mechanisms, and designing connected edge devices from schematic to production.</p>
+                            </div>
+                          </div>
 
-            <div class="info-block-w-icon">
-              <div class="ci-icon">
-                <i class="lnr lnr-server"></i>
-              </div>
-              <div class="ci-text">
-                <h4>Linux, DevOps & Orchestration</h4>
-                <p>Deploying and maintaining production web services on Linux VPS environments (Ubuntu). Managing reverse proxies with Caddy (automated SSL/TLS), zero-downtime execution with PM2, and enterprise workflow setups.</p>
-              </div>
-            </div>
+                          <div class="info-block-w-icon">
+                            <div class="ci-icon">
+                              <i class="lnr lnr-server"></i>
+                            </div>
+                            <div class="ci-text">
+                              <h4>Linux, DevOps & Orchestration</h4>
+                              <p>Deploying and maintaining production web services on Linux VPS environments (Ubuntu). Managing reverse proxies with Caddy (automated SSL/TLS), zero-downtime execution with PM2, and enterprise workflow setups.</p>
+                            </div>
+                          </div>
 
-          </div>
-        </div>
-      </div>
-    </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
 
-  </div>
-</section>
+                </div>
+              </section>
               <!-- End of About Me Subpage -->
 
               <!-- Resume Subpage -->
@@ -1142,7 +1137,6 @@
 
                     <!-- Right Column: Skills & Certificates -->
                     <div class="col-xs-12 col-sm-5">
-                      <!-- Embedded & IoT Skills -->
                       <div class="block-title">
                         <h3>IoT & <span>Embedded</span></h3>
                       </div>
@@ -1175,7 +1169,6 @@
 
                       <div class="white-space-10"></div>
 
-                      <!-- Backend & Coding Skills -->
                       <div class="block-title">
                         <h3>Backend & <span>Systems</span></h3>
                       </div>
@@ -1224,7 +1217,6 @@
 
                       <div class="white-space-10"></div>
 
-                      <!-- Knowledge & Extras -->
                       <div class="block-title">
                         <h3>Knowledge & Extras</h3>
                       </div>
@@ -1346,13 +1338,11 @@
                   }
                 }
               </script>
-              </section>
               <!-- End of Resume Subpage -->
 
-              <!-- Projects Subpage (Scoped: #projects-module) -->
+              <!-- Projects Subpage -->
               <section id="projects-module" data-id="project" class="animated-section">
                 <style>
-                  /* Scoped variables & styles for projects only */
                   #projects-module {
                     --pm-bg: #ffffff;
                     --pm-muted: #6b7280;
@@ -1364,7 +1354,6 @@
                     padding: 1.25rem;
                   }
 
-                  /* Container */
                   #projects-module .page-title { margin-bottom: 1rem; }
                   #projects-module .page-title h2 { margin:0; font-size:1.6rem; letter-spacing: -0.2px; }
 
@@ -1377,7 +1366,6 @@
                     margin: 1rem 0;
                   }
 
-                  /* Card (scoped) */
                   #projects-module .project-card{
                     background:var(--pm-bg);
                     border-radius:var(--pm-radius);
@@ -1393,7 +1381,6 @@
                     position: relative;
                   }
 
-                  /* Image */
                   #projects-module .project-card img{
                     width:100%;
                     height:200px;
@@ -1403,7 +1390,6 @@
                     background: linear-gradient(90deg,#eef2f7,#f7fbfc);
                   }
 
-                  /* Card body */
                   #projects-module .card-body{
                     padding: 1rem;
                     display:flex;
@@ -1446,7 +1432,6 @@
                     background: var(--pm-bg);
                   }
 
-                  /* Buttons */
                   #projects-module .link-btn{
                     display:inline-block;
                     margin-top:0.5rem;
@@ -1468,7 +1453,6 @@
                     opacity:0.98;
                   }
 
-                  /* Secondary button style when adjacent */
                   #projects-module .card-body .link-btn + .link-btn{
                     margin-left:0.6rem;
                     background:transparent;
@@ -1477,7 +1461,6 @@
                     box-shadow:none;
                   }
 
-                  /* Hover / image zoom */
                   #projects-module .project-card:hover{
                     transform: translateY(-8px) scale(1.01);
                     box-shadow: 0 18px 50px rgba(10,20,30,0.12);
@@ -1486,7 +1469,6 @@
                     transform: scale(1.06);
                   }
 
-                  /* Category badge */
                   #projects-module .badge{
                     position:absolute;
                     top:12px;
@@ -1500,11 +1482,9 @@
                     backdrop-filter: blur(4px);
                   }
 
-                  /* Keep actions at bottom */
                   #projects-module .card-body{ flex:1 1 auto; }
                   #projects-module .card-body .actions{ margin-top:auto; display:flex; gap:0.5rem; flex-wrap:wrap; }
 
-                  /* Responsive */
                   @media (max-width: 1024px){
                     #projects-module .project-card{
                       flex: 1 1 calc(50% - var(--pm-gap));
@@ -1522,7 +1502,6 @@
                     #projects-module .card-body h3{ font-size:1rem; }
                   }
 
-                  /* Accessibility */
                   #projects-module .project-card:focus-within{
                     outline: 3px solid rgba(6,182,212,0.12);
                     outline-offset: 4px;
@@ -1543,7 +1522,6 @@
                               <div class="badge"><%= project.category %></div>
                             <% } %>
 
-                            <% /* image fallback: if no img_url, you can show a placeholder (optional) */ %>
                             <% if (project.img_url) { %>
                               <img src="<%= project.img_url %>" alt="<%= project.project_title %>" loading="lazy">
                             <% } else { %>
@@ -1574,14 +1552,11 @@
                   </div>
                 </div>
               </section>
-
-
               <!-- End of Portfolio Subpage -->
 
               <!-- Blog Subpage -->
               <section id="blogs-module" data-id="blog" class="animated-section">
                 <style>
-                  /* Modern Blog Styles */
                   #blogs-module {
                     --blog-primary: #06b6d4;
                     --blog-secondary: #0ea5a4;
@@ -1675,9 +1650,14 @@
                     transform: scale(1.08);
                   }
 
-                  /* Hover efekti için ek animasyonlar */
                   #blogs-module .card-body {
                     transition: transform 0.3s ease;
+                    padding: 1rem;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.6rem;
+                    min-height: 140px;
+                    height: 100%;
                   }
 
                   #blogs-module .post-card:hover .card-body h3,
@@ -1688,6 +1668,17 @@
                   #blogs-module .link-btn {
                     position: relative;
                     overflow: hidden;
+                    display: inline-block;
+                    margin-top: 0.5rem;
+                    padding: 0.45rem 0.75rem;
+                    border-radius: 8px;
+                    background: linear-gradient(90deg, var(--blog-primary), var(--blog-secondary));
+                    color: white;
+                    text-decoration: none;
+                    font-weight: 600;
+                    font-size: 0.9rem;
+                    box-shadow: 0 6px 18px rgba(6,182,212,0.14);
+                    transition: transform .18s, box-shadow .18s, opacity .18s;
                   }
 
                   #blogs-module .link-btn::after {
@@ -1706,12 +1697,10 @@
                     transform: translateY(0);
                   }
 
-                  #blogs-module .card-body {
-                    padding: 1rem;
-                    display: flex;
-                    flex-direction: column;
-                    gap: 0.6rem;
-                    min-height: 140px;
+                  #blogs-module .link-btn:hover {
+                    transform: translateY(-4px);
+                    box-shadow: 0 10px 30px rgba(6,182,212,0.18);
+                    opacity: 0.98;
                   }
 
                   #blogs-module .post-meta {
@@ -1750,54 +1739,12 @@
                     max-height: none;
                   }
 
-                  #blogs-module .card-body {
-                    display: flex;
-                    flex-direction: column;
-                    height: 100%;
-                    transition: all 0.3s ease;
-                  }
-
-                  #blogs-module .post-card:hover .card-body {
-                    transform: translateY(0);
-                    background: var(--blog-bg);
-                  }
-
-                  #blogs-module .post-card {
-                    height: auto;
-                    display: flex;
-                    flex-direction: column;
-                  }
-
                   #blogs-module .actions {
                     margin-top: auto;
                     padding-top: 1rem;
-                  }
-
-                  #blogs-module .actions {
-                    margin-top: auto;
                     display: flex;
                     gap: 0.5rem;
                     flex-wrap: wrap;
-                  }
-
-                  #blogs-module .link-btn {
-                    display: inline-block;
-                    margin-top: 0.5rem;
-                    padding: 0.45rem 0.75rem;
-                    border-radius: 8px;
-                    background: linear-gradient(90deg, var(--blog-primary), var(--blog-secondary));
-                    color: white;
-                    text-decoration: none;
-                    font-weight: 600;
-                    font-size: 0.9rem;
-                    box-shadow: 0 6px 18px rgba(6,182,212,0.14);
-                    transition: transform .18s, box-shadow .18s, opacity .18s;
-                  }
-
-                  #blogs-module .link-btn:hover {
-                    transform: translateY(-4px);
-                    box-shadow: 0 10px 30px rgba(6,182,212,0.18);
-                    opacity: 0.98;
                   }
 
                   @media (max-width: 1024px) {
@@ -1828,15 +1775,12 @@
                     <div class="posts-grid" role="list">
                       <% if (posts && posts.length) { %>
                         <% 
-                          // Iterate and only render published posts.
                           for (let i = 0; i < posts.length; i++) { 
                             const post = posts[i];
                             const isPublished = (post.published === true || post.published === 1 || post.published === '1');
                             if (!isPublished) continue;
                         %>
                           <article class="post-card" role="listitem" aria-labelledby="post-<%= post.id %>">
-
-
                             <% if (post.image_url) { %>
                               <img src="<%= post.image_url %>" alt="<%= post.title %>" loading="lazy">
                             <% } else { %>
@@ -1885,9 +1829,6 @@
                   </div>
                 </div>
               </section>
-
-
-
               <!-- End of Blog Subpage -->
 
               <!-- Contact Subpage -->
@@ -1897,7 +1838,6 @@
                 </div>
 
                 <div class="section-content">
-
                   <div class="row">
                     <!-- Contact Info -->
                     <div class="col-xs-12 col-sm-4">
@@ -1910,14 +1850,14 @@
 
                       <div class="lm-info-block gray-default">
                         <i class="lnr lnr-phone-handset"></i>
-                        <h4><a href="tel:+905510176065" class="__cf_phone__" data-cfphone="c0a1aca5b880a5b8a1adb0aca5eea3afad">[phone&#160;protected]</a></h4>
+                        <h4><a href="tel:+905510176065"><%= settings.tel %></a></h4>
                         <span class="lm-info-block-value"></span>
                         <span class="lm-info-block-text"></span>
                       </div>
 
                       <div class="lm-info-block gray-default">
                         <i class="lnr lnr-envelope"></i>
-                        <h4><a href="mailto:celikbaran4865@gmail.com" class="__cf_email__" data-cfemail="c0a1aca5b880a5b8a1adb0aca5eea3afad">[email&#160;protected]</a></h4>
+                        <h4><a href="mailto:<%= settings.mail %>"><%= settings.mail %></a></h4>
                         <span class="lm-info-block-value"></span>
                         <span class="lm-info-block-text"></span>
                       </div>
@@ -1928,12 +1868,10 @@
                         <span class="lm-info-block-value"></span>
                         <span class="lm-info-block-text"></span>
                       </div>
-
-
                     </div>
                     <!-- End of Contact Info -->
 
-                   <!-- Contact Form -->
+                    <!-- Contact Form -->
                     <div class="col-xs-12 col-sm-8">
                       <div id="map" class="map">
                         <div class="lmpixels-map">
@@ -1951,7 +1889,7 @@
                         <!-- Hata/Uyarı Mesaj Kutusu -->
                         <div class="messages" id="spam-warning" style="display: none; padding: 10px; margin-bottom: 15px; border-radius: 4px; background: rgba(231, 76, 60, 0.15); color: #ff6b6b; border: 1px solid #ff6b6b; font-size: 0.9rem;"></div>
 
-                        <!-- 1. HONEYPOT: İnsanlar göremez, form tarayıcı botlar doldurur -->
+                        <!-- 1. HONEYPOT -->
                         <div style="opacity: 0; position: absolute; top: 0; left: 0; height: 0; width: 0; z-index: -1; pointer-events: none;">
                           <label for="form_hp_check">Do not fill this</label>
                           <input type="text" id="form_hp_check" name="website" tabindex="-1" autocomplete="off">
@@ -1996,7 +1934,7 @@
                         </div>
                       </form>
 
-                      <!-- SADECE FRONTEND ANTI-SPAM & RATE LIMIT SCRIPTİ -->
+                      <!-- FRONTEND ANTI-SPAM & RATE LIMIT SCRIPTİ -->
                       <script>
                         (function () {
                           var form = document.getElementById("contact-form");
@@ -2005,7 +1943,7 @@
                           var warningBox = document.getElementById("spam-warning");
 
                           var pageLoadedAt = Date.now();
-                          var COOLDOWN_SECONDS = 120; // Başarılı gönderimden sonra 2 dakika bekleme
+                          var COOLDOWN_SECONDS = 120;
 
                           function showWarning(text) {
                             if (warningBox) {
@@ -2014,7 +1952,6 @@
                             }
                           }
 
-                          // 1. Daha önce gönderilmişse bekleme süresini kontrol et
                           function checkExistingCooldown() {
                             var lastSent = localStorage.getItem("last_msg_sent_time");
                             if (lastSent) {
@@ -2025,7 +1962,6 @@
                             }
                           }
 
-                          // 2. Butonu kilitleyip sayaç başlat
                           function lockButton(remaining) {
                             btn.disabled = true;
                             btn.style.opacity = "0.6";
@@ -2047,19 +1983,14 @@
                             }, 1000);
                           }
 
-                          // Sayfa açıldığında cooldown var mı bak
                           checkExistingCooldown();
 
-                          // 3. Form Gönderim Anı Kontrolleri
                           form.addEventListener("submit", function (e) {
-                            // KONTROL A: Honeypot (Bot alanı doldurmuş mu?)
                             if (honeypot && honeypot.value.trim() !== "") {
                               e.preventDefault();
-                              console.warn("Spam Bot tespit edildi (Honeypot). Form iptal edildi.");
                               return false;
                             }
 
-                            // KONTROL B: İnsan hızı kontrolü (3 saniyeden hızlı atan bottur)
                             var timeSpent = Date.now() - pageLoadedAt;
                             if (timeSpent < 3000) {
                               e.preventDefault();
@@ -2067,7 +1998,6 @@
                               return false;
                             }
 
-                            // KONTROL C: Bekleme süresi aktif mi?
                             var lastSent = localStorage.getItem("last_msg_sent_time");
                             if (lastSent) {
                               var elapsed = Math.floor((Date.now() - parseInt(lastSent, 10)) / 1000);
@@ -2078,11 +2008,7 @@
                               }
                             }
 
-                            // Her şey geçerliyse:
-                            // Son gönderim anını kaydet (2 dakika bekleme süresini başlat)
                             localStorage.setItem("last_msg_sent_time", Date.now().toString());
-
-                            // Çift tıklamayı engellemek için butonu anında devre dışı bırak
                             btn.disabled = true;
                             btn.value = "Sending...";
                           });
@@ -2101,7 +2027,8 @@
       </div>
     </div>
 
-    <script data-cfasync="false" src="../../../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="js/jquery-2.1.3.min.js"></script>
+    <script data-cfasync="false" src="../../../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script src="js/jquery-2.1.3.min.js"></script>
     <script src="js/modernizr.custom.js"></script>
     <script src="js/animating.js"></script>
 
