@@ -20,17 +20,6 @@
     <link rel="stylesheet" href="css/main.css" type="text/css">
 
     <script src="js/modernizr.custom.js"></script>
-
-    <!-- FIX: yatay taşmayı ve mobilde istenmeyen scroll'u engelle -->
-    <style>
-      html, body {
-        overflow-x: hidden;
-        max-width: 100%;
-      }
-      *, *::before, *::after {
-        box-sizing: border-box;
-      }
-    </style>
   </head>
 
   <body>
@@ -135,7 +124,14 @@
               <!-- Home Subpage -->
 <section data-id="home" class="animated-section start-page section-active">
   <style>
-    .start-page,
+    .start-page {
+      position: relative;
+      visibility: hidden;
+      opacity: 0;
+      display: none;
+      overflow: hidden;
+    }
+
     .start-page.section-active {
       position: relative !important;
       visibility: visible !important;
@@ -486,18 +482,36 @@
     @keyframes particleSnow {
       0% { transform: translateY(-30px) translateX(0) rotate(0deg); opacity: 0; }
       20% { opacity: 0.95; }
-      100% { transform: translateY(105vh) translateX(35px) rotate(360deg); opacity: 0.2; }
+      100% {
+        /* FIX: kapsayıcı 100dvh kullanıyor, düşüş mesafesi de aynı birimle
+           hizalanmalı; aksi halde mobilde adres çubuğu açıkken parçacıklar
+           görünür alanın çok altına/üstüne düşüp fark edilmeyebiliyor. */
+        transform: translateY(105vh) translateX(35px) rotate(360deg);
+        transform: translateY(105dvh) translateX(35px) rotate(360deg);
+        opacity: 0.2;
+      }
     }
 
     @keyframes particleRain {
       0% { transform: translateY(-40px) translateX(0); opacity: 1; }
-      100% { transform: translateY(105vh) translateX(-40px); opacity: 0.4; }
+      100% {
+        transform: translateY(105vh) translateX(-40px);
+        transform: translateY(105dvh) translateX(-40px);
+        opacity: 0.4;
+      }
     }
 
     @keyframes particleLeaf {
       0% { transform: translate(0, -30px) rotate(0deg); opacity: 1; }
-      50% { transform: translate(60px, 50vh) rotate(180deg); }
-      100% { transform: translate(-40px, 105vh) rotate(360deg); opacity: 0; }
+      50% {
+        transform: translate(60px, 50vh) rotate(180deg);
+        transform: translate(60px, 50dvh) rotate(180deg);
+      }
+      100% {
+        transform: translate(-40px, 105vh) rotate(360deg);
+        transform: translate(-40px, 105dvh) rotate(360deg);
+        opacity: 0;
+      }
     }
 
     @keyframes sunPulse {
@@ -873,11 +887,18 @@
         updateParticles(seasons[currentSeasonIdx]);
 
         // Çocuğu her mevsimde ağacın altından yeniden koştur
+        // NOT: offsetWidth reflow hilesi bazı mobil tarayıcılarda animasyonu
+        // yeniden tetiklemede güvenilir değil; çift requestAnimationFrame
+        // ile bir sonraki paint döngüsüne kadar bekleyip yeniden uyguluyoruz.
         if (child) {
-          child.style.animation = 'none';
-          void child.offsetWidth; /* Reflow tetikle */
           const isMobile = window.innerWidth < 768;
-          child.style.animation = `${isMobile ? 'runDirectlyToDoorMobile' : 'runDirectlyToDoor'} 15s linear forwards`;
+          const animName = isMobile ? 'runDirectlyToDoorMobile' : 'runDirectlyToDoor';
+          child.style.animation = 'none';
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              child.style.animation = `${animName} 15s linear forwards`;
+            });
+          });
         }
 
         // Kapıyı aç (13.5. sn)

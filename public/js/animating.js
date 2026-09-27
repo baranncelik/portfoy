@@ -30,7 +30,9 @@ var PageTransitions = (function ($, options) {
         // Get all the .animated-section sections.
         $('.animated-section').each( function() {
             var $page = $(this);
-            $page.data('originalClassList', $page.attr('class'));
+            var originalClassList = $page.attr('class') || '';
+            originalClassList = originalClassList.replace(/\bsection-active\b/g, '').replace(/\s{2,}/g, ' ').trim();
+            $page.data('originalClassList', originalClassList);
         });
 
         // Get all the .pt-wrapper div which is the parent for all pt-div
@@ -528,8 +530,12 @@ var PageTransitions = (function ($, options) {
     }
 
     function resetPage($nextPage, $currentPage) {
-        $currentPage.attr('class', $currentPage.data('originalClassList'));
-        $nextPage.attr('class', $nextPage.data('originalClassList') + ' section-active');
+        if ($currentPage && $currentPage.length) {
+            $currentPage.attr('class', $currentPage.data('originalClassList'));
+        }
+        if ($nextPage && $nextPage.length) {
+            $nextPage.attr('class', $nextPage.data('originalClassList') + ' section-active');
+        }
     }
 
     return {
