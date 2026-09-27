@@ -101,10 +101,31 @@ var PageTransitions = (function ($, options) {
         });
     }
 
+    function getPathSection() {
+        var path = (window.location.pathname || '/').replace(/\/+$/, '') || '/';
+        var routeMap = {
+            '/': 'home',
+            '/home': 'home',
+            '/about-me': 'about-me',
+            '/resume': 'resume',
+            '/project': 'project',
+            '/blog': 'blog',
+            '/contact': 'contact'
+        };
+
+        return routeMap[path] ? '#' + routeMap[path] : null;
+    }
+
     function getActiveSection() {
+        var routeHash = getPathSection();
+
+        if (routeHash) {
+            return location.hash = routeHash;
+        }
+
         if(location.hash === "") {
             return location.hash = $('section.animated-section').first().attr('data-id');
-        } 
+        }
         else {
             return location.hash;
         }

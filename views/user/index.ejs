@@ -963,6 +963,20 @@
         runSingleTypewriter();
       }
 
+      const directSectionMap = {
+        '/home': '#home',
+        '/about-me': '#about-me',
+        '/resume': '#resume',
+        '/project': '#project',
+        '/blog': '#blog',
+        '/contact': '#contact'
+      };
+
+      const directTargetHash = directSectionMap[window.location.pathname];
+      if (directTargetHash && window.location.hash !== directTargetHash) {
+        history.replaceState(null, '', window.location.pathname + directTargetHash);
+      }
+
       // Sayfa yüklenme dinleyicileri
       if (document.readyState === 'complete' || document.readyState === 'interactive') {
         setTimeout(launchHero, 50);
