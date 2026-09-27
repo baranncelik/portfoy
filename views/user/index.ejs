@@ -128,6 +128,7 @@
                     position: relative;
                     overflow: hidden;
                     height: 100vh;
+                    min-height: -webkit-fill-available;
                     width: 100%;
                     display: flex;
                     align-items: center;
@@ -357,7 +358,7 @@
                   .season-summer .spring-foliage { display: inline; fill: #2ed573; opacity: 0.9; }
                   .season-autumn .spring-foliage { display: inline; fill: #d35400; opacity: 0.85; }
 
-                  /* --- KOŞAN ÇOCUK (KUSURSUZ GÜZERGAH) --- */
+                  /* --- KOŞAN ÇOCUK (Masaüstü Güzergahı) --- */
                   .running-child {
                     position: absolute;
                     bottom: clamp(20px, 4vh, 36px);
@@ -428,7 +429,6 @@
                     animation: legCycle 0.35s infinite alternate ease-in-out;
                   }
 
-                  /* Ağacın kökünden (sağdan) başlayıp evin kapısına (soldaki evin sağ pervazına) koşuş */
                   @keyframes runDirectlyToDoor {
                     0% {
                       right: clamp(140px, 16vw, 210px);
@@ -554,19 +554,61 @@
                     50% { opacity: 0; }
                   }
 
-                  /* Responsive İnce Ayarlar (Mobil) */
+                  /* --- MOBİL İNCE AYARLAR (768px ve altı) --- */
                   @media (max-width: 768px) {
+                    .start-page {
+                      height: 100svh;
+                    }
                     .spring-extra-tree {
                       display: none !important;
                     }
                     .cozy-houses-wrapper {
-                      left: 10px;
+                      left: 6px;
+                      bottom: 22px;
+                      width: 145px;
                     }
                     .tree-wrapper {
-                      right: 10px;
+                      right: 6px;
+                      bottom: 18px;
+                      width: 155px;
                     }
                     .snowman-container {
-                      right: 120px;
+                      right: 105px;
+                      bottom: 22px;
+                      width: 42px;
+                      transform: scale(0.7);
+                    }
+                    .chimney-smoke {
+                      top: 10%;
+                      left: 75%;
+                    }
+                    .running-child {
+                      bottom: 22px;
+                      transform: scale(0.68);
+                      animation: runDirectlyToDoorMobile 15s linear forwards;
+                    }
+
+                    @keyframes runDirectlyToDoorMobile {
+                      0% {
+                        right: 45px;
+                        left: auto;
+                        opacity: 1;
+                      }
+                      92% {
+                        right: calc(100% - 128px);
+                        opacity: 1;
+                        transform: scale(0.68);
+                      }
+                      97% {
+                        right: calc(100% - 116px);
+                        opacity: 0.9;
+                        transform: scale(0.58);
+                      }
+                      100% {
+                        right: calc(100% - 108px);
+                        opacity: 0;
+                        transform: scale(0.48);
+                      }
                     }
                   }
                 </style>
@@ -696,9 +738,7 @@
 
                 <!-- 2.5D Doğal Ufuklu Katmanlı Zemin (Kırpılma Yapmaz) -->
                 <svg class="season-ground-svg" viewBox="0 0 1440 120" preserveAspectRatio="none">
-                  <!-- Arka Yumuşak Tepe -->
                   <path class="ground-path-back" d="M0,45 C320,15 720,65 1440,30 L1440,120 L0,120 Z" />
-                  <!-- Ön Ana Tepe -->
                   <path class="ground-path-front" d="M0,60 C480,25 960,75 1440,50 L1440,120 L0,120 Z" />
                 </svg>
 
@@ -726,14 +766,26 @@
                   }
 
                   let currentSeasonIdx = getInitialSeasonByDate();
-                  const sectionEl = document.querySelector('.start-page');
-                  const particleBox = document.getElementById('particle-box');
-                  const doorEl = document.getElementById('front-door');
-                  const childEl = document.getElementById('child');
+                  let cycleTimeoutA = null;
+                  let cycleTimeoutB = null;
+                  let typeWriterInterval = null;
+
+                  function getElements() {
+                    return {
+                      section: document.querySelector('.start-page'),
+                      particleBox: document.getElementById('particle-box'),
+                      door: document.getElementById('front-door'),
+                      child: document.getElementById('child'),
+                      typewriter: document.querySelector('.typewriter')
+                    };
+                  }
 
                   function updateParticles(seasonClass) {
-                    particleBox.innerHTML = '';
-                    const count = window.innerWidth < 768 ? 20 : 40;
+                    const els = getElements();
+                    if (!els.particleBox) return;
+                    els.particleBox.innerHTML = '';
+                    const isMobile = window.innerWidth < 768;
+                    const count = isMobile ? 18 : 40;
 
                     if (seasonClass === 'season-winter') {
                       const snowSymbols = ['❄', '❅', '•'];
@@ -747,10 +799,10 @@
                         p.style.top = '-20px';
                         p.style.animation = `particleSnow ${Math.random() * 4 + 4}s linear infinite`;
                         p.style.animationDelay = (Math.random() * 5) + 's';
-                        particleBox.appendChild(p);
+                        els.particleBox.appendChild(p);
                       }
                     } else if (seasonClass === 'season-spring') {
-                      for (let i = 0; i < count / 2; i++) {
+                      for (let i = 0; i < Math.floor(count / 2); i++) {
                         const p = document.createElement('div');
                         p.className = 'season-particle';
                         p.textContent = '🌸';
@@ -759,7 +811,7 @@
                         p.style.top = '-20px';
                         p.style.animation = `particleLeaf ${Math.random() * 6 + 5}s ease-in-out infinite`;
                         p.style.animationDelay = (Math.random() * 5) + 's';
-                        particleBox.appendChild(p);
+                        els.particleBox.appendChild(p);
                       }
                     } else if (seasonClass === 'season-autumn') {
                       for (let i = 0; i < count; i++) {
@@ -772,10 +824,11 @@
                         rain.style.top = '-20px';
                         rain.style.animation = `particleRain ${Math.random() * 0.8 + 0.6}s linear infinite`;
                         rain.style.animationDelay = (Math.random() * 2) + 's';
-                        particleBox.appendChild(rain);
+                        els.particleBox.appendChild(rain);
                       }
                       const leafIcons = ['🍂', '🍁'];
-                      for (let i = 0; i < 15; i++) {
+                      const leafCount = isMobile ? 8 : 15;
+                      for (let i = 0; i < leafCount; i++) {
                         const leaf = document.createElement('div');
                         leaf.className = 'season-particle';
                         leaf.textContent = leafIcons[Math.floor(Math.random() * leafIcons.length)];
@@ -784,31 +837,40 @@
                         leaf.style.top = '-20px';
                         leaf.style.animation = `particleLeaf ${Math.random() * 4 + 4}s ease-in-out infinite`;
                         leaf.style.animationDelay = (Math.random() * 5) + 's';
-                        particleBox.appendChild(leaf);
+                        els.particleBox.appendChild(leaf);
                       }
                     }
                   }
 
                   function startSeasonCycle() {
-                    seasons.forEach(s => sectionEl.classList.remove(s));
-                    sectionEl.classList.add(seasons[currentSeasonIdx]);
+                    const els = getElements();
+                    if (!els.section) return;
+
+                    clearTimeout(cycleTimeoutA);
+                    clearTimeout(cycleTimeoutB);
+
+                    seasons.forEach(s => els.section.classList.remove(s));
+                    els.section.classList.add(seasons[currentSeasonIdx]);
                     updateParticles(seasons[currentSeasonIdx]);
 
                     // Çocuk kapıya yaklaştığında (13.5. sn) kapı açılır
-                    setTimeout(() => {
-                      if (doorEl) doorEl.classList.add('door-open');
+                    cycleTimeoutA = setTimeout(() => {
+                      if (els.door) els.door.classList.add('door-open');
                     }, 13500);
 
                     // 15.0. saniyede çocuk tam kapıdan girer, kapı kapanır, mevsim değişir
-                    setTimeout(() => {
-                      if (doorEl) doorEl.classList.remove('door-open');
+                    cycleTimeoutB = setTimeout(() => {
+                      if (els.door) els.door.classList.remove('door-open');
 
                       currentSeasonIdx = (currentSeasonIdx + 1) % seasons.length;
 
-                      // Çocuğu yeniden ağacın altından başlat
-                      childEl.style.animation = 'none';
-                      childEl.offsetHeight;
-                      childEl.style.animation = 'runDirectlyToDoor 15s linear forwards';
+                      // Çocuğu ekrana göre yeniden başlat
+                      if (els.child) {
+                        els.child.style.animation = 'none';
+                        els.child.offsetHeight; /* Reflow */
+                        const isMobile = window.innerWidth < 768;
+                        els.child.style.animation = `${isMobile ? 'runDirectlyToDoorMobile' : 'runDirectlyToDoor'} 15s linear forwards`;
+                      }
 
                       startSeasonCycle();
                     }, 15000);
@@ -816,6 +878,7 @@
 
                   // Daktilo efekti
                   function typeWriter(element, text, i = 0) {
+                    if (!element) return;
                     if (i === 0) {
                       element.textContent = '';
                       element.style.opacity = '1';
@@ -826,22 +889,46 @@
                     }
                   }
 
-                  document.addEventListener('DOMContentLoaded', () => {
-                    startSeasonCycle();
-
+                  function initTypewriter() {
+                    const els = getElements();
+                    if (!els.typewriter) return;
                     const titles = ['Computer Engineer', 'Full-Stack Developer'];
                     let currentTitle = 0;
 
                     function updateTitle() {
-                      const element = document.querySelector('.typewriter');
-                      if (element) {
-                        typeWriter(element, titles[currentTitle]);
-                        currentTitle = (currentTitle + 1) % titles.length;
-                      }
+                      typeWriter(els.typewriter, titles[currentTitle]);
+                      currentTitle = (currentTitle + 1) % titles.length;
                     }
 
+                    if (typeWriterInterval) clearInterval(typeWriterInterval);
                     updateTitle();
-                    setInterval(updateTitle, 4000);
+                    typeWriterInterval = setInterval(updateTitle, 4000);
+                  }
+
+                  // Hem normal sayfa yüklenişinde hem de mobil/AJAX geçişlerinde kesin çalıştırma
+                  function launchHero() {
+                    startSeasonCycle();
+                    initTypewriter();
+                  }
+
+                  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+                    launchHero();
+                  } else {
+                    document.addEventListener('DOMContentLoaded', launchHero);
+                  }
+
+                  // Sayfa load, resize veya subpage hash geçişlerinde de kontrol et
+                  window.addEventListener('load', () => {
+                    const els = getElements();
+                    if (els.particleBox && !els.particleBox.children.length) {
+                      launchHero();
+                    }
+                  });
+
+                  window.addEventListener('hashchange', () => {
+                    if (window.location.hash === '#home' || window.location.hash === '') {
+                      launchHero();
+                    }
                   });
                 </script>
               </section>
